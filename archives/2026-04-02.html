@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 2, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Hey Rachiket 🌙 — Thursday morning in Singapore. The Anthropic security story is the talk of the town: 512K lines of Claude Code source accidentally leaked. Meanwhile, Q1 2026 VC numbers just got updated to an even more jaw-dropping $300 billion. And Singapore is gearing up to host GITEX AI Asia — right in your backyard.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Thursday, April 2, 2026 · Issue #8</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>11</strong> stories</span>
+        <span class="hero-stat"><strong>6 min</strong> read</span>
+        <span class="hero-stat"><strong>$300B</strong> Q1 VC record</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$300B</div>
+        <div class="number-pill-label">Q1 2026 global VC</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">512K</div>
+        <div class="number-pill-label">Lines of Claude Code leaked</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$78B</div>
+        <div class="number-pill-label">Asia-Pacific AI spend</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">80%</div>
+        <div class="number-pill-label">Of Q1 VC went to AI</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$4.88M</div>
+        <div class="number-pill-label">Avg data breach cost 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: Anthropic Claude Code Leak -->
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security</span>
+      <h2 class="story-title">Anthropic Accidentally Leaks Claude Code Source — 1,900 Files, 512K Lines Exposed</h2>
+      <p class="story-summary">
+        In a stunning security incident, <strong>Anthropic inadvertently published the internal source code for Claude Code</strong>, its flagship agentic coding tool that runs inside developer environments. The leak — approximately <strong>1,900 files and 512,000 lines of code</strong> — was caught by the community and reported by Bloomberg. Ars Technica's analysis suggests the code reveals upcoming features and architectural decisions. This is Anthropic's <strong>second security slip in days</strong>, an embarrassing look for a company whose entire brand is built on safety and responsibility. Anthropic is rushing to contain the damage.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          A cautionary tale for any company building on AI tools. If the most safety-conscious AI lab can leak their own source code twice in a week, what does that say about the supply-chain risk of AI-powered dev tools? Worth revisiting Aspire's code security posture for any AI-assisted development workflows.
+        </div>
+      </div>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-01/anthropic-accidentally-releases-source-code-for-claude-ai-agent" class="story-source" target="_blank" rel="noopener">
+        Bloomberg · Ars Technica <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: Q1 VC Record Updated -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">Funding</span>
+      <h2 class="story-title">Crunchbase Updates Q1 Numbers: $300B in VC — The Biggest Quarter in History</h2>
+      <p class="story-summary">
+        Updated Crunchbase data (revised upward from the initial $297B estimate) confirms Q1 2026 as the most extraordinary quarter for venture capital ever recorded. <strong>$300 billion poured into 6,000 startups globally</strong> — up 150% QoQ and YoY. Four mega-rounds dominated: <strong>OpenAI ($122B), Anthropic ($30B), xAI ($20B), and Waymo ($16B)</strong> collectively raised $188 billion, or 65% of the total. AI captured 80% of all VC. The US took 83% of global funding. The Crunchbase Unicorn Board added <strong>$900 billion in value</strong> in a single quarter.
+      </p>
+      <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="story-source" target="_blank" rel="noopener">
+        Crunchbase News <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: Asia $78B + GITEX Singapore -->
+    <div class="story-card">
+      <span class="story-tag tag-industry">Industry</span>
+      <h2 class="story-title">Asia's $78B AI Moment: GITEX AI Asia Comes to Marina Bay Sands Next Week</h2>
+      <p class="story-summary">
+        Regional AI spending is hitting <strong>US$78 billion in 2026</strong> per IDC, and the action is converging on Singapore. <strong>GITEX AI Asia</strong> convenes April 9-10 at Marina Bay Sands, bringing together <strong>550+ enterprises, 250 global investors managing $350B in funds, and 175+ speakers</strong> from 110+ countries. Singapore now produces 15% of global semiconductors and hosts cutting-edge AI research centers. A new quantum R&D center launched in March further cements the city-state's position. The Singapore-Malaysia-Indonesia data center cluster is projected to account for <strong>40% of global data capacity by 2030</strong>.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This is happening right in your backyard. GITEX AI Asia at MBS next week could be worth attending or sending team members — 250 investors, 550 enterprises, all focused on AI in Asia. The fintech-AI intersection will be heavily represented. Also, the $78B APAC AI spend figure is a useful data point for internal strategy discussions.
+        </div>
+      </div>
+      <a href="https://www.iot-now.com/2026/04/01/156003-asias-78-billion-ai-and-quantum-inflection-point-draws-global-tech-leaders-to-singapore/" class="story-source" target="_blank" rel="noopener">
+        IoT Now <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: Governing AI Without Slowing Down -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">Regulation</span>
+      <h2 class="story-title">The Accountability Gap Part 3: Governing AI Without Breaking the System</h2>
+      <p class="story-summary">
+        The third installment of FinTech Global's "Accountability Gap" series asks the critical question: <strong>how do you govern AI without slowing compliance to a crawl?</strong> The answer: embed controls architecturally, not as additional layers. Red Oak's CTO argues for "auditability by design, deterministic decision logic, and structured workflows that document every action as it happens." Cleverchain highlights <strong>entity resolution controls</strong> — catching when AI confidently attributes data to "the right name but the wrong legal person" — as the most common and least visible failure mode in compliance. The piece warns against duplicating governance across siloed programs.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This directly maps to the challenge you're working on. The "architectural embedding" approach (governance controls baked into system design, not bolted on) is a strong framework for Aspire's AI governance strategy. The entity resolution risk is especially relevant for KYC/AML workflows — worth sharing with the compliance team.
+        </div>
+      </div>
+      <a href="https://fintech.global/2026/03/27/governing-ai-without-slowing-down/" class="story-source" target="_blank" rel="noopener">
+        FinTech Global <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💰</div>
+      <div class="bite-content">
+        <div class="bite-title">Snowflake × OpenAI: $200M Agentic AI Partnership for Enterprise</div>
+        <div class="bite-desc">Snowflake and OpenAI have entered a landmark $200 million strategic partnership to accelerate "agentic AI" deployment for enterprises. OpenAI's advanced models will integrate directly into Snowflake's data platform — making it easier for companies to deploy AI agents that act on enterprise data.</div>
+        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" class="bite-link" target="_blank" rel="noopener">Crescendo AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">⚖️</div>
+      <div class="bite-content">
+        <div class="bite-title">EU AI Act Year One: Mandatory Vulnerability Reporting Begins</div>
+        <div class="bite-desc">2026 is the first year of <strong>mandatory vulnerability reporting</strong> under the EU AI Act and Cyber Resilience Act. Startups that are "EU-compliant by default" are finding it significantly easier to raise Series B and C rounds — compliance is becoming a competitive moat, not just a cost center.</div>
+        <a href="https://foundershield.com/blog/the-biggest-startup-lawsuits-of-2025/" class="bite-link" target="_blank" rel="noopener">Founder Shield →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🤖</div>
+      <div class="bite-content">
+        <div class="bite-title">Autonomous AI Agents: The New Rules for Business Governance</div>
+        <div class="bite-desc">Raconteur reports that agentic AI is set to reach enterprises of all sizes by end of 2026. The key challenge: <strong>governance frameworks haven't kept pace</strong>. Companies deploying autonomous agents need clear accountability structures, audit trails, and human-in-the-loop policies before scaling.</div>
+        <a href="https://www.raconteur.net/technology/autonomous-ai-agents-2026-the-new-rules-for-business-governance" class="bite-link" target="_blank" rel="noopener">Raconteur →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">📊</div>
+      <div class="bite-content">
+        <div class="bite-title">AI Compliance by Design: $4.88M Average Breach Cost Drives Urgency</div>
+        <div class="bite-desc">4CRisk.ai argues 2026 marks the decisive shift from periodic inspections to <strong>continuous AI-powered compliance monitoring</strong>. Their framework covers ISO 27001, PCI DSS, NIST, GDPR, EU AI Act, and DORA — scanning 2,500+ regulatory sources in real time. Executive personal liability is driving demand.</div>
+        <a href="https://regtechanalyst.com/four-ways-ai-powers-compliance-by-design-in-2026/" class="bite-link" target="_blank" rel="noopener">RegTech Analyst →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🇧🇪</div>
+      <div class="bite-content">
+        <div class="bite-title">Nexus Raises €3.7M to Deploy Enterprise AI Agents from Brussels</div>
+        <div class="bite-desc">Brussels-based Nexus closed a €3.7M ($4.3M) seed round for its agentic AI platform that enables enterprises to deploy autonomous agents for core business operations. EU-native AI startups are increasingly winning on compliance and governance by default.</div>
+        <a href="https://www.eu-startups.com/2026/04/brussels-based-nexus-lands-e3-7-million-to-bring-ai-agents-into-core-business-operations" class="bite-link" target="_blank" rel="noopener">EU-Startups →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">LWiAI Podcast #238: GPT 5.4 Mini, Mamba 3 & Attention Residuals</div>
+        <div class="bite-desc">This week's Last Week in AI covers GPT 5.4 Mini (smaller, cheaper, surprisingly capable), OpenAI's enterprise pivot, and <strong>Mamba 3's attention residuals</strong> — potentially the most important architecture innovation for efficient long-context inference since FlashAttention.</div>
+        <a href="https://lastweekinai.substack.com" class="bite-link" target="_blank" rel="noopener">Last Week in AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🏛️</div>
+      <div class="bite-content">
+        <div class="bite-title">U.S. House Financial Services Reviews AI & Fintech Regulation Pace</div>
+        <div class="bite-desc">The Digital Assets, Financial Technology, and AI Subcommittee held hearings reviewing whether federal regulators can keep pace with financial innovation. Chairman Hill: "Financial innovation is accelerating rapidly. Federal agencies have to keep pace — that is a challenge inside a big federal compliance bureaucracy."</div>
+        <a href="https://financialservices.house.gov/news/documentsingle.aspx?DocumentID=411076" class="bite-link" target="_blank" rel="noopener">U.S. House Committee →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ WORTH READING ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-amber-dim);">📖</div>
+      <span class="section-title">Worth Reading This Morning</span>
+    </div>
+
+    <a href="https://arstechnica.com/ai/2026/04/heres-what-that-claude-code-source-leak-reveals-about-anthropics-plans/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">What the Claude Code Source Leak Reveals About Anthropic's Plans</div>
+        <div class="reading-link-source">Ars Technica · Deep analysis of the leaked code</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Q1 2026 Shatters Venture Funding Records — Full Crunchbase Report</div>
+        <div class="reading-link-source">Crunchbase News · Complete data with charts</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://fintech.global/2026/03/27/governing-ai-without-slowing-down/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Governing AI Without Slowing Down (Accountability Gap Part 3)</div>
+        <div class="reading-link-source">FinTech Global · Practical AI governance frameworks</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.raconteur.net/technology/autonomous-ai-agents-2026-the-new-rules-for-business-governance" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Autonomous AI Agents 2026: The New Rules for Business Governance</div>
+        <div class="reading-link-source">Raconteur · Enterprise readiness assessment</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://regtechanalyst.com/four-ways-ai-powers-compliance-by-design-in-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Four Ways AI Powers Compliance by Design in 2026</div>
+        <div class="reading-link-source">RegTech Analyst · Continuous compliance deep dive</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Curated by Bob 🫏 · Your AI donkey</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Bob's Briefing · Built with care for Rachiket</div>
+    <div class="footer-sub" style="margin-top: 4px;">Thursday, April 2, 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>

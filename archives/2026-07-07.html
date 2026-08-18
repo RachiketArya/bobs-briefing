@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — July 7, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Tuesday morning, Rachiket ☕🫏. Today’s pattern is getting louder: <strong>the AI stack is maturing from model demos into infrastructure, distribution, and governance</strong>. The winners are starting to look less like pure labs and more like operators with scale, trust, and deployable rails.</p>
+      <div class="hero-date"><span>📅</span><span>Tuesday, July 7, 2026 (SGT) · Issue #53</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>7 min</strong> read</span>
+        <span class="hero-stat"><strong>0</strong> Gmail newsletter pulls, OAuth blocked</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">$800M</div><div class="number-pill-label">Together AI Series C at an $8.3B valuation</div></div>
+      <div class="number-pill"><div class="number-pill-value">$2.8B</div><div class="number-pill-label">Fresh capital going into Kling AI’s video push</div></div>
+      <div class="number-pill"><div class="number-pill-value">2x</div><div class="number-pill-label">Cheaper pricing OpenAI claims for GPT-5.6 Terra versus GPT-5.5</div></div>
+      <div class="number-pill"><div class="number-pill-value">60+</div><div class="number-pill-label">Curated scientific skills and connectors inside Claude Science</div></div>
+      <div class="number-pill"><div class="number-pill-value">85%</div><div class="number-pill-label">Inference speed-up DeepSeek claims DSpark can unlock</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">🚀 Product · Frontier Models</span>
+      <h2 class="story-title">OpenAI’s GPT-5.6 preview keeps shifting the competitive frame from raw capability to release governance</h2>
+      <p class="story-summary">OpenAI has started a limited preview of <strong>GPT-5.6 Sol, Terra, and Luna</strong>. Terra is positioned as roughly <strong>2x cheaper than GPT-5.5</strong>, Luna is the fast low-cost tier, and Sol adds features like <strong>max reasoning</strong> plus an <strong>ultra mode using subagents</strong>. But the more important signal is operational: OpenAI paired the launch with phased access, government pre-briefing, and a visibly harder safety posture around cyber misuse.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">For fintech, this reinforces that <strong>model governance is becoming part of the product</strong>. Cost and quality still matter, but so do preview controls, incident handling, safety tuning, and how comfortably a vendor can survive regulatory scrutiny.</div>
+      </div>
+      <a href="https://openai.com/index/previewing-gpt-5-6-sol/" class="story-source" target="_blank" rel="noopener">OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💼 Funding · AI Infrastructure</span>
+      <h2 class="story-title">Together AI’s $800M round shows the money is pouring into the compute and open-model distribution layer</h2>
+      <p class="story-summary">Together AI raised an <strong>$800 million Series C at an $8.3 billion valuation</strong>. TechCrunch reports the neocloud provider now claims <strong>more than $1.15 billion in annual bookings</strong>, with customers using it to run open models on large Nvidia GPU fleets. The market message is blunt: enterprises want cheaper, flexible alternatives to paying frontier-model token premiums for every workload.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This matters if Aspire wants leverage over cost, deployment geography, or model portability. <strong>The infrastructure market for serving open models is becoming strategic</strong>, not just a commodity hosting choice.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/07/01/neocloud-together-ai-raises-800m-leaps-to-8-3b-valuation/" class="story-source" target="_blank" rel="noopener">TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🎬 Industry · China AI</span>
+      <h2 class="story-title">Kling AI’s $2.8B raise is another reminder that video generation is becoming a capital-intensive platform war</h2>
+      <p class="story-summary">New reporting indicates <strong>Alibaba and Tencent backed a $2.8 billion financing round for Kuaishou’s Kling AI</strong>, valuing the business at roughly <strong>$15 billion pre-money</strong>. Kling has become one of the most visible challengers in generative video, and the size of the round suggests the next phase is less about clever demos and more about compute, distribution, and staying power.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">It is a useful macro signal for AI strategy: <strong>the winners will increasingly be the ones that can finance infrastructure at scale</strong>. That affects vendor durability, pricing power, and partnership options across Asia.</div>
+      </div>
+      <a href="https://www.reuters.com/world/china/alibaba-tencent-back-kuaishous-kling-ai-28-billion-fundraise-2026-07-03/" class="story-source" target="_blank" rel="noopener">Reuters →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Global Governance</span>
+      <h2 class="story-title">The UN’s AI governance dialogue shows the center of gravity is shifting toward globally legible guardrails</h2>
+      <p class="story-summary">At the <strong>Global Dialogue on AI Governance</strong> in Geneva, policymakers, academics, and civil-society leaders are openly warning that AI progress is outrunning both scientific understanding and state capacity. UN coverage emphasized calls for <strong>universally accepted guardrails</strong>, especially as frontier capability concentrates in a handful of countries and concerns rise around deception, democratic resilience, and catastrophic misuse.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">For a fintech leader, this is a signal to build AI governance that is <strong>portable across jurisdictions</strong>: clear risk tiers, human approvals for high-impact actions, good evidence trails, and governance language that can stand up in front of regulators or partners.</div>
+      </div>
+      <a href="https://news.un.org/en/story/2026/07/1167862" class="story-source" target="_blank" rel="noopener">UN News →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">⚙️ Research · Open Infrastructure</span>
+      <h2 class="story-title">DeepSeek’s open-source DSpark release sharpens the race to make inference cheaper and faster, not just smarter</h2>
+      <p class="story-summary">DeepSeek has open-sourced <strong>DSpark</strong>, an MIT-licensed speculative decoding framework that VentureBeat says can speed LLM inference by <strong>up to 85%</strong>. The practical angle is important: better inference economics can ripple through consumer chat, coding copilots, and enterprise agents, especially for teams running open weights and controlling their own serving stack.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If open-model performance keeps compounding through serving tricks, then <strong>the capability gap between proprietary and self-hosted stacks may narrow faster than expected</strong>. That has implications for cost, sovereignty, and compliance-sensitive deployments.</div>
+      </div>
+      <a href="https://venturebeat.com/orchestration/deepseek-open-sources-dspark-a-new-framework-to-speed-up-llm-inference-by-up-to-85" class="story-source" target="_blank" rel="noopener">VentureBeat →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">💳</div>
+      <div>
+        <div class="bite-title">OKX is launching a marketplace where AI agents can hire one another, pay with stablecoins, and build portable reputations</div>
+        <div class="bite-desc">That is a surprisingly concrete look at what agent-native financial rails could become, including trust, micropayments, and dispute-resolution infrastructure.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🧪</div>
+      <div>
+        <div class="bite-title">Claude Science still looks like one of the clearest signals that vertical AI workbenches are replacing generic chat in expert domains</div>
+        <div class="bite-desc">Auditable artifacts, specialist tools, reviewer agents, and compute orchestration are exactly the shape regulated enterprise products are moving toward.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🏢</div>
+      <div>
+        <div class="bite-title">AI-driven cost pressure is now explicit in tech layoffs</div>
+        <div class="bite-desc">TechCrunch’s latest roundup notes roughly 120,000 tech roles cut in 2026 so far, with AI increasingly cited as both the reason and the justification.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">📬</div>
+      <div>
+        <div class="bite-title">Inbox sourcing is blocked again by Google OAuth invalid_grant</div>
+        <div class="bite-desc">So today’s edition is sourced from public reporting and official announcements. The newsletter itself is generated and hostable, but Gmail pulls and Gmail send remain blocked until re-auth is fixed.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Treat vendor release discipline as a procurement criterion.</strong> Ask model providers how they phase access, govern previews, handle incidents, and support regulated rollback paths.<br><br>
+        <strong>2. Build a view on open-model infrastructure now.</strong> Together AI and DeepSeek together suggest that the open stack is getting meaningfully cheaper and more capable.<br><br>
+        <strong>3. Write down hard approval thresholds for agentic actions.</strong> Especially around money movement, risk decisions, compliance workflows, and any externally binding communication.<br><br>
+        <strong>4. Design for globally legible governance.</strong> The UN dialogue is a reminder that even when regulation differs by market, the best internal controls are usually the ones you can explain clearly anywhere.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/previewing-gpt-5-6-sol/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">OpenAI’s GPT-5.6 preview and why release governance is now part of the product</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://techcrunch.com/2026/07/01/neocloud-together-ai-raises-800m-leaps-to-8-3b-valuation/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Together AI and the rise of the neocloud layer for open models</div><div class="reading-link-source">TechCrunch</div></div><span>→</span></a>
+    <a href="https://www.reuters.com/world/china/alibaba-tencent-back-kuaishous-kling-ai-28-billion-fundraise-2026-07-03/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Kling AI’s mega-round and the escalating capital war in generative video</div><div class="reading-link-source">Reuters</div></div><span>→</span></a>
+    <a href="https://news.un.org/en/story/2026/07/1167862" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">The UN’s latest push for globally legible AI guardrails</div><div class="reading-link-source">UN News</div></div><span>→</span></a>
+    <a href="https://venturebeat.com/orchestration/deepseek-open-sources-dspark-a-new-framework-to-speed-up-llm-inference-by-up-to-85" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Why DeepSeek’s DSpark matters for inference economics</div><div class="reading-link-source">VentureBeat</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Bob</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>

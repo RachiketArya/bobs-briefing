@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 11, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good morning Rachiket ☀️🫏 — Sunday's a day away, and Saturday's news cycle brought a proper plot twist. <strong>Anthropic just signed a multi-year CoreWeave deal</strong> (nine of the top ten labs are now on CoreWeave — the GPU cartel is basically one vendor away from consolidation), Z.ai dropped <strong>GLM-5.1 open-source</strong> and quietly took the SWE-Bench Pro crown from GPT-5.4, and the Frontier Model Forum is finally teaming up against adversarial distillation from Chinese labs. Meanwhile Meta's superintelligence team shipped <strong>Muse Spark</strong>, their first post-reorg model. Kopi up — this one's meaty.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Saturday, April 11, 2026 (SGT) · Issue #17</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>10</strong> stories</span>
+        <span class="hero-stat"><strong>7 min</strong> read</span>
+        <span class="hero-stat"><strong>9/10</strong> labs on CoreWeave</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">+13%</div>
+        <div class="number-pill-label">CRWV pop on Anthropic deal</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">58.4%</div>
+        <div class="number-pill-label">GLM-5.1 on SWE-Bench Pro</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">9/10</div>
+        <div class="number-pill-label">Top labs on CoreWeave</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$300B</div>
+        <div class="number-pill-label">Q1 2026 global VC</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">Aug '26</div>
+        <div class="number-pill-label">EU AI Act high-risk deadline</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: CoreWeave × Anthropic -->
+    <div class="story-card">
+      <span class="story-tag tag-breaking">⚡ Breaking · Infra</span>
+      <h2 class="story-title">CoreWeave Lands Multi-Year Anthropic Deal — Now Powers 9 of the Top 10 AI Labs</h2>
+      <p class="story-summary">
+        The biggest capacity headline of the week: <strong>CoreWeave (CRWV) announced a multi-year agreement with Anthropic to supply GPU capacity for the Claude family of models</strong>. Shares ripped <strong>+13% on Friday</strong>. The tell is in CoreWeave's own press line: "with the addition of Anthropic, <em>nine of the leading ten AI model providers</em> now leverage CoreWeave's platform." That is a quietly astonishing data point. A neocloud that didn't exist in its current form four years ago is now the de-facto shared substrate for frontier AI — Microsoft, Google, OpenAI (indirectly), Meta, xAI, Mistral, and now Anthropic all rent from the same place. The AI boom's infrastructure layer is consolidating faster than the model layer.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          Concentration risk just became a board-level conversation. If 9/10 of the vendors powering your AI stack ultimately rely on <em>one</em> GPU provider, your vendor-resilience narrative needs a rewrite. Two things to raise internally this week: (1) demand tier-1 vendors disclose their compute-supply chain in any RFP — not just "AWS" or "GCP," but the underlying neocloud; (2) add a <em>compute-continuity</em> clause to Aspire's AI vendor MSA template. MAS examiners will start asking. Getting ahead of it looks like competence.
+        </div>
+      </div>
+      <a href="https://www.reuters.com/legal/transactional/coreweave-strikes-ai-cloud-deal-with-anthropic-shares-rise-2026-04-10/" class="story-source" target="_blank" rel="noopener">
+        Reuters · CNBC · Bloomberg · CoreWeave IR <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: GLM-5.1 -->
+    <div class="story-card">
+      <span class="story-tag tag-research">🧪 Open Source · Research</span>
+      <h2 class="story-title">Z.ai Drops GLM-5.1 Open Source — and Quietly Takes the SWE-Bench Pro Crown</h2>
+      <p class="story-summary">
+        Released earlier this week and fully available on Hugging Face: <strong>GLM-5.1 from Z.ai (formerly Zhipu AI) now scores 58.4% on SWE-Bench Pro</strong>, narrowly edging GPT-5.4 at 57.7% and Claude Opus 4.6 at 57.3%. The architectural interesting bit is that the model can <em>rethink its own coding strategy across hundreds of iterations</em> — a meaningful step beyond the "one-shot chain of thought" paradigm. Put plainly: for the first time in this cycle, the #1 model on the hardest practical coding benchmark in AI is an openly downloadable weights-available release. The build vs. buy conversation inside every CTO's office just got genuinely interesting again.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          Chinese-origin models are a governance trapdoor in most regulated fintechs — geopolitical risk, data sovereignty, export controls, all of it. But GLM-5.1 being genuinely SOTA on coding creates a concrete forcing function: Aspire's AI Use Policy probably needs an explicit position on <em>weight origin</em> and <em>downstream deployment</em>. If you keep the model on Singapore-hosted infra and prohibit any data leaving the jurisdiction, the legal argument is defensible. But have the answer ready — because your engineers <em>will</em> try to use this.
+        </div>
+      </div>
+      <a href="https://the-decoder.com/zhipu-ais-glm-5-1-can-rethink-its-own-coding-strategy-across-hundreds-of-iterations/" class="story-source" target="_blank" rel="noopener">
+        The Decoder · Build Fast With AI <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: Frontier Model Forum coordination -->
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Geopolitics</span>
+      <h2 class="story-title">OpenAI, Anthropic &amp; Google Unite via Frontier Model Forum to Fight Adversarial Distillation</h2>
+      <p class="story-summary">
+        Announced earlier this week and continuing to reverberate: <strong>OpenAI, Anthropic, and Google are now sharing threat intelligence through the Frontier Model Forum</strong> to detect and disrupt "adversarial distillation" — the practice of training open-source models by querying frontier APIs at massive scale to replicate capabilities. The primary named concern is Chinese AI labs (including the same Z.ai that shipped GLM-5.1 this week). This is historic because these three companies are direct competitors, but they've decided model IP exfiltration is an existential threat that supersedes rivalry. Expect new API rate-limit policies, cross-lab suspicious-query detection, and probably new export-control friction within 60 days.
+      </p>
+      <a href="https://www.roborhythms.com/openai-anthropic-google-fight-chinese-ai-copying-2026/" class="story-source" target="_blank" rel="noopener">
+        RoboRhythms · Times of India <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: Meta Muse Spark -->
+    <div class="story-card">
+      <span class="story-tag tag-product">🚀 Product · Meta</span>
+      <h2 class="story-title">Meta Unveils "Muse Spark" — First Model From Its Costly Superintelligence Team</h2>
+      <p class="story-summary">
+        Earlier this week Meta formally unveiled <strong>Muse Spark</strong>, the first model to emerge from the nine-figure-hire superintelligence team Zuck built last year to catch up in the AI race. Details are still thin — Meta is emphasizing "multi-modal reasoning and world-model grounding" rather than raw benchmark numbers — but the strategic shape is clear: this is Meta's formal re-entry to frontier model competition after the post-Llama drift of 2025. Whether it lands is secondary; the signal is that the four-horse race (OpenAI, Anthropic, Google, Meta) is back to four, not three.
+      </p>
+      <a href="https://www.reuters.com/sustainability/sustainable-finance-reporting/meta-unveils-first-ai-model-superintelligence-team-2026-04-08/" class="story-source" target="_blank" rel="noopener">
+        Reuters <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💸</div>
+      <div class="bite-content">
+        <div class="bite-title">Fintech Funding Boom Still "About More Than AI" — Forbes</div>
+        <div class="bite-desc">Zennon Kapron's piece from earlier this month keeps getting reshared: Q1's fintech funding rebound is driven by <strong>nine-figure rounds in embedded finance, payments infrastructure, and B2B lending</strong>, not just "AI-wrapper" pitches. Infrastructure and compliance-differentiated plays are back in fashion.</div>
+        <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="bite-link" target="_blank" rel="noopener">Forbes →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">⚖️</div>
+      <div class="bite-content">
+        <div class="bite-title">EU AI Act: High-Risk Obligations Still Go Live August 2026 — Friendly Reminder</div>
+        <div class="bite-desc">Weekend reminder for your compliance register: <strong>high-risk AI obligations under the EU AI Act become fully enforceable from August 2026</strong>. Credit scoring, loan approvals, and fraud-decisioning models are all in scope. Four months is not a lot of runway if you need a conformity assessment, technical documentation, and human-oversight procedures shipped.</div>
+        <a href="https://nortal.com/insights/eu-financial-services-compliance" class="bite-link" target="_blank" rel="noopener">Nortal →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">Neuromorphic Chips Crack Physics Simulation at Fraction of Energy</div>
+        <div class="bite-desc">A paper highlighted this week shows <strong>brain-inspired neuromorphic computers solving PDEs behind physics simulations</strong> — work previously thought to need HPC clusters. Low-power inference for spatial/temporal problems (think: real-time risk modeling, flow monitoring, fraud graphs) is slowly creeping out of research into product.</div>
+        <a href="https://www.sciencedaily.com/news/computers_math/artificial_intelligence/" class="bite-link" target="_blank" rel="noopener">ScienceDaily →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🇸🇬</div>
+      <div class="bite-content">
+        <div class="bite-title">Quick MAS Reminder: AI Risk Toolkit Still the Key Local Doc to Track</div>
+        <div class="bite-desc">Yesterday's briefing flagged the MAS AI Risk Management Toolkit for the financial sector. A gentle nudge: it's still sitting in your inbox unread. This is the single most actionable local regulatory artefact for your role — worth the 15 minutes before Monday.</div>
+        <a href="https://www.mas.gov.sg/news" class="bite-link" target="_blank" rel="noopener">MAS News →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🏁</div>
+      <div class="bite-content">
+        <div class="bite-title">Momentum AI London Pre-Registration Opens (29–30 June)</div>
+        <div class="bite-desc">Reuters' AI events section flagged <strong>Momentum AI London on June 29–30</strong> this week. The NYC edition (April 27–28) has a notably strong agenda on AI governance in regulated industries — worth a glance if Aspire sends anyone, or if you want a pulse-check on what heads of AI in BFSI are actually worrying about right now.</div>
+        <a href="https://www.reuters.com/technology/artificial-intelligence/" class="bite-link" target="_blank" rel="noopener">Reuters AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: rgba(239, 68, 68, 0.12);">🛡️</div>
+      <div class="bite-content">
+        <div class="bite-title">Compliance Talk Shift: "Human-in-the-Loop" Now a Regulatory Floor, Not a Nice-to-Have</div>
+        <div class="bite-desc">Fintech Global's January priority paper keeps aging well: the key 2025 lesson carrying into 2026 is that <strong>compliance responsibility cannot be delegated to an AI system</strong>. Human-in-the-loop oversight has moved from best-practice to assumed regulatory expectation across EU, UK, and increasingly MAS.</div>
+        <a href="https://fintech.global/2026/01/08/ai-regulatory-compliance-priorities-financial-institutions-face-in-2026/" class="bite-link" target="_blank" rel="noopener">FinTech Global →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ FROM YOUR INBOX ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📬</div>
+      <span class="section-title">From Your Inbox</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">📰</div>
+      <div class="bite-content">
+        <div class="bite-title">Devansh (AI Made Simple): "Come Meet Me in SF and Vegas"</div>
+        <div class="bite-desc">Devansh is doing an in-person run through SF and Vegas — mostly an IRL meetup invite, but his Substack has been on a strong run lately with infra/inference-economics takes. Worth a 2-minute skim over Sunday morning coffee.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">📪</div>
+      <div class="bite-content">
+        <div class="bite-title">Substack Inbox: Quiet Day</div>
+        <div class="bite-desc">Only one fresh Substack landed in the last 24 hours. Saturdays are usually slow — the Ben's Bites, TAAFT, and The Rundown cadence will pick back up Monday morning. The weekend is a gift, use it.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ DEEP DIVES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📚</div>
+      <span class="section-title">Deep Dives</span>
+    </div>
+
+    <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Multi-Year-Agreement-With-Anthropic/default.aspx" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">CoreWeave Announces Multi-Year Agreement With Anthropic</div>
+        <div class="reading-link-source">CoreWeave Investor Relations · 5 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://the-decoder.com/zhipu-ais-glm-5-1-can-rethink-its-own-coding-strategy-across-hundreds-of-iterations/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Zhipu / Z.ai's GLM-5.1 Can Rethink Its Own Coding Strategy</div>
+        <div class="reading-link-source">The Decoder · 9 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.buildfastwithai.com/blogs/glm-5-1-open-source-review-2026" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">GLM-5.1: #1 Open Source AI Model? Full Review (2026)</div>
+        <div class="reading-link-source">Build Fast With AI · 12 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.roborhythms.com/openai-anthropic-google-fight-chinese-ai-copying-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">OpenAI, Anthropic &amp; Google Unite Against Chinese AI Theft</div>
+        <div class="reading-link-source">RoboRhythms · 7 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Why the 2026 Fintech Funding Boom Is About More Than AI</div>
+        <div class="reading-link-source">Forbes · 9 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://nortal.com/insights/eu-financial-services-compliance" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">2026 EU Financial Services Compliance: Key Regulations &amp; Tech</div>
+        <div class="reading-link-source">Nortal · 14 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Bob's Briefing</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Curated daily by Bob for Rachiket · April 11, 2026</div>
+    <div class="footer-sub" style="margin-top: 8px;">Your friendly donkey-spirit AI assistant 🫏</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 5, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Hey Rachiket 🌙 — Sunday night in Singapore. China just dropped sweeping new AI ethics rules with a three-tier governance framework. DeepSeek is going all-in on Huawei chips. And the fintech funding boom is real — but it's about way more than AI. Plus, Gap is launching checkout inside Gemini (yes, really).</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Sunday, April 5, 2026 · Issue #11</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>10</strong> stories</span>
+        <span class="hero-stat"><strong>6 min</strong> read</span>
+        <span class="hero-stat"><strong>$242B</strong> Q1 AI funding</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$242B</div>
+        <div class="number-pill-label">Q1 2026 AI VC funding</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">81%</div>
+        <div class="number-pill-label">Of Q1 VC went to AI</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$849B</div>
+        <div class="number-pill-label">US retail returns (2025)</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">10</div>
+        <div class="number-pill-label">Chinese agencies behind AI ethics rules</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$5.15B</div>
+        <div class="number-pill-label">Capital One × Brex deal</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: China AI Ethics -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">⚖️ Regulation</span>
+      <h2 class="story-title">China Rolls Out Sweeping AI Ethics Framework — 10 Agencies, Three-Tier Governance</h2>
+      <p class="story-summary">
+        On April 3, China's Ministry of Industry and Information Technology, together with <strong>nine other government agencies</strong>, jointly issued the <em>Administrative Measures for the Ethical Review and Services of Artificial Intelligence Science and Technology (Trial)</em>. The framework introduces a <strong>three-tier governance structure</strong>: internal ethics committees within organizations, external service centers, and government-led expert review for high-risk projects. AI technologies with capabilities for public opinion mobilization, autonomous decision-making, or deep human-machine integration are classified as "high-risk" and require mandatory third-party expert review. Crucially, the system now links algorithm filing with ethical evaluation in a <strong>dual-track access model</strong>. New "algorithm auditing" mechanisms targeting platform sectors like ride-hailing mandate human override functions to prevent "algorithmic exploitation" of workers.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This is a significant signal for any fintech operating in or adjacent to the Chinese market. The dual-track "algorithm filing + ethical evaluation" model could become a template other APAC regulators follow. The mandatory human override for platform algorithms is directly relevant to AI-driven lending, credit scoring, and fraud detection systems. Worth tracking for Aspire's AI governance framework — this is the direction regulatory winds are blowing.
+        </div>
+      </div>
+      <a href="https://www.geopolitechs.org/p/china-issues-new-rules-on-ai-ethics" class="story-source" target="_blank" rel="noopener">
+        Geopolitechs <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: DeepSeek V4 on Huawei Chips -->
+    <div class="story-card">
+      <span class="story-tag tag-breaking">🔥 Breaking</span>
+      <h2 class="story-title">DeepSeek's V4 Model Will Run on Huawei Chips, Accelerating China's AI Independence</h2>
+      <p class="story-summary">
+        According to The Information, <strong>DeepSeek's upcoming V4 model will be trained and deployed on Huawei's Ascend chips</strong>, marking a major escalation in China's push to decouple from Western semiconductor supply chains. This is a watershed moment — DeepSeek has been one of the most impressive open-weight model labs globally, and running their next-gen model on domestic silicon signals that Huawei's AI hardware may finally be competitive enough for frontier workloads. Meanwhile, <strong>China is also moving to regulate "digital humans,"</strong> banning addictive AI services for children as part of a broader regulatory push.
+      </p>
+      <a href="https://www.reuters.com/technology/artificial-intelligence/" class="story-source" target="_blank" rel="noopener">
+        Reuters · The Information <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: US National AI Policy Framework -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">⚖️ Regulation</span>
+      <h2 class="story-title">2026 National AI Policy Framework: Federal Preemption Over State AI Laws</h2>
+      <p class="story-summary">
+        The new <strong>2026 National AI Policy Framework</strong> establishes federal preemption over the patchwork of state AI regulations that had been proliferating across the US. The framework aims to create a unified regulatory calculus for AI value creation while <strong>defending free speech and preventing AI censorship</strong>. Meanwhile, Morgan Lewis reports that AI enforcement is actually <em>accelerating</em> despite the federal framework — agencies are using existing statutes for enforcement while states continue expanding AI laws under antitrust, consumer protection, and false claims provisions. The gap between policy intent and enforcement reality is widening.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          The federal preemption angle is significant for any fintech with US exposure. A unified federal framework should simplify compliance vs. navigating 50 different state AI rules — but the enforcement acceleration means the rules already on the books are being applied more aggressively. For Aspire's AI governance work, monitor both the new framework AND existing regulatory enforcement actions.
+        </div>
+      </div>
+      <a href="https://valerelabs.medium.com/the-2026-national-ai-policy-framework-changing-the-regulatory-calculus-for-ai-value-creation-692f5126a89e" class="story-source" target="_blank" rel="noopener">
+        Valere Labs · Morgan Lewis <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: 2026 Fintech Funding Boom -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding</span>
+      <h2 class="story-title">The 2026 Fintech Funding Boom — And Why It's About More Than AI</h2>
+      <p class="story-summary">
+        Forbes reports the fintech sector is experiencing a genuine funding resurgence in 2026, but the story goes beyond AI. Highlights: <strong>Vestwell's $385M Series D</strong> (digital savings), <strong>Cloak's $375M Series B</strong> (fintech security), <strong>Rain's $250M Series C</strong> (stablecoin payments), <strong>WeLab's $220M Series D</strong> (Hong Kong digital bank), and the jaw-dropping <strong>$230M seed round for Mal</strong>, a Dubai-based Islamic digital bank going hard on AI. In the mega-deals space, <strong>Capital One is acquiring Brex for $5.15 billion</strong> and Savvy Games Group is eyeing ByteDance's Moonton for $6 billion.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          WeLab's $220M Series D is happening in your region — another APAC digital bank raising big. Cloak's $375M for fintech security shows investor appetite for the security layer. And Mal's $230M <em>seed</em> for an AI-first Islamic bank is extraordinary — validates the thesis that AI-native financial services can attract massive capital even at the earliest stages.
+        </div>
+      </div>
+      <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="story-source" target="_blank" rel="noopener">
+        Forbes <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🛍️</div>
+      <div class="bite-content">
+        <div class="bite-title">Gap Launches Checkout Inside Google Gemini — An AI Commerce First</div>
+        <div class="bite-desc">Gap becomes the first major fashion brand to enable <strong>direct checkout within Google's Gemini AI</strong>. Meanwhile, AI-powered virtual try-on startups are tackling retail's $850B returns problem — gen AI has finally made fit technology good enough to meaningfully impact margins.</div>
+        <a href="https://www.cnbc.com/2026/04/05/ai-retail-start-ups-virtual-try-on-tech-margins.html" class="bite-link" target="_blank" rel="noopener">CNBC →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">Neuromorphic Computers Now Solve Physics Equations — Once Thought Supercomputer-Only</div>
+        <div class="bite-desc">Computers modeled after the human brain can now tackle the <strong>complex equations behind physics simulations</strong>, a capability once reserved for energy-hungry supercomputers. This breakthrough could dramatically reduce the compute cost of scientific modeling.</div>
+        <a href="https://www.sciencedaily.com/news/computers_math/artificial_intelligence/" class="bite-link" target="_blank" rel="noopener">ScienceDaily →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🏥</div>
+      <div class="bite-content">
+        <div class="bite-title">Noah Labs Gets FDA Designation: AI Detects Heart Failure From 5-Second Voice Recording</div>
+        <div class="bite-desc"><strong>Vox by Noah Labs</strong> received FDA designation for detecting heart failure from a five-second voice sample. Penguin AI launched a platform for hospitals to design their own digital workers. Ambience Healthcare embedded <strong>Chart Chat for Nursing</strong> — nurses can query patient charts in plain English.</div>
+        <a href="https://www.buildez.ai/blog/ai-trending-april-2026-developments" class="bite-link" target="_blank" rel="noopener">BuildEZ →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🏛️</div>
+      <div class="bite-content">
+        <div class="bite-title">AI Industry Goes All-In on 2026 Midterms as Regulation Looms</div>
+        <div class="bite-desc">AI industry interest groups — funded by major lab leaders — are <strong>split on how government should oversee AI</strong>, and that division is already shaping political advertising and lobbying strategies ahead of the 2026 US midterm elections.</div>
+        <a href="https://abcnews.com/Politics/ai-industry-2026-midterms-government-regulations-looming/story?id=131610305" class="bite-link" target="_blank" rel="noopener">ABC News →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🇨🇳</div>
+      <div class="bite-content">
+        <div class="bite-title">China Bans Addictive AI Services for Children, Regulates Digital Humans</div>
+        <div class="bite-desc">Alongside the AI ethics framework, China is moving to <strong>regulate "digital humans"</strong> — AI-generated virtual personas — and banning AI services deemed addictive for children. Part of a broader wave of Chinese tech regulation targeting youth protection.</div>
+        <a href="https://www.reuters.com/technology/artificial-intelligence/" class="bite-link" target="_blank" rel="noopener">Reuters →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">📈</div>
+      <div class="bite-content">
+        <div class="bite-title">Q1 2026 by the Numbers: $300B VC, $900B in New Unicorn Value</div>
+        <div class="bite-desc">The Crunchbase Unicorn Board added <strong>$900 billion in value</strong> in Q1 alone — the largest single-quarter valuation bump ever. US companies captured 83% of global VC ($250B). OpenAI alone is at <strong>$2B monthly revenue</strong> and nearly 1 billion weekly active users.</div>
+        <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="bite-link" target="_blank" rel="noopener">Crunchbase →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ WEEKEND READ ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📚</div>
+      <span class="section-title">Weekend Deep Dives</span>
+    </div>
+
+    <a href="https://www.buildez.ai/blog/ai-trending-april-2026-developments" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">AI Trending April 2026: The $242 Billion Tsunami You Can't Ignore</div>
+        <div class="reading-link-source">BuildEZ · 12 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.morganlewis.com/pubs/2026/04/ai-enforcement-accelerates-as-federal-policy-stalls-and-states-step-in" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">AI Enforcement Accelerates as Federal Policy Stalls and States Step In</div>
+        <div class="reading-link-source">Morgan Lewis · 10 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.geopolitechs.org/p/china-issues-new-rules-on-ai-ethics" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">China Issues New Rules on AI Ethics Review and Support</div>
+        <div class="reading-link-source">Geopolitechs · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://evermx.com/case/q1-2026-venture-capital-record-300-billion-ai-dominance" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Q1 2026 Shatters VC Records: $300B Invested as AI Claims 81% of Funding</div>
+        <div class="reading-link-source">Evermx · 10 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Bob's Briefing</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Curated daily by Bob for Rachiket · April 5, 2026</div>
+    <div class="footer-sub" style="margin-top: 8px;">Your friendly donkey-spirit AI assistant 🫏</div>
+  </footer>
+
+</div>
+</body>
+</html>

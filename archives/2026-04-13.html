@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 13, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good evening Rachiket 🌙🫏 — Monday's wrapping up, and today delivered a landmark report. <strong>Stanford HAI dropped its 2026 AI Index</strong> — and the headline is stark: China has erased the US lead, benchmarks can't keep up with models, and 90% of frontier AI now comes from private companies with minimal transparency. Meanwhile, <strong>PwC's new study</strong> shows 74% of AI's economic value is being captured by just 20% of companies. <strong>The NYT mapped the global AI arms race</strong> with Anduril's $20B army contract front and center. And <strong>South Africa just became the latest country to propose national AI regulation</strong>. Heavy reading tonight — let's break it down.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Monday, April 13, 2026 (SGT) · Issue #19</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>9</strong> stories</span>
+        <span class="hero-stat"><strong>7 min</strong> read</span>
+        <span class="hero-stat"><strong>74%</strong> AI value → top 20%</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">90%+</div>
+        <div class="number-pill-label">Notable AI models from private cos</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$12B</div>
+        <div class="number-pill-label">Fintech funding Q1 2026</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$20B</div>
+        <div class="number-pill-label">Anduril US Army contract</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">59%</div>
+        <div class="number-pill-label">Global AI optimism (↑ from 52%)</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">111d</div>
+        <div class="number-pill-label">Until EU AI Act high-risk</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: Stanford HAI AI Index 2026 -->
+    <div class="story-card">
+      <span class="story-tag tag-research">📊 Research · Landmark Report</span>
+      <h2 class="story-title">Stanford HAI Releases 2026 AI Index — China Erases US Lead, Benchmarks Crumbling, Transparency Crisis</h2>
+      <p class="story-summary">
+        The most comprehensive annual snapshot of AI just dropped, and the findings are sobering. <strong>Stanford HAI's 2026 AI Index</strong> reveals 12 key takeaways: <strong>China has pulled neck-and-neck with the US</strong> in frontier AI capability. <strong>More than 90% of notable AI models now come from private companies</strong>, creating what researchers call a transparency crisis — the most capable models disclose the least information about their training data, methods, and risks. Benchmarks designed to track AI progress are <strong>struggling to keep up as models blow past their ceilings</strong> — one popular math benchmark has a 42% error rate. On the positive side, global public sentiment toward AI is growing more nuanced: <strong>59% report feeling optimistic</strong> (up from 52%), but concern about risks is rising simultaneously. The report also flags soaring environmental costs and urgent questions about who benefits from the technology.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          Three angles here. <strong>First, the transparency problem is your problem:</strong> if 90%+ of models come from private companies with minimal disclosure, Aspire's AI governance framework needs robust model evaluation and risk assessment procedures that don't depend on vendor transparency. Document what you <em>can't</em> verify, not just what you can. <strong>Second, the benchmark crisis:</strong> if you're using benchmark scores to evaluate AI vendors or justify AI investments to the board, know that those numbers may be less meaningful than they appear. Push vendors for real-world performance metrics relevant to your use cases. <strong>Third, for your AI governance presentations:</strong> the Stanford AI Index is the gold standard citation — this edition's data on the private-sector concentration of AI power is a compelling argument for why enterprise AI governance matters.
+        </div>
+      </div>
+      <a href="https://hai.stanford.edu/news/inside-the-ai-index-12-takeaways-from-the-2026-report" class="story-source" target="_blank" rel="noopener">
+        Stanford HAI · IEEE Spectrum · MIT Tech Review <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: PwC AI Performance Study -->
+    <div class="story-card">
+      <span class="story-tag tag-industry">📈 Industry · Strategy</span>
+      <h2 class="story-title">PwC: 74% of AI's Economic Gains Captured by Just 20% of Companies</h2>
+      <p class="story-summary">
+        Published today, <strong>PwC's 2026 AI Performance study</strong> surveyed 1,217 senior executives across 25 sectors and found a stark divide: <strong>a small group of AI leaders is pulling sharply ahead</strong> while the majority remain stuck in pilot mode. The top performers aren't just deploying more AI tools — they're using AI as a <em>reinvention engine</em>. Key differentiators: leaders are <strong>2.6x more likely to report AI improves their ability to reinvent their business model</strong>, 2–3x more likely to use AI to pursue new revenue opportunities, and <strong>twice as likely to redesign workflows to incorporate AI</strong> rather than simply bolting on AI tools. Critically, leaders are also <strong>3x more likely to have increased automated decision-making</strong> while simultaneously going further on AI governance. The message: governance and ambition aren't in tension — they're correlated.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This is the study to cite at your next leadership meeting. The finding that <strong>governance correlates with better AI outcomes</strong> — not worse — directly validates your role. The question for Aspire: are you in the top 20% or the other 80%? The differentiator isn't spending — it's whether AI is reshaping workflows and business models vs. being a bolt-on productivity tool. Worth a 15-minute discussion with your CEO: which camp is Aspire in, and what would it take to close the gap?
+        </div>
+      </div>
+      <a href="https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html" class="story-source" target="_blank" rel="noopener">
+        PwC · Published April 13, 2026 <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: NYT AI Arms Race -->
+    <div class="story-card">
+      <span class="story-tag tag-breaking">⚔️ Geopolitics · Defense AI</span>
+      <h2 class="story-title">NYT: The Escalating Global AI Arms Race — US, China, and Russia Weaponize Artificial Intelligence</h2>
+      <p class="story-summary">
+        The New York Times published a major investigation yesterday mapping the accelerating global AI weapons race. The centerpiece: <strong>Anduril Industries began manufacturing its AI-powered autonomous Fury drones</strong> at a new factory outside Columbus, Ohio — three months ahead of schedule. This follows <strong>Anduril winning a 10-year US Army contract potentially worth $20 billion</strong>, announced April 6. Meanwhile, China is mass-producing similar autonomous combat drones, and Russia is deploying AI for target selection in Ukraine. Germany has backed major drone deals for firms like Helsing and Stark. The convergence of AI and autonomous weapons has moved from theoretical to industrial — and the article argues we're entering an era of "mutually automated destruction" where the decision loop is faster than human oversight can manage.
+      </p>
+      <a href="https://www.nytimes.com/2026/04/12/technology/china-russia-us-ai-weapons.html" class="story-source" target="_blank" rel="noopener">
+        New York Times · Indian Express <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: South Africa AI Policy -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">⚖️ Regulation · Africa</span>
+      <h2 class="story-title">South Africa Unveils Draft National AI Policy — Proposes New Institutions and Incentives</h2>
+      <p class="story-summary">
+        On April 10, <strong>South Africa's Cabinet published its draft national AI policy</strong> for public comment, joining a growing wave of countries formalizing AI regulation. The policy aims to position South Africa as a <strong>continental leader in AI innovation</strong> while addressing ethical, social, and economic challenges. It proposes <strong>new regulatory institutions</strong>, incentive structures for responsible AI development, and frameworks for AI governance. The draft was approved by Cabinet on March 25, with the public comment period now open. This makes South Africa one of the first African nations to propose comprehensive AI governance — following the EU AI Act, Singapore's Model AI Governance Framework, and similar efforts in Brazil and India.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          If Aspire operates or plans to expand into African markets, this matters. South Africa is setting the tone for continental AI governance. The regulatory trend is clear: <strong>every major market is moving toward formalized AI regulation</strong>. Your AI governance framework should have a "regulatory horizon scanning" component that tracks these developments across all markets Aspire serves. The South African approach — institutions + incentives rather than just restrictions — is a model worth studying for how regulation can accelerate rather than hinder AI adoption.
+        </div>
+      </div>
+      <a href="https://www.reuters.com/legal/litigation/south-africa-unveils-draft-ai-policy-proposes-new-institutions-incentives-2026-04-10/" class="story-source" target="_blank" rel="noopener">
+        Reuters · SABC News · TechAfrica News <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💰</div>
+      <div class="bite-content">
+        <div class="bite-title">Fintech Startups Raise $12B in Q1 2026 — More Money, Fewer Deals</div>
+        <div class="bite-desc">Global fintech funding hit <strong>$12B across 751 deals</strong> in Q1 2026 per Crunchbase — a 5% increase in dollars but a <em>significant drop</em> in deal count (down from 1,097). Translation: investors are writing bigger checks to fewer companies. QED Investors is "extremely bullish on the application layer for AI in fintech" and backing startups that "harness LLMs with the security and reliability guarantees that finance needs." Zocks raised a $45M Series B for its AI financial adviser assistant.</div>
+        <a href="https://news.crunchbase.com/author/mary-ann-azevedo/" class="bite-link" target="_blank" rel="noopener">Crunchbase News · CryptoRank →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: rgba(239, 68, 68, 0.12);">🔒</div>
+      <div class="bite-content">
+        <div class="bite-title">OpenAI Identifies Security Issue with Third-Party Tool Axios</div>
+        <div class="bite-desc"><strong>OpenAI disclosed a security vulnerability involving a third-party developer tool called Axios</strong> that affected the certification process for its macOS applications. The company says user data was not accessed, and it's taking steps to secure the code-signing pipeline. The incident highlights supply-chain security risks in AI tool ecosystems — a growing concern as AI development increasingly relies on complex dependency chains.</div>
+        <a href="https://www.reuters.com/business/openai-identifies-security-issue-involving-third-party-tool-says-user-data-was-2026-04-11/" class="bite-link" target="_blank" rel="noopener">Reuters · CNBC →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📋</div>
+      <div class="bite-content">
+        <div class="bite-title">Fintech Investors Sharpening Criteria for AI Ventures</div>
+        <div class="bite-desc">Axios reports that <strong>fintech's AI boom has moved beyond FOMO</strong>. At the recent Fintech Meetup, investors agreed that only solutions offering <strong>proprietary technology, demonstrable ROI, and regulatory resilience</strong> will secure funding in 2026. The era of funding AI wrappers is over — investors want defensible moats and compliance-ready products. RegTech deals are "running rampant" with global fintech funding topping $2B in the latest weekly tally.</div>
+        <a href="https://www.axios.com/pro/fintech-deals/2026/04/06/fintech-meetup-ai-funding-selectivity" class="bite-link" target="_blank" rel="noopener">Axios Pro · Crowdfund Insider · Fintech Global →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">Claude Mythos Preview: InfoQ Deep-Dive on Why Anthropic Won't Release It Publicly</div>
+        <div class="bite-desc">Following last week's Project Glasswing launch, <strong>InfoQ published a detailed analysis</strong> of why Anthropic is withholding Claude Mythos Preview from public access — the first time a major AI lab has released a frontier model exclusively for cybersecurity partners. The model's cybersecurity capabilities are "unprecedented" — identifying and exploiting vulnerabilities with accuracy that raises serious dual-use concerns. Available on Google Cloud's Vertex AI via "Private Preview" to select customers only.</div>
+        <a href="https://www.infoq.com/news/2026/04/anthropic-claude-mythos/" class="bite-link" target="_blank" rel="noopener">InfoQ · Google Cloud Blog →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">⚖️</div>
+      <div class="bite-content">
+        <div class="bite-title">EU AI Act High-Risk Deadline: August 2, 2026 — 111 Days</div>
+        <div class="bite-desc">Your weekly countdown continues. <strong>All high-risk AI systems</strong> — credit scoring, loan approvals, fraud detection, employment decisions — <strong>must be fully compliant by August 2, 2026</strong>. The Stanford AI Index report today adds urgency: with 90%+ of models coming from private companies with low transparency, proving compliance on opaque vendor models is a real challenge. If Aspire has EU-facing AI in production, the conformity assessment clock is ticking.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ ASPIRE GOVERNANCE CORNER ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div>
+      <span class="section-title">Governance Corner</span>
+    </div>
+
+    <div class="aspire-corner" style="margin-bottom: 20px;">
+      <div class="aspire-corner-label">📋 This Week's AI Governance Takeaways</div>
+      <div class="aspire-corner-text">
+        <strong>1. Cite the PwC study in your next leadership update</strong> — "governance and ambition are correlated, not in tension" is the most powerful one-liner for getting buy-in. 74% of AI value going to 20% of companies is a board-level wake-up call.<br><br>
+        <strong>2. Download the Stanford AI Index 2026</strong> — it's your reference Bible for the next 12 months. The transparency crisis data is especially relevant for vendor risk assessments. Print the key charts for your governance framework appendix.<br><br>
+        <strong>3. Track South Africa's AI policy</strong> — add it to your regulatory horizon scanning. If Aspire serves any African markets, this is the template that other nations will follow.<br><br>
+        <strong>4. OpenAI's Axios supply-chain incident</strong> — a reminder that AI security isn't just about model safety. Your governance framework should include <em>dependency and supply-chain risk</em> for any AI tools in production. Ask your engineering team: what third-party libraries are in our AI pipeline?<br><br>
+        <strong>5. Fintech investor criteria shift</strong> — "proprietary tech, demonstrable ROI, regulatory resilience" is now the funding bar. This is also the bar for internal AI project approval. Apply the same test to Aspire's AI initiatives.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ DEEP DIVES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📚</div>
+      <span class="section-title">Deep Dives</span>
+    </div>
+
+    <a href="https://hai.stanford.edu/news/inside-the-ai-index-12-takeaways-from-the-2026-report" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Inside the AI Index: 12 Takeaways from the 2026 Report</div>
+        <div class="reading-link-source">Stanford HAI · 15 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">PwC 2026 AI Performance Study: Who's Winning the AI Race?</div>
+        <div class="reading-link-source">PwC · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.nytimes.com/2026/04/12/technology/china-russia-us-ai-weapons.html" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">The Escalating Global AI Arms Race</div>
+        <div class="reading-link-source">The New York Times · 15 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://siliconangle.com/2026/04/13/stanford-hais-2026-ai-index-reveals-china-u-s-now-neck-neck-race-global-dominance/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">China Has Erased the US Lead in AI, Stanford HAI's 2026 Index Reveals</div>
+        <div class="reading-link-source">SiliconANGLE · 7 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://spectrum.ieee.org/state-of-ai-index-2026" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Stanford's AI Index for 2026 Shows the State of AI</div>
+        <div class="reading-link-source">IEEE Spectrum · 10 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.technologyreview.com/2026/04/13/1135675/want-to-understand-the-current-state-of-ai-check-out-these-charts/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Want to Understand the Current State of AI? Check Out These Charts.</div>
+        <div class="reading-link-source">MIT Technology Review · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.infoq.com/news/2026/04/anthropic-claude-mythos/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Anthropic Releases Claude Mythos Preview — Withholds Public Access</div>
+        <div class="reading-link-source">InfoQ · 6 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://news.crunchbase.com/author/mary-ann-azevedo/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Fintech Startups Globally Raise More Money in Far Fewer Deals in Q1 2026</div>
+        <div class="reading-link-source">Crunchbase News · 7 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Bob's Briefing</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Curated daily by Bob for Rachiket · April 13, 2026</div>
+    <div class="footer-sub" style="margin-top: 8px;">Your friendly donkey-spirit AI assistant 🫏</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — July 10, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Friday morning, Rachiket ☕🫏. Today’s pattern is unusually clean: <strong>frontier AI is getting cheaper and more operationally packaged at the exact same moment regulators and financial institutions are sharpening control expectations</strong>. That combination matters a lot for Aspire.</p>
+      <div class="hero-date"><span>📅</span><span>Friday, July 10, 2026 (SGT) · Issue #56</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>7 min</strong> read</span>
+        <span class="hero-stat"><strong>0</strong> Gmail newsletter pulls, OAuth blocked</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">53.6</div><div class="number-pill-label">OpenAI’s reported Agents’ Last Exam score for GPT-5.6 Sol</div></div>
+      <div class="number-pill"><div class="number-pill-value">61%</div><div class="number-pill-label">Less time OpenAI says GPT-5.6 Sol needs versus Claude Fable 5 on one benchmark</div></div>
+      <div class="number-pill"><div class="number-pill-value">$2.5B</div><div class="number-pill-label">Microsoft commitment behind Frontier Company deployments</div></div>
+      <div class="number-pill"><div class="number-pill-value">$110M</div><div class="number-pill-label">Taktile funding to make banks “agent-first”</div></div>
+      <div class="number-pill"><div class="number-pill-value">85%</div><div class="number-pill-label">Financial firms planning AI budget increases, per PYMNTS Intelligence</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">🚀 Product · Frontier Models</span>
+      <h2 class="story-title">OpenAI moved GPT-5.6 from preview to general availability, and the price-performance message is loud</h2>
+      <p class="story-summary">OpenAI has now launched the <strong>GPT-5.6 family for general availability</strong>, led by Sol, with Terra and Luna as cheaper tiers. The company is pitching not just raw intelligence, but <strong>better work per dollar</strong>: Sol reportedly scores <strong>53.6 on Agents’ Last Exam</strong>, uses fewer tokens, and on one benchmark comes within a point of Claude Fable 5 while finishing in <strong>61% less time at roughly half the estimated cost</strong>. The strategic signal is clear: the frontier race is shifting from only “best model” to <strong>best deployable economics</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">For fintech teams, this widens the design space for <strong>controlled, high-volume internal AI workflows</strong>. Better economics make it easier to justify agentic support in ops, risk review, support, and compliance, but only if evaluation expands beyond benchmark quality into vendor controls, auditability, and failure containment.</div>
+      </div>
+      <a href="https://openai.com/index/gpt-5-6/" class="story-source" target="_blank" rel="noopener">OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Financial Stability</span>
+      <h2 class="story-title">UK and European regulators are getting much more explicit about AI risk in finance</h2>
+      <p class="story-summary">This week’s reporting around the <strong>Bank of England</strong>, UK regulatory review, and <strong>ECB cyber expectations</strong> points in the same direction: policymakers are increasingly worried about <strong>agentic systems in regulated workflows, concentration risk around a small set of model and cloud providers, opaque decisioning, and AI-enabled cyber disruption</strong>. The tone has shifted from “innovation oversight” to <strong>resilience and systemic risk</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is a cue to treat AI governance as an operational control system, not a policy deck. Strong candidates for immediate hardening are <strong>decision traceability, human override paths, advice-boundary rules, vendor concentration maps, and adversarial testing for agentic workflows</strong>.</div>
+      </div>
+      <a href="https://www.reuters.com/business/finance/bank-england-sees-growing-risks-financial-stability-ai-2026-07-07/" class="story-source" target="_blank" rel="noopener">Reuters →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏗️ Industry · Enterprise AI</span>
+      <h2 class="story-title">Microsoft’s Frontier Company reinforces that enterprise AI is becoming a deployment business</h2>
+      <p class="story-summary">Microsoft has launched <strong>Microsoft Frontier Company</strong>, a new operating business focused on successful enterprise AI deployments, backed by a <strong>$2.5 billion commitment</strong> and <strong>6,000 industry and engineering experts</strong>. The underlying message is that model access is no longer enough. Vendors want to own the messy last mile of implementation, controls, integration, and outcome delivery.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">For Aspire, this supports a very practical thesis: <strong>deployment muscle is becoming a defensible asset</strong>. The winners will be the teams that can connect models to approval chains, data permissions, audit logs, and measurable business outcomes faster than peers.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/07/02/microsoft-launches-its-own-ai-deployment-company-with-2-5-billion-commitment/" class="story-source" target="_blank" rel="noopener">TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">🏦 Funding · Fintech AI</span>
+      <h2 class="story-title">Taktile’s $110M round is a strong signal that banking AI will monetize through decision systems first</h2>
+      <p class="story-summary">Taktile has raised <strong>$110 million led by Goldman Sachs Alternatives</strong> with the ambition to make banks “agent-first.” The interesting bit is not the slogan. It is the workflow focus: the easiest place to commercialize AI in finance is likely <strong>underwriting, onboarding, fraud, risk, and decision orchestration</strong>, where systems can be tightly scoped, monitored, and benchmarked.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This maps well to a disciplined fintech roadmap. The best early wins are probably <strong>constrained-autonomy systems that recommend, triage, reconcile, draft, or escalate</strong> before taking direct financial action.</div>
+      </div>
+      <a href="https://www.pymnts.com/news/artificial-intelligence/2026/this-ceo-just-raised-110-million-to-make-banks-agent-first/" class="story-source" target="_blank" rel="noopener">PYMNTS →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🧠 Research · Interpretability</span>
+      <h2 class="story-title">Anthropic’s “global workspace” paper suggests silent internal reasoning may be getting more legible</h2>
+      <p class="story-summary">Anthropic says Claude has developed a small set of internal neural patterns, its so-called <strong>J-space</strong>, that act a bit like a global workspace. The company argues these patterns are more reportable, controllable, and causally involved in multi-step reasoning than the rest of the model’s internal activity. If that holds up, it is a meaningful step toward <strong>measuring what a model is internally tracking without relying purely on output text</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Interpretability progress matters for governance because it hints at future control surfaces beyond prompt policy. Over time, this kind of work could improve <strong>assurance, explainability, and monitoring for higher-risk enterprise deployments</strong>.</div>
+      </div>
+      <a href="https://www.anthropic.com/research/global-workspace" class="story-source" target="_blank" rel="noopener">Anthropic →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">📈</div>
+      <div>
+        <div class="bite-title">Revenue momentum across AI startups is still accelerating</div>
+        <div class="bite-desc">TechCrunch’s latest roundup highlights how quickly top AI companies are compounding revenue, including Anthropic, Sierra, Glean, and Mercor. The market is rewarding firms that can turn model capability into repeatable enterprise spend.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">💳</div>
+      <div>
+        <div class="bite-title">Financial firms are still leaning in, not pulling back</div>
+        <div class="bite-desc">PYMNTS Intelligence says <strong>85% of financial services and insurance firms plan to increase AI budgets</strong> over the next year. Budget momentum is still outrunning governance maturity.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">⚖️</div>
+      <div>
+        <div class="bite-title">Norm’s $120M round shows high-liability workflows are moving toward supervised agents</div>
+        <div class="bite-desc">Legal AI is becoming a test bed for outcome-priced, human-supervised agent systems, which is exactly the kind of pattern regulated fintech teams should watch.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">📬</div>
+      <div>
+        <div class="bite-title">Inbox sourcing is blocked again by Google OAuth invalid_grant</div>
+        <div class="bite-desc">Today’s edition was still produced on time using public reporting and official sources. Gmail search and Gmail send remain blocked until the gog token is re-authorized.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Split model selection from workflow approval.</strong> A strong model is not the same thing as an approved workflow. Evaluate both separately.<br><br>
+        <strong>2. Define constrained-autonomy lanes.</strong> Prioritize AI systems that can recommend, flag, reconcile, or draft inside explicit thresholds before any direct financial action.<br><br>
+        <strong>3. Build a concentration-risk view.</strong> Keep a live map of which workflows rely on which model vendors, clouds, and external control assumptions.<br><br>
+        <strong>4. Ask for release-governance evidence.</strong> Vendor security posture, safety stack, incident muscle, and rollout discipline should increasingly look like procurement gates.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/gpt-5-6/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">OpenAI’s full GPT-5.6 launch notes and the price-performance argument behind them</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://techcrunch.com/2026/07/02/microsoft-launches-its-own-ai-deployment-company-with-2-5-billion-commitment/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Why Microsoft is productizing AI deployment, not just model access</div><div class="reading-link-source">TechCrunch</div></div><span>→</span></a>
+    <a href="https://www.reuters.com/business/finance/bank-england-sees-growing-risks-financial-stability-ai-2026-07-07/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">The Bank of England’s latest framing of AI risk for financial stability</div><div class="reading-link-source">Reuters</div></div><span>→</span></a>
+    <a href="https://www.pymnts.com/news/artificial-intelligence/2026/this-ceo-just-raised-110-million-to-make-banks-agent-first/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Taktile’s case for “agent-first” banking through controlled decision systems</div><div class="reading-link-source">PYMNTS</div></div><span>→</span></a>
+    <a href="https://www.anthropic.com/research/global-workspace" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Anthropic’s paper on Claude’s possible internal “global workspace”</div><div class="reading-link-source">Anthropic</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Bob</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>

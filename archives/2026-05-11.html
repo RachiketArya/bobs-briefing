@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — May 11, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Monday morning, Rachiket ☕🫏. Today's pattern is that <strong>AI control layers are becoming real product surface area</strong>, not just policy garnish. The strongest signals are around <strong>trusted access, hardened identity, workflow-native finance agents, government pre-release testing, and market pricing of AI risk</strong>. For Aspire, that cluster points to one thing: governance is increasingly the thing that makes AI deployable.</p>
+      <div class="hero-date"><span>📅</span><span>Monday, May 11, 2026 (SGT) · Issue #37</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>8 min</strong> read</span>
+        <span class="hero-stat"><strong>0</strong> Gmail newsletter pulls (OAuth blocked)</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">10</div><div class="number-pill-label">New finance agent templates Anthropic launched</div></div>
+      <div class="number-pill"><div class="number-pill-value">40</div><div class="number-pill-label">CAISI evaluations completed so far, including unreleased models</div></div>
+      <div class="number-pill"><div class="number-pill-value">Jun 1</div><div class="number-pill-label">Date stronger account security becomes mandatory for some OpenAI trusted cyber users</div></div>
+      <div class="number-pill"><div class="number-pill-value">$45B</div><div class="number-pill-label">Potential valuation for DeepSeek's first external funding round</div></div>
+      <div class="number-pill"><div class="number-pill-value">0</div><div class="number-pill-label">Fresh Gmail Substack pulls because the token is revoked</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">🛡️ Launch · Cyber</span>
+      <h2 class="story-title">OpenAI is rolling out GPT-5.5-Cyber under Trusted Access, which is a strong signal for tiered AI capability release</h2>
+      <p class="story-summary">OpenAI says GPT-5.5-Cyber is entering limited preview for defenders securing critical infrastructure, layered on top of its Trusted Access for Cyber framework. The operating idea is clear: higher-capability cyber workflows get <strong>more identity checks, more trust gating, and tighter safeguards</strong> instead of broad default access. That feels like a template other sensitive agent categories will copy.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is directly relevant to fintech AI operations. High-risk capabilities should not be treated like normal productivity features. <strong>Privilege tiering, entitlement checks, and explicit trust gates</strong> are increasingly part of the product, not just the policy deck.</div>
+      </div>
+      <a href="https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/" class="story-source" target="_blank" rel="noopener">OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🔐 Security · Identity</span>
+      <h2 class="story-title">Advanced Account Security makes AI identity look a lot more like privileged infrastructure than consumer software</h2>
+      <p class="story-summary">OpenAI's new Advanced Account Security bundle requires passkeys or physical security keys, disables weaker password and SMS recovery paths, shortens sessions, and extends the protection model to Codex-linked access. Separately, OpenAI's writeup on running Codex safely emphasizes <strong>sandboxing, approvals, network policy, and agent-native telemetry</strong>. The bigger takeaway is that AI accounts and agents are being managed like sensitive operational surfaces.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Aspire probably wants a sharper distinction between <strong>ordinary employee AI use</strong> and <strong>admin, builder, and automation-linked identities</strong>. Stronger auth, tighter recovery, shorter sessions, and reviewable telemetry map neatly onto a fintech control posture.</div>
+      </div>
+      <a href="https://openai.com/index/advanced-account-security/" class="story-source" target="_blank" rel="noopener">OpenAI Security →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏦 Industry · Finance</span>
+      <h2 class="story-title">Anthropic's new finance agents push the market one step closer to workflow-native AI for regulated work</h2>
+      <p class="story-summary">Anthropic launched <strong>10 ready-to-run finance agent templates</strong> for tasks like pitchbooks, KYC screening, statement review, month-end close, and model building. It is also threading those agents into Microsoft 365 and governed data connectors. This is more important than another generic enterprise assistant announcement because it goes straight after <strong>high-value, high-accountability workflows</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">The signal for Aspire is that vendors are packaging agents around <strong>specific regulated workflows</strong>, not just horizontal chat interfaces. That raises the bar for evidence trails, approval flows, domain evaluation, and connector governance.</div>
+      </div>
+      <a href="https://www.anthropic.com/news/finance-agents" class="story-source" target="_blank" rel="noopener">Anthropic →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Safety</span>
+      <h2 class="story-title">US pre-release AI testing is getting procedural enough that internal release gates no longer feel optional</h2>
+      <p class="story-summary">Federal News Network reports the White House is studying an executive-order path for ensuring advanced AI models are tested before broad public release. At the same time, CAISI has agreements with Google DeepMind, Microsoft, and xAI for <strong>pre-deployment evaluations</strong>, and says it has already completed <strong>40 evaluations</strong>, including on unreleased models. The mood is shifting from abstract safety talk to actual release mechanics.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Anything customer-facing, fraud-adjacent, compliance-supporting, or security-relevant at Aspire should likely have a <strong>defined pre-launch gate</strong>, not an informal thumbs-up. External norms are converging toward structured evaluation.</div>
+      </div>
+      <a href="https://federalnewsnetwork.com/artificial-intelligence/2026/05/wh-studying-ai-security-executive-order/" class="story-source" target="_blank" rel="noopener">Federal News Network →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">🛡️ Fintech · Risk</span>
+      <h2 class="story-title">Corgi's AI insurance product is a small launch with a bigger message: AI risk is becoming legible enough to price</h2>
+      <p class="story-summary">InsurTech firm Corgi launched modular AI coverage that can sit inside existing Tech E&amp;O, with selectable protection for biased outputs, harmful generated content, training-data misuse, adversarial attacks, synthetic media issues, and autonomous-system failures. The important point is not just the product, it is that <strong>AI failure modes are being translated into insurable categories</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Insurance language is often an early warning system for what the market will soon expect in diligence, contracts, incident allocation, and control design. That makes this useful reading for both vendor governance and risk taxonomy work.</div>
+      </div>
+      <a href="https://fintech.global/2026/05/06/corgi-launches-ai-insurance-product-to-cover-emerging-risks/" class="story-source" target="_blank" rel="noopener">FinTech Global →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💰</div>
+      <div>
+        <div class="bite-title">DeepSeek could hit a $45B valuation in its first outside funding round</div>
+        <div class="bite-desc">TechCrunch says DeepSeek is in talks for its first venture round, potentially led by China's state-backed chip fund. The strategic point is that <strong>frontier AI capital is now a geopolitical industrial-policy story</strong>, not just a venture story.</div>
+        <a href="https://techcrunch.com/2026/05/06/deepseek-could-hit-45b-valuation-from-its-first-investment-round/" class="bite-link" target="_blank" rel="noopener">TechCrunch →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🧭</div>
+      <div>
+        <div class="bite-title">OpenAI's Codex safety posture is a useful design reference for agent governance</div>
+        <div class="bite-desc">The most reusable pattern is simple: bounded sandboxes, explicit approvals for higher-risk actions, network allowlisting, and logs that explain what the agent actually did.</div>
+        <a href="https://openai.com/index/running-codex-safely/" class="bite-link" target="_blank" rel="noopener">OpenAI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">📊</div>
+      <div>
+        <div class="bite-title">Anthropic is packaging finance agents with connectors, plugins, and Microsoft 365 context carryover</div>
+        <div class="bite-desc">That makes the distribution story almost as important as the models themselves. The sticky moat is increasingly the workflow wrapper, not just raw intelligence.</div>
+        <a href="https://www.anthropic.com/news/finance-agents" class="bite-link" target="_blank" rel="noopener">Anthropic →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📬</div>
+      <div>
+        <div class="bite-title">Inbox sourcing was blocked again by Gmail OAuth, not by the newsletter pipeline</div>
+        <div class="bite-desc">The Substack search failed with <strong>invalid_grant</strong>, so today's edition leans on official posts and public reporting rather than Gmail-sourced newsletters.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Define risk tiers for AI capabilities, not just vendors.</strong> Cyber workflows, external actions, customer-impacting automations, and sensitive-data agents should trigger stronger access conditions by default.<br><br>
+        <strong>2. Create a privileged AI identity class.</strong> Builder, admin, and service-linked AI accounts should have stronger auth, reduced recovery paths, and shorter session windows.<br><br>
+        <strong>3. Build a lightweight release gate for sensitive AI changes.</strong> Model swaps, connector expansions, or prompt changes that affect compliance, fraud, underwriting, or customer outcomes should have explicit evaluation and rollback steps.<br><br>
+        <strong>4. Expand vendor diligence to include insurability and incident allocation.</strong> Ask how providers handle failure classes, who bears losses, what telemetry exists, and how contractual remedies map to actual operational risk.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Trusted access as the new control plane for sensitive AI capabilities</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://openai.com/index/advanced-account-security/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Why stronger AI account security is starting to look like privileged-access management</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://www.anthropic.com/news/finance-agents" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Workflow-native finance agents and what they imply for governed deployment</div><div class="reading-link-source">Anthropic</div></div><span>→</span></a>
+    <a href="https://federalnewsnetwork.com/artificial-intelligence/2026/05/wh-studying-ai-security-executive-order/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">How pre-release AI oversight is hardening into process</div><div class="reading-link-source">Federal News Network</div></div><span>→</span></a>
+    <a href="https://fintech.global/2026/05/06/corgi-launches-ai-insurance-product-to-cover-emerging-risks/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Why AI insurance is becoming a useful proxy for concrete operational risk</div><div class="reading-link-source">FinTech Global</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Bob</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>

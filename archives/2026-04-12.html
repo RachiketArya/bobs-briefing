@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 12, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good evening Rachiket ☕🫏 — Sunday winding down, and it's been a wild 48 hours. <strong>Anthropic launched Project Glasswing</strong> — deploying Claude Mythos Preview for defensive cybersecurity with Amazon, Apple, Google, and Microsoft as launch partners. <strong>Tesla FSD just got its first European approval</strong> in the Netherlands, and OpenAI dropped a 13-page policy blueprint proposing <em>robot taxes</em> and a public wealth fund. Meanwhile, <strong>Intel joined Musk's Terafab AI chip fab</strong> project, and GITEX AI Asia just wrapped two packed days at Marina Bay Sands. Settle in — this one connects the dots.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Sunday, April 12, 2026 (SGT) · Issue #18</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>10</strong> stories</span>
+        <span class="hero-stat"><strong>8 min</strong> read</span>
+        <span class="hero-stat"><strong>$297B</strong> Q1 AI funding</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$297B</div>
+        <div class="number-pill-label">Q1 2026 global AI funding</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">1000s</div>
+        <div class="number-pill-label">Zero-days found by Mythos</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">🇳🇱 1st</div>
+        <div class="number-pill-label">EU country to approve FSD</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">32hr</div>
+        <div class="number-pill-label">OpenAI's proposed workweek</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">112d</div>
+        <div class="number-pill-label">Until EU AI Act high-risk</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: Project Glasswing -->
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Frontier AI</span>
+      <h2 class="story-title">Anthropic Launches Project Glasswing — Claude Mythos Preview Finds Thousands of Zero-Day Vulnerabilities</h2>
+      <p class="story-summary">
+        This is a big one. <strong>Anthropic unveiled Project Glasswing on April 7</strong>, deploying its unreleased frontier model <strong>Claude Mythos Preview</strong> specifically for defensive cybersecurity. Launch partners include AWS, Apple, Google, Microsoft, and Cisco — essentially every major infrastructure player. The model autonomously identifies software vulnerabilities faster than human security researchers, compressing discovery timelines from <em>months to minutes</em>. Anthropic reports thousands of high-severity zero-day bugs found across every major OS and browser. On benchmarks, Mythos Preview hits <strong>93.9% on SWE-bench Verified</strong> and <strong>94.6% on GPQA Diamond</strong>. The dual-use tension is obvious — the same model that finds vulnerabilities could theoretically exploit them — but Anthropic is positioning this as "offense informs defense" with strict access controls and partner vetting.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          Two angles for Monday. <strong>First, vendor security:</strong> if Aspire uses any software from Apple, Google, Microsoft, or AWS (spoiler: you do), the bugs Glasswing is finding are in <em>your</em> stack. The good news is the responsible-disclosure pipeline means patches will flow. The strategic question is whether to proactively ask key vendors about their Glasswing participation in your next security review. <strong>Second, AI governance:</strong> Glasswing is a textbook case of a dual-use AI system. Your AI Use Policy should have a position on whether Aspire would ever deploy autonomous vulnerability-discovery tools — and under what guardrails. MAS will care about this.
+        </div>
+      </div>
+      <a href="https://www.anthropic.com/glasswing" class="story-source" target="_blank" rel="noopener">
+        Anthropic · llm-stats.com <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: Tesla FSD Europe -->
+    <div class="story-card">
+      <span class="story-tag tag-product">🚀 Product · Autonomous</span>
+      <h2 class="story-title">Netherlands Becomes First European Country to Approve Tesla FSD Supervised</h2>
+      <p class="story-summary">
+        On April 10, <strong>the Dutch vehicle authority RDW granted Tesla formal type approval for FSD Supervised under UN Regulation 171</strong> — the EU standard governing automated driving systems. This makes the Netherlands the first European country to authorize the system, opening the door to a broader EU rollout this summer. Separately, Tesla also received <strong>regulatory approval for unsupervised FSD pilot programs in London and Berlin</strong>. The distinction matters: "supervised" requires driver attention; the UK/Germany pilots are testing <em>unsupervised</em> operation. The regulatory patchwork is messy but moving fast — and the AI driving the system is fundamentally a vision-language model making real-time safety decisions. This is AI governance with actual body-count stakes.
+      </p>
+      <a href="https://electrek.co/2026/04/10/tesla-fsd-supervised-approved-netherlands-rdw-europe/" class="story-source" target="_blank" rel="noopener">
+        Electrek · The Next Web · Evxl <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: OpenAI Policy Blueprint -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">⚖️ Policy · Economics</span>
+      <h2 class="story-title">OpenAI Publishes "Industrial Policy for the Intelligence Age" — Robot Taxes, Wealth Funds, and a 32-Hour Workweek</h2>
+      <p class="story-summary">
+        Sam Altman released a 13-page policy blueprint this week that reads like a New Deal for the AI era. The headline proposals: <strong>taxes on automated labor</strong>, shifting the tax base from payroll toward capital gains and corporate income (since AI could hollow out wage-based revenue funding Social Security and Medicaid), a <strong>public wealth fund</strong> modeled on Alaska's Permanent Fund to give every citizen a "stake in AI-driven economic growth," and a pilot <strong>32-hour workweek</strong> funded by AI productivity gains. The timing — ahead of OpenAI's expected IPO — is strategically impeccable. Whether you read it as genuine policy thought-leadership or pre-IPO reputation management, the document is now the most specific economic framework any AI lab has proposed. Governments will respond.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          The "automated labor tax" proposal directly affects fintech. If AI handles KYC checks, fraud monitoring, or credit decisions that previously required human analysts, the fiscal argument is that the <em>productivity surplus</em> should be taxed differently. This won't be law soon — but it signals the policy direction. For Aspire's AI strategy deck, it's worth a slide on "regulatory trajectory risk" that flags this framework. Your board will see it in the FT and ask about it. Better to have the answer ready.
+        </div>
+      </div>
+      <a href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" class="story-source" target="_blank" rel="noopener">
+        TechCrunch · The Hill · Axios <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: Terafab + Intel -->
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏭 Infrastructure · Chips</span>
+      <h2 class="story-title">Intel Joins Musk's Terafab — The AI Chip Mega-Fab Gets Its Manufacturing Partner</h2>
+      <p class="story-summary">
+        Announced April 7 and still reverberating: <strong>Intel formally joined Elon Musk's Terafab project</strong>, a joint venture between SpaceX, xAI, and Tesla to build a next-generation AI chip fabrication facility. Intel CEO Lip-Bu Tan hosted Musk at Intel facilities before the announcement, and Intel's contribution is clear: <strong>manufacturing expertise for ultra-high-performance chips at scale</strong>. The joint-venture structure shares capital risk and chip output across stakeholders. Musk stressed that the majority of chip output would serve SpaceX for satellite-based AI data centers and a "space-oriented industrial economy." This is vertical integration taken to its logical extreme — own the model, own the cloud, own the fab, own the orbit.
+      </p>
+      <a href="https://www.fool.com/investing/2026/04/12/heres-the-real-reason-spacex-is-teaming-up-with-in/" class="story-source" target="_blank" rel="noopener">
+        Motley Fool · Teslarati · Wikipedia <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💰</div>
+      <div class="bite-content">
+        <div class="bite-title">Q1 2026 AI Funding Shatters Records: $297 Billion</div>
+        <div class="bite-desc">Global startup investment hit <strong>$297B in Q1 2026</strong>, driven by monster rounds: OpenAI's $110B (February, led by Amazon/Nvidia/SoftBank) plus a $12B top-up in March, Anthropic's $30B Series G, and xAI's $20B Series E. Anthropic's valuation hit $380B. OpenAI sits at $852B. The revenue race is narrowing — OpenAI at $20B annualized vs. Anthropic at $9–19B depending on the source. IPO season approaches.</div>
+        <a href="https://news.crunchbase.com/venture/funding-surges-all-stages-ai-north-america-q1-2026/" class="bite-link" target="_blank" rel="noopener">Crunchbase · NYT · Reuters →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🇸🇬</div>
+      <div class="bite-content">
+        <div class="bite-title">GITEX AI Asia Wraps at Marina Bay Sands — 110+ Countries, 550+ Enterprises</div>
+        <div class="bite-desc">Asia's largest tech event <strong>ran April 9–10 at Marina Bay Sands</strong>, drawing 550+ enterprises and startups alongside 250 global investors managing ~$350B in assets. Key theme shift: the conversation has moved from "AI experimentation" to <strong>infrastructure, deployment, and edge inference monetization</strong>. Southeast Asia's role as an AI deployment hub (not just a consumer) keeps growing. You were right there in Singapore — worth following up on any Aspire-relevant connections.</div>
+        <a href="https://www.digitimes.com/news/a20260409VL208/gitex-2026-ai-infrastructure-data-center-singapore.html" class="bite-link" target="_blank" rel="noopener">DigiTimes →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">⚖️</div>
+      <div class="bite-content">
+        <div class="bite-title">EU AI Act High-Risk Deadline: August 2, 2026 — 112 Days and Counting</div>
+        <div class="bite-desc">Your weekly compliance nudge: <strong>all high-risk AI systems — including credit scoring, loan approvals, fraud detection, and employment decisions — must be fully compliant by August 2, 2026</strong>. Requirements include conformity assessments, technical documentation, human-oversight procedures, and ongoing monitoring. Raconteur published a practical audit guide this week. If Aspire has any EU-facing AI in production, the clock is loud.</div>
+        <a href="https://www.raconteur.net/global-business/eu-ai-act-compliance-a-technical-audit-guide-for-the-2026-deadline" class="bite-link" target="_blank" rel="noopener">Raconteur · Corporate Compliance Insights →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">⚔️</div>
+      <div class="bite-content">
+        <div class="bite-title">OpenAI Slams Musk's "Legal Ambush" in Ongoing Lawsuit</div>
+        <div class="bite-desc">The OpenAI vs. Musk legal saga continues with a new twist — <strong>Musk filed a sudden legal maneuver</strong> that OpenAI has called a "legal ambush." The timing coincides with both OpenAI's policy blueprint release and the Terafab announcement, making the corporate chess game increasingly complex. The lawsuit's outcome could reshape AI governance norms around organizational structure and mission fidelity.</div>
+        <a href="https://opentools.ai/news" class="bite-link" target="_blank" rel="noopener">OpenTools AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">AI Compliance in 2026: "Sustained Control" Is the New Regulatory Bar</div>
+        <div class="bite-desc">The Opal Group's "Compliance in the Age of AI" conference agenda crystallized a shift: <strong>regulators are no longer asking whether organizations are "experimenting responsibly" — they're asking whether you can demonstrate sustained control, accountability, and oversight across AI systems already in production</strong>. The bar moved from intent to proof. Human-in-the-loop is now a regulatory floor, not a nice-to-have.</div>
+        <a href="https://opalgroup.net/emerging-technology/compliance-in-the-age-of-ai-2026-agenda/" class="bite-link" target="_blank" rel="noopener">Opal Group →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">📉</div>
+      <div class="bite-content">
+        <div class="bite-title">TCS Tightens Fresher Intake to 25,000 as IT Hiring Cools</div>
+        <div class="bite-desc">TCS extended just <strong>25,000 fresher offers for FY2027</strong>, a significant cut as AI-driven automation reduces demand for entry-level IT services roles. The broader signal: India's IT workforce transformation is accelerating. For fintech companies relying on Indian engineering talent, the talent pool composition is shifting — fewer generalists, more AI/ML specialists commanding premium rates.</div>
+        <a href="https://opentools.ai/news" class="bite-link" target="_blank" rel="noopener">OpenTools AI →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ ASPIRE GOVERNANCE CORNER ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div>
+      <span class="section-title">Governance Corner</span>
+    </div>
+
+    <div class="aspire-corner" style="margin-bottom: 20px;">
+      <div class="aspire-corner-label">📋 Your Week Ahead — AI Governance To-Do List</div>
+      <div class="aspire-corner-text">
+        <strong>1. Review OpenAI's "Industrial Policy" blueprint</strong> — 13 pages, worth the read. The automated-labor-tax framing will come up in board conversations.<br><br>
+        <strong>2. EU AI Act gap assessment</strong> — if Aspire has any EU-facing AI (credit scoring, fraud models), 112 days is tight for conformity assessments. Flag to compliance this week.<br><br>
+        <strong>3. Vendor security posture post-Glasswing</strong> — Anthropic just found thousands of zero-days across major platforms. Ask your key infrastructure vendors about their patching timeline.<br><br>
+        <strong>4. GITEX AI Asia follow-up</strong> — the event just wrapped in Singapore. If anyone from Aspire attended or if there are partnership leads, this is the week to follow up while it's fresh.<br><br>
+        <strong>5. MAS AI Risk Management Toolkit</strong> — still the single most actionable local regulatory document for your role. Carve out 20 minutes this week.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ DEEP DIVES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📚</div>
+      <span class="section-title">Deep Dives</span>
+    </div>
+
+    <a href="https://www.anthropic.com/glasswing" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Project Glasswing: Anthropic's Defensive Cybersecurity Initiative</div>
+        <div class="reading-link-source">Anthropic · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">OpenAI's Vision: Public Wealth Funds, Robot Taxes, and a Four-Day Workweek</div>
+        <div class="reading-link-source">TechCrunch · 10 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://electrek.co/2026/04/10/tesla-fsd-supervised-approved-netherlands-rdw-europe/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Tesla FSD Supervised Approved in the Netherlands — What It Means for Europe</div>
+        <div class="reading-link-source">Electrek · 7 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.fool.com/investing/2026/04/12/heres-the-real-reason-spacex-is-teaming-up-with-in/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Here's the Real Reason SpaceX Is Teaming Up With Intel on Terafab</div>
+        <div class="reading-link-source">Motley Fool · 9 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.raconteur.net/global-business/eu-ai-act-compliance-a-technical-audit-guide-for-the-2026-deadline" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">EU AI Act Compliance: A Technical Audit Guide for the 2026 Deadline</div>
+        <div class="reading-link-source">Raconteur · 12 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://news.crunchbase.com/venture/funding-surges-all-stages-ai-north-america-q1-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">North America Q1 Funding Surges to Record Levels</div>
+        <div class="reading-link-source">Crunchbase News · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.digitimes.com/news/a20260410VL217/gitex-asia-2026-ai-infrastructure-singapore.html" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">AI Spending Shifts to Edge Inference — GITEX Asia Recap</div>
+        <div class="reading-link-source">DigiTimes · 6 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Bob's Briefing</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Curated daily by Bob for Rachiket · April 12, 2026</div>
+    <div class="footer-sub" style="margin-top: 8px;">Your friendly donkey-spirit AI assistant 🫏</div>
+  </footer>
+
+</div>
+</body>
+</html>

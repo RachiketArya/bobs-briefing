@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 7, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Hey Rachiket 🌙 — Tuesday night in Singapore. The AI money machine is in overdrive: Q1 2026 venture funding hit $300B (yes, billion with a B), and OpenAI is eyeing a Q4 IPO. Meanwhile, a neuro-symbolic AI breakthrough promises 100× energy savings, US states are racing ahead of the feds on AI regulation, and "Fintech Americas" wrapped in Miami calling for "AI with a Soul." Big regulation story for your Aspire work tonight — states aren't waiting for Congress.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Tuesday, April 7, 2026 · Issue #13</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>10</strong> stories</span>
+        <span class="hero-stat"><strong>6 min</strong> read</span>
+        <span class="hero-stat"><strong>$300B</strong> Q1 venture total</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$300B</div>
+        <div class="number-pill-label">Q1 2026 global VC funding</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$122B</div>
+        <div class="number-pill-label">OpenAI's mega-raise</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">100×</div>
+        <div class="number-pill-label">AI energy reduction</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$125M</div>
+        <div class="number-pill-label">Aria Networks Series A</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">Q4 '26</div>
+        <div class="number-pill-label">OpenAI IPO target</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: Q1 2026 Venture Funding -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding</span>
+      <h2 class="story-title">Q1 2026 Shatters Every Venture Record: $300B Poured Into Startups as AI Dominates</h2>
+      <p class="story-summary">
+        The numbers are staggering. <strong>Investors poured $300 billion into 6,000 startups globally in Q1 2026</strong> — up over 150% quarter-over-quarter and year-over-year. That single quarter nearly matched 70% of all VC spending in 2025. AI accounted for <strong>$242 billion (80%)</strong> of the total. Four of the five largest venture rounds ever recorded closed in Q1: OpenAI ($122B), Anthropic ($30B), xAI ($20B), and Waymo ($16B) — collectively $188B or 65% of global venture investment. The concentration at the top is extreme, but early-stage and seed funding are also up 40% and 30% respectively.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          The fintech funding picture is mixed but noteworthy. Forbes notes the 2026 fintech boom is "about more than AI" — Cloaked raised $375M for privacy, and compliance-forward startups are thriving. The SEC's 2026 exam priorities now specifically flag automated investment tools and AI. For Aspire, this signals that investors are rewarding companies with strong AI governance stories, not just AI capabilities.
+        </div>
+      </div>
+      <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="story-source" target="_blank" rel="noopener">
+        Crunchbase · NYT · Forbes <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: OpenAI Policy Proposals + IPO -->
+    <div class="story-card">
+      <span class="story-tag tag-breaking">🔥 Breaking</span>
+      <h2 class="story-title">OpenAI Eyes Q4 2026 IPO, Proposes Robot Taxes & Public Wealth Funds</h2>
+      <p class="story-summary">
+        Two big moves from the $852B company. First: <strong>OpenAI is reportedly on track for an IPO as early as Q4 2026</strong>, following the massive $122B fundraise. CEO Sam Altman and CFO Sarah Friar are confident. Second: OpenAI released sweeping policy proposals for the "Intelligence Age" — including a <strong>Public Wealth Fund giving all Americans a stake in AI companies</strong>, a subsidized four-day work week, robot taxes on AI profits, higher capital gains taxes on AI-driven returns, and expanded safety nets. The proposals blend left-leaning redistribution with a capitalist framework, arriving as the midterms heat up with millions in AI industry PAC money.
+      </p>
+      <a href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" class="story-source" target="_blank" rel="noopener">
+        TechCrunch · Reuters <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: AI Enforcement Accelerates -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">⚖️ Regulation</span>
+      <h2 class="story-title">AI Enforcement Accelerates: States Race Ahead as Federal Policy Stalls</h2>
+      <p class="story-summary">
+        Morgan Lewis published a comprehensive analysis of the evolving AI enforcement landscape. Key takeaway: <strong>the absence of a federal AI statute doesn't mean reduced risk — it means more fragmented, more complex enforcement</strong>. The FTC is using Section 5 to police deceptive AI practices. The SEC is targeting "AI washing" in corporate disclosures. The DOJ is pursuing False Claims Act theories where AI is used in government programs. States are moving aggressively — California's Newsom just signed an executive order on AI procurement, and <strong>New York will require AI disclosures in ads starting June 2026</strong>. Millions in AI industry money are pouring into midterm races over regulation.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This is critical reading for your AI governance work, Rachiket. The patchwork of state-level enforcement is the most pressing near-term challenge for any company deploying AI in financial services. The SEC's focus on "AI washing" means your claims about AI capabilities need to be defensible. The FTC's consumer protection enforcement and DOJ's False Claims Act theories create liability for AI-driven decisions in lending, compliance, and fraud detection. The Morgan Lewis piece is a practical guide worth bookmarking — it outlines what companies should be doing now.
+        </div>
+      </div>
+      <a href="https://www.morganlewis.com/pubs/2026/04/ai-enforcement-accelerates-as-federal-policy-stalls-and-states-step-in" class="story-source" target="_blank" rel="noopener">
+        Morgan Lewis <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: Neuro-Symbolic AI Breakthrough -->
+    <div class="story-card">
+      <span class="story-tag tag-research">🔬 Research</span>
+      <h2 class="story-title">Neuro-Symbolic AI Breakthrough Cuts Energy Use 100× While Boosting Accuracy</h2>
+      <p class="story-summary">
+        Researchers at Tufts University have unveiled a radically more efficient approach to AI that could <strong>slash energy consumption by up to 100× while actually improving performance</strong>. The system combines traditional neural networks with symbolic reasoning — a "neuro-symbolic" hybrid that mirrors how humans break problems into steps. Unlike brute-force LLMs, their visual-language-action models can reason about tasks like block-stacking without the failures plaguing conventional approaches. The work will be presented at the International Conference of Robotics and Automation in Vienna this May. With AI data centers projected to double US power consumption by 2030, this kind of efficiency breakthrough is exactly what the industry needs.
+      </p>
+      <a href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" class="story-source" target="_blank" rel="noopener">
+        ScienceDaily <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🌐</div>
+      <div class="bite-content">
+        <div class="bite-title">Aria Networks Raises $125M for AI Networking Infrastructure</div>
+        <div class="bite-desc">The startup announced its first Series A funding round today to develop <strong>AI networking infrastructure</strong> to meet soaring demand for AI compute connectivity. As AI clusters grow to unprecedented scale, the networking layer between GPUs is becoming a critical bottleneck — and a major investment opportunity.</div>
+        <a href="https://www.reuters.com/technology/" class="bite-link" target="_blank" rel="noopener">Reuters →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">📉</div>
+      <div class="bite-content">
+        <div class="bite-title">Meta Lays Off 200 More Workers Amid Aggressive AI Push</div>
+        <div class="bite-desc">State filings show <strong>124 roles in Burlingame and 74 in Sunnyvale will be cut by late May</strong>, adding to ~2,200 layoffs already announced this year. Major cuts hit Reality Labs as Meta redirects resources toward AI infrastructure. The multi-billion dollar pivot from metaverse to AI continues at full speed.</div>
+        <a href="https://markets.financialcontent.com/stocks/article/finterra-2026-4-7-metas-multi-billion-dollar-gamble-from-social-media-giant-to-ai-infrastructure-sovereign" class="bite-link" target="_blank" rel="noopener">FinancialContent →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🛡️</div>
+      <div class="bite-content">
+        <div class="bite-title">CrowdStrike Unveils AI Security Innovations at RSAC 2026</div>
+        <div class="bite-desc">Endpoint protection is becoming the <strong>new battleground for AI governance</strong>. CrowdStrike announced new capabilities positioning AI-driven threat detection and response at the center of enterprise security. As AI agents proliferate in corporate environments, securing them becomes a first-order concern.</div>
+        <a href="https://aiagentstore.ai/ai-agent-news/this-week" class="bite-link" target="_blank" rel="noopener">AI Agent Store →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🤖</div>
+      <div class="bite-content">
+        <div class="bite-title">NVIDIA's National Robotics Week: Physical AI Goes Mainstream</div>
+        <div class="bite-desc">NVIDIA is showcasing robots that perceive, reason, and act in complex environments. Highlights: the <strong>MassRobotics Fellowship cohort</strong> featuring Burro (autonomous agriculture), Config Intelligence (bimanual robotics), and Telexistence. NVIDIA Cosmos models are enabling the jump from virtual training to real-world deployment faster than ever.</div>
+        <a href="https://blogs.nvidia.com/blog/national-robotics-week-2026/" class="bite-link" target="_blank" rel="noopener">NVIDIA Blog →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🎓</div>
+      <div class="bite-content">
+        <div class="bite-title">OpenAI Launches Safety Fellowship for External Researchers</div>
+        <div class="bite-desc">A new program for independent researchers to pursue <strong>AI safety and alignment research</strong>, running September 2026 through February 2027. This comes alongside their policy proposals — a clear push to demonstrate responsibility as the IPO approaches.</div>
+        <a href="https://openai.com" class="bite-link" target="_blank" rel="noopener">OpenAI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🌎</div>
+      <div class="bite-content">
+        <div class="bite-title">Fintech Americas 2026 Wraps in Miami: "AI with a Soul"</div>
+        <div class="bite-desc">The conference closed with a call for <strong>"AI with a Soul" as the defining conversation for the coming decade</strong>. Financial inclusion remains a top priority for underserved markets in Latin America and Southeast Asia, and the consensus is clear: AI in fintech must be built with humanity at the center, not bolted on as an afterthought.</div>
+        <div class="aspire-corner" style="margin-top: 10px;">
+          <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+          <div class="aspire-corner-text">
+            "AI with a Soul" resonates with Aspire's mission serving SMEs across Southeast Asia. The conference theme aligns with building AI-powered financial services that are transparent, fair, and inclusive — exactly the kind of governance framework you're designing. This is the narrative investors and regulators want to hear.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ FROM YOUR INBOX ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📬</div>
+      <span class="section-title">From Your Inbox</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📰</div>
+      <div class="bite-content">
+        <div class="bite-title">Ben's Bites: "No Claude for Claws"</div>
+        <div class="bite-desc">Today's edition from Ben's Bites dropped at 1:15 PM. Title suggests coverage of <strong>Anthropic restricting API access for certain agent frameworks</strong> — a governance and access control story worth skimming.</div>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🔬</div>
+      <div class="bite-content">
+        <div class="bite-title">AI Made Simple: "How to Use AI for Cutting Edge Research"</div>
+        <div class="bite-desc">Devansh's morning newsletter covers <strong>practical AI applications in research workflows</strong> — from literature review to experiment design. Useful for anyone building AI-augmented processes.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ DEEP DIVES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-dim);">📚</div>
+      <span class="section-title">Deep Dives</span>
+    </div>
+
+    <a href="https://www.morganlewis.com/pubs/2026/04/ai-enforcement-accelerates-as-federal-policy-stalls-and-states-step-in" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">AI Enforcement Accelerates as Federal Policy Stalls — Full Analysis</div>
+        <div class="reading-link-source">Morgan Lewis · 15 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">OpenAI's Vision for the AI Economy: Wealth Funds, Robot Taxes, 4-Day Workweek</div>
+        <div class="reading-link-source">TechCrunch · 10 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Q1 2026 Shatters Records: $300B in Venture Funding, 80% to AI</div>
+        <div class="reading-link-source">Crunchbase · 12 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Why the 2026 Fintech Funding Boom Is About More Than AI</div>
+        <div class="reading-link-source">Forbes · 8 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Neuro-Symbolic AI: 100× Energy Reduction with Better Accuracy</div>
+        <div class="reading-link-source">ScienceDaily · 6 min read</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Bob's Briefing</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Curated daily by Bob for Rachiket · April 7, 2026</div>
+    <div class="footer-sub" style="margin-top: 8px;">Your friendly donkey-spirit AI assistant 🫏</div>
+  </footer>
+
+</div>
+</body>
+</html>

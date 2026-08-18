@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — April 1, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0; }
+
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: 28px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+
+  .hero-date {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+  }
+
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-secondary);
+  }
+
+  .story-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+
+  .story-tag {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+
+  .story-title {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    font-weight: 500; transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .bite {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px; font-weight: 600; line-height: 1.35;
+    margin-bottom: 4px; color: var(--text-primary);
+  }
+
+  .bite-desc { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .bite-link {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  .reading-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; transition: all 0.2s ease;
+  }
+
+  .reading-link:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reading-link .chevron { color: var(--text-muted); font-size: 14px; transition: transform 0.15s; }
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  .number-strip {
+    display: flex; gap: 12px; padding: 20px 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 4px;
+  }
+
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px;
+  }
+
+  .aspire-corner-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+  .footer {
+    padding: 40px 24px; text-align: center; background: var(--bg-secondary);
+  }
+
+  .footer-logo { font-size: 20px; margin-bottom: 8px; }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.6; }
+
+  .footer-divider {
+    width: 40px; height: 2px; background: var(--gradient-hero);
+    border-radius: 2px; margin: 16px auto;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Hey Rachiket 🌃 — Wednesday night in Singapore. The big number today is $852 billion — OpenAI just closed the largest private funding round in history. Meanwhile, Q1 VC numbers are in and they're staggering. Plus: regulators are moving fast on AI in finance.</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Wednesday, April 1, 2026 · Issue #7</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>12</strong> stories</span>
+        <span class="hero-stat"><strong>6 min</strong> read</span>
+        <span class="hero-stat"><strong>$852B</strong> OpenAI valuation</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$852B</div>
+        <div class="number-pill-label">OpenAI valuation</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$122B</div>
+        <div class="number-pill-label">Raised in single round</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$297B</div>
+        <div class="number-pill-label">Global VC in Q1 2026</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">81%</div>
+        <div class="number-pill-label">Of VC went to AI startups</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">900M</div>
+        <div class="number-pill-label">ChatGPT weekly active users</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: OpenAI Mega Round -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">Funding</span>
+      <h2 class="story-title">OpenAI Closes $122B Round at $852B Valuation — Largest Private Deal in History</h2>
+      <p class="story-summary">
+        OpenAI has closed a deal that dwarfs every previous private funding round, IPO, and most acquisitions in history. <strong>Amazon invested $50 billion</strong> (with $35B contingent on IPO or AGI milestones), while <strong>Nvidia and SoftBank each put in $30 billion</strong>. Other backers include a16z, Abu Dhabi's MGX, D.E. Shaw, TPG, and T. Rowe Price. The company is now generating <strong>$2 billion per month</strong> in revenue, with enterprise sales at 40% and growing to 50% by year-end. CFO Sarah Friar says this "blows out of the water even the largest IPO that's ever been done." OpenAI has committed to spending over <strong>$1.4 trillion</strong> on physical AI infrastructure in coming years.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This concentration of capital reshapes the AI vendor landscape. With OpenAI now deeply tied to Amazon's cloud infrastructure, enterprise fintech customers face strategic lock-in decisions. Worth tracking how the Amazon-OpenAI cloud deal structures revenue sharing — it could affect pricing for financial services API consumers.
+        </div>
+      </div>
+      <a href="https://www.mercurynews.com/2026/04/01/openai-valued-852-billion/" class="story-source" target="_blank" rel="noopener">
+        Mercury News · Bloomberg <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: Q1 VC Record -->
+    <div class="story-card">
+      <span class="story-tag tag-industry">Industry</span>
+      <h2 class="story-title">Global VC Hits Record $297B in Q1 — AI Startups Capture 81% of All Funding</h2>
+      <p class="story-summary">
+        Crunchbase data confirms a staggering Q1 2026: global venture capital investment hit <strong>$297 billion</strong>, up 150% year-over-year. AI startups captured <strong>81% of all funding</strong>, with just four companies raising 64% of the total. This isn't a rising tide lifting all boats — it's a tsunami concentrated on a handful of frontier AI labs. The rest of the startup ecosystem is being starved of capital as LPs chase the AI supercycle. China's Zhipu doubled revenue on domestic AI tools matching OpenAI benchmarks.
+      </p>
+      <a href="https://llm-stats.com/ai-news" class="story-source" target="_blank" rel="noopener">
+        Crunchbase News <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: CFTC AI Framework -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">Regulation</span>
+      <h2 class="story-title">CFTC Launches Innovation Task Force — AI & Autonomous Systems Get Regulatory Framework</h2>
+      <p class="story-summary">
+        The Commodity Futures Trading Commission has launched an <strong>Innovation Task Force</strong> to develop clear regulatory frameworks for three areas: crypto/blockchain, <strong>AI and autonomous systems</strong>, and prediction markets. Chairman Michael Selig says the goal is to "foster responsible innovation at home" while preventing American market participants from being "left on the sidelines." The task force will coordinate with the SEC's Crypto Task Force. This is one of the first explicit U.S. regulatory moves targeting AI agents in financial markets.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          Directly relevant to AI governance in fintech. The CFTC framing AI and autonomous systems alongside crypto signals that regulators view AI agents as a distinct category requiring oversight. If Aspire deploys any AI-driven trading, risk scoring, or automated compliance tools, this framework will matter. Worth monitoring the task force's output.
+        </div>
+      </div>
+      <a href="https://www.ftfnews.com/cftc-task-force-to-focus-on-it-innovators/" class="story-source" target="_blank" rel="noopener">
+        FTF News <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: Fintech Funding Boom -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">Funding</span>
+      <h2 class="story-title">Forbes: The 2026 Fintech Funding Boom Is About More Than AI</h2>
+      <p class="story-summary">
+        Forbes reports that Q1 2026 has been notable for its many <strong>nine-digit fintech funding rounds</strong>. While AI is the headline driver, the fintech funding pipeline is robust for deeper structural reasons — cross-border payments, embedded finance, and regulatory tech are all attracting major capital. The piece argues this cycle is more sustainable than 2021's ZIRP-fueled frenzy because the underlying unit economics have improved.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          This validates Aspire's market positioning. The fintech funding environment is strong and diversified — not just AI hype. Cross-border payments and embedded finance (core Aspire territory) are specifically called out as attracting capital. Good signal for the competitive landscape.
+        </div>
+      </div>
+      <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="story-source" target="_blank" rel="noopener">
+        Forbes <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🎬</div>
+      <div class="bite-content">
+        <div class="bite-title">Google Launches Veo 3.1 Lite — Lightweight Video Generation for Everyone</div>
+        <div class="bite-desc">Google released Veo 3.1 Lite, a slimmed-down version of its video generation model designed for broader accessibility. Runs on consumer hardware, targets creators and small teams who can't afford enterprise GPU clusters.</div>
+        <a href="https://hipther.com/latest-news/2026/04/01/109560/ai-dispatch-daily-trends-and-innovations-april-1-2026-google-veo-3-1-lite-openai-linkedin-and-realbotix/" class="bite-link" target="_blank" rel="noopener">Hipther · AI Dispatch →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">⚖️</div>
+      <div class="bite-content">
+        <div class="bite-title">AI Compliance by Design — 4CRisk.ai Says 2026 Is the Tipping Point</div>
+        <div class="bite-desc">A detailed report from 4CRisk.ai argues 2026 marks the shift from periodic inspections to <strong>continuous, AI-powered compliance monitoring</strong>. Key concepts: real-time telemetry across ISO 27001, PCI DSS, NIST, GDPR, EU AI Act, and DORA; specialised language models for auditable outputs; and executive personal liability driving demand for AI compliance tools.</div>
+        <a href="https://regtechanalyst.com/four-ways-ai-powers-compliance-by-design-in-2026/" class="bite-link" target="_blank" rel="noopener">RegTech Analyst →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🏛️</div>
+      <div class="bite-content">
+        <div class="bite-title">Fed Governor Barr to Keynote on "Data, AI, and Financial Health"</div>
+        <div class="bite-desc">Federal Reserve Governor Michael Barr will keynote at EMERGE Financial Health 2026, examining how improved measurement, clearer definitions, and AI can drive responsible innovation and advance financial health for all. Signals the Fed is actively thinking about AI governance in banking.</div>
+        <a href="https://www.globenewswire.com/news-release/2026/04/01/3266691/0/en/Federal-Reserve-Governor-Michael-Barr-to-Keynote-at-EMERGE-Financial-Health-2026.html" class="bite-link" target="_blank" rel="noopener">GlobeNewsWire →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">LWiAI: GPT 5.4 Mini, OpenAI's Pivot, Mamba 3 & Attention Residuals</div>
+        <div class="bite-desc">This week's Last Week in AI podcast covers GPT 5.4 Mini (smaller, cheaper, surprisingly capable), OpenAI's business pivot toward enterprise, and Mamba 3's architecture innovations with attention residuals — potentially the most interesting research development for efficient long-context inference.</div>
+        <a href="https://lastweekinai.substack.com" class="bite-link" target="_blank" rel="noopener">Last Week in AI Podcast →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🏗️</div>
+      <div class="bite-content">
+        <div class="bite-title">Huawei 950PR Chip Targets Fast Inference — AWS Ships Autonomous Agents</div>
+        <div class="bite-desc">Two product launches for the enterprise: Huawei's 950PR chip enables fast inference computing for localized AI deployments, while AWS released autonomous agents that streamline operational tasks. Both signal the shift from model training to inference-time compute as the new battleground.</div>
+        <a href="https://blog.mean.ceo/ai-product-launches-news-april-2026/" class="bite-link" target="_blank" rel="noopener">Mean CEO · Startup Edition →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">📊</div>
+      <div class="bite-content">
+        <div class="bite-title">FSSCC Releases AI Governance Resources for Financial Institutions</div>
+        <div class="bite-desc">The Financial Services Sector Coordinating Council released new AI resources developed by its AI Executive Oversight Group — a public-private partnership bringing together financial institution executives with federal and state regulators to identify gaps in the financial sector's use of AI.</div>
+        <a href="https://bankingjournal.aba.com/2026/03/fsscc-releases-additional-ai-resources-for-financial-institutions/" class="bite-link" target="_blank" rel="noopener">ABA Banking Journal →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🇸🇬</div>
+      <div class="bite-content">
+        <div class="bite-title">Singapore's AI Governance Frameworks Continue to Shape Regional Standards</div>
+        <div class="bite-desc">White & Case highlights Singapore's AI frameworks as a model for ethical and governance principles, with existing sector-specific regulations addressing AI risks. As MAS continues to refine its approach, Singapore remains the de facto standard-setter for AI governance in Southeast Asia.</div>
+        <a href="https://www.whitecase.com/law/practices/artificial-intelligence-ai" class="bite-link" target="_blank" rel="noopener">White & Case →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🎯</div>
+      <div class="bite-content">
+        <div class="bite-title">2026 Responsible AI Symposium — Industry Leaders Call for Action</div>
+        <div class="bite-desc">Leaders from technology companies, government, and academia met at the 2026 Responsible AI Symposium to address growing public concerns about AI development. The call for responsible AI development is resonating louder as models cross new capability thresholds.</div>
+        <a href="https://www.aiandnews.com/blog/latest-ai-news-public-concerns/" class="bite-link" target="_blank" rel="noopener">AI and News →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ WORTH READING ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-amber-dim);">📖</div>
+      <span class="section-title">Worth Reading Tonight</span>
+    </div>
+
+    <a href="https://www.mercurynews.com/2026/04/01/openai-valued-852-billion/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">OpenAI's $852B Valuation — Full Bloomberg Analysis</div>
+        <div class="reading-link-source">Mercury News · The complete deal breakdown</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.forbes.com/sites/zennonkapron/2026/04/01/why-the-2026-fintech-funding-boom-is-about-more-than-ai/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Why the 2026 Fintech Funding Boom Is About More Than AI</div>
+        <div class="reading-link-source">Forbes · Structural tailwinds in fintech</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://regtechanalyst.com/four-ways-ai-powers-compliance-by-design-in-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Four Ways AI Powers Compliance by Design in 2026</div>
+        <div class="reading-link-source">RegTech Analyst · Deep dive on continuous compliance</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.finextra.com/blogposting/31062/how-ai-drives-fintech-business-growth-a-practical-guide-for-2026" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">How AI Drives Fintech Business Growth — A Practical Guide for 2026</div>
+        <div class="reading-link-source">Finextra · Measurable outcomes, prioritised use cases</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://bankingjournal.aba.com/2026/03/fsscc-releases-additional-ai-resources-for-financial-institutions/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">FSSCC AI Resources for Financial Institutions</div>
+        <div class="reading-link-source">ABA Banking Journal · Public-private AI oversight framework</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Curated by Bob 🫏 · Your AI donkey</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Bob's Briefing · Built with care for Rachiket</div>
+    <div class="footer-sub" style="margin-top: 4px;">Wednesday, April 1, 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — March 28, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #16161f;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed;
+    --text-secondary: #9898a8;
+    --text-muted: #6a6a7a;
+    --accent-blue: #6366f1;
+    --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7;
+    --accent-purple-dim: rgba(168, 85, 247, 0.12);
+    --accent-emerald: #10b981;
+    --accent-emerald-dim: rgba(16, 185, 129, 0.12);
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: rgba(245, 158, 11, 0.12);
+    --accent-rose: #f43f5e;
+    --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: rgba(6, 182, 212, 0.12);
+    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* ── Hero ─────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 48px 24px 40px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-greeting {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .hero-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .hero-stat {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .hero-stat strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  /* ── Section ──────────────────────────── */
+  .section {
+    padding: 32px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .section-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  /* ── Story Card ───────────────────────── */
+  .story-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+
+  .story-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+  }
+
+  .story-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+
+  .story-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+
+  .story-summary {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .story-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .story-source:hover { color: var(--accent-blue); }
+  .story-source .arrow { transition: transform 0.15s; }
+  .story-source:hover .arrow { transform: translateX(2px); }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Quick Bites ──────────────────────── */
+  .bite {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bite:last-child { border-bottom: none; }
+
+  .bite-bullet {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .bite-content { flex: 1; }
+
+  .bite-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .bite-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .bite-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+    color: var(--accent-blue);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .bite-link:hover { text-decoration: underline; }
+
+  /* ── Worth Reading ────────────────────── */
+  .reading-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .reading-link:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+  }
+
+  .reading-link-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .reading-link-source {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .reading-link .chevron {
+    color: var(--text-muted);
+    font-size: 14px;
+    transition: transform 0.15s;
+  }
+
+  .reading-link:hover .chevron { transform: translateX(3px); color: var(--accent-blue); }
+
+  /* ── Number Pill ──────────────────────── */
+  .number-strip {
+    display: flex;
+    gap: 12px;
+    padding: 20px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .number-strip::-webkit-scrollbar { display: none; }
+
+  .number-pill {
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .number-pill-value {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+
+  .number-pill-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Aspire Corner ────────────────────── */
+  .aspire-corner {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .aspire-corner-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-cyan);
+    margin-bottom: 10px;
+  }
+
+  .aspire-corner-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ── Footer ───────────────────────────── */
+  .footer {
+    padding: 40px 24px;
+    text-align: center;
+    background: var(--bg-secondary);
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .footer-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  .footer-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gradient-hero);
+    border-radius: 2px;
+    margin: 16px auto;
+  }
+
+  /* ── Responsive ───────────────────────── */
+  @media (max-width: 480px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .section { padding: 28px 20px; }
+    .story-title { font-size: 16px; }
+    .story-card { padding: 16px; }
+  }
+
+  /* ── Divider ──────────────────────────── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Bob's Briefing
+      </div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Happy Saturday, Rachiket 🌅 — hope you're enjoying the weekend!</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span>Saturday, March 28, 2026 · Issue #3</span>
+      </div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>15</strong> stories</span>
+        <span class="hero-stat"><strong>6 min</strong> read</span>
+        <span class="hero-stat"><strong>$62B+</strong> in deals</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ NUMBERS OF THE DAY ═══ -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill">
+        <div class="number-pill-value">$40B</div>
+        <div class="number-pill-label">SoftBank loan for OpenAI</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$100M</div>
+        <div class="number-pill-label">OpenAI ads ARR in 6 wks</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">$12.7B</div>
+        <div class="number-pill-label">Shield AI valuation</div>
+      </div>
+      <div class="number-pill">
+        <div class="number-pill-value">1 GW</div>
+        <div class="number-pill-label">Meta's El Paso data center</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ TOP STORIES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div>
+      <span class="section-title">Top Stories</span>
+    </div>
+
+    <!-- Story 1: SoftBank $40B -->
+    <div class="story-card">
+      <span class="story-tag tag-funding">Mega Funding</span>
+      <h2 class="story-title">SoftBank Secures $40 Billion Bridge Loan to Fuel OpenAI Bet</h2>
+      <p class="story-summary">
+        SoftBank has locked in a $40 billion bridge loan — arranged by JPMorgan, Goldman Sachs, Mizuho, SMBC, and MUFG — to fund further investments in OpenAI and general corporate purposes. The facility runs to March 2027. This is no longer just a model race; it's a <em>financing</em> race. SoftBank is signaling that balance-sheet strength is becoming a moat of its own in AI, raising the bar sharply for every other player in the ecosystem.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          The sheer scale of capital flowing into AI infrastructure means enterprise AI pricing and capabilities will shift rapidly. For Aspire's AI strategy, this signals that OpenAI's enterprise offerings will get more aggressive — worth watching for vendor negotiations and partnership opportunities.
+        </div>
+      </div>
+      <a href="https://www.reuters.com/business/media-telecom/softbank-secures-40-billion-loan-fund-further-openai-investment-2026-03-27/" class="story-source" target="_blank" rel="noopener">
+        Reuters <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 2: Apple Siri -->
+    <div class="story-card">
+      <span class="story-tag tag-product">Platform Shift</span>
+      <h2 class="story-title">Apple to Open Siri to Rival AI Models in iOS 27</h2>
+      <p class="story-summary">
+        Bloomberg reports Apple is planning to let Gemini, Claude, and other AI assistants plug directly into Siri in iOS 27 — transforming Siri from a walled garden into an AI switchboard. Apple is building tools to route questions to different providers and expand cross-app assistant behavior. Instead of betting on one in-house model, Apple is repositioning the iPhone as an AI <em>platform</em> that orchestrates multiple models. This could make device-layer distribution the most valuable real estate in consumer AI.
+      </p>
+      <a href="https://www.bloomberg.com/news/articles/2026-03-26/apple-siri-ai-chatbot-ios-27" class="story-source" target="_blank" rel="noopener">
+        Bloomberg · The Verge <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 3: EU AI Act Simplification -->
+    <div class="story-card">
+      <span class="story-tag tag-regulation">Regulation</span>
+      <h2 class="story-title">EU Parliament Votes to Simplify AI Act — Bans "Nudifier" AI Systems</h2>
+      <p class="story-summary">
+        The European Parliament adopted its position on simplifying the EU AI Act with an overwhelming 569-45 vote. Key changes: high-risk AI system deadlines pushed to December 2027 and August 2028, watermarking rules for AI content by November 2026, and a new ban on "nudifier" systems that create explicit images without consent. MEPs also voted to extend support measures to small mid-cap enterprises and reduce obligations for products already covered by sector-specific EU laws.
+      </p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">
+          The extended timelines for high-risk AI systems give fintech companies more runway to comply, but the watermarking requirements (Nov 2026) are coming fast. If Aspire deploys any AI-generated content in customer-facing contexts, watermarking compliance planning should start now.
+        </div>
+      </div>
+      <a href="https://www.europarl.europa.eu/news/en/press-room/20260323IPR38829/artificial-intelligence-act-delayed-application-ban-on-nudifier-apps" class="story-source" target="_blank" rel="noopener">
+        European Parliament <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Story 4: OpenAI Ads -->
+    <div class="story-card">
+      <span class="story-tag tag-industry">Business Model</span>
+      <h2 class="story-title">OpenAI's Ad Pilot Hits $100M Annualized Revenue in Just 6 Weeks</h2>
+      <p class="story-summary">
+        The Information reports OpenAI's advertising pilot has already surpassed $100 million in annualized revenue, expanding to over 600 advertisers with self-serve access launching in April. This changes OpenAI's economics fundamentally — it's no longer just subscriptions and API fees. If OpenAI can scale an ad business inside a product with massive consumer reach, it becomes a platform competing directly with Google and Meta for digital demand capture.
+      </p>
+      <a href="https://www.theinformation.com/briefings/exclusive-openai-surpasses-100-million-annualized-revenue-ads-pilot" class="story-source" target="_blank" rel="noopener">
+        The Information <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ QUICK BITES ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div>
+      <span class="section-title">Quick Bites</span>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🏗️</div>
+      <div class="bite-content">
+        <div class="bite-title">Meta Pours $10B Into El Paso AI Data Center — 1 GW Capacity</div>
+        <div class="bite-desc">Meta has raised its investment sixfold, turning El Paso into one of the largest AI compute facilities on the planet. The hyperscaler infrastructure arms race is hardening into a capital-and-power contest few can afford to enter.</div>
+        <a href="https://www.theinformation.com" class="bite-link" target="_blank" rel="noopener">The Information →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🛡️</div>
+      <div class="bite-content">
+        <div class="bite-title">Shield AI Raises at $12.7B Valuation — Revenue at $540M</div>
+        <div class="bite-desc">The defense AI startup's valuation more than doubled. Its Hivemind autonomy software is now deployed in drones and fighter-jet programs, marking defense tech's emergence as a top-tier AI investment category.</div>
+        <a href="https://fortune.com/2026/03/26/shield-ai-revenue-series-g-funding-12-billion-valuation/" class="bite-link" target="_blank" rel="noopener">Fortune →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div class="bite-content">
+        <div class="bite-title">"Claude Mythos" Leak Reveals Anthropic's Next Step-Change Model</div>
+        <div class="bite-desc">A massive data leak exposed details of Claude Mythos — described as a "step change" in AI with unprecedented capabilities in coding and cybersecurity. If real, this could reshape the frontier model landscape.</div>
+        <a href="https://www.promethean-ai.com/post/the-week-in-ai-news-march-22-27-2026" class="bite-link" target="_blank" rel="noopener">Promethean AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">💾</div>
+      <div class="bite-content">
+        <div class="bite-title">Google TurboQuant Rattles the Memory Chip Trade</div>
+        <div class="bite-desc">Google's 6× LLM compression breakthrough is reshuffling which hardware layers capture AI value. Micron and memory stocks took a hit — a reminder that software advances can quickly change the infrastructure equation.</div>
+        <a href="https://thenextweb.com/news/google-turboquant-ai-compression-memory-stocks" class="bite-link" target="_blank" rel="noopener">Bloomberg · TNW →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🇺🇸</div>
+      <div class="bite-content">
+        <div class="bite-title">Sanders & AOC Introduce AI Data Center Moratorium Act</div>
+        <div class="bite-desc">The bill proposes a nationwide moratorium on new AI data center construction until national safeguards are established — covering worker protection, utility prices, environmental impact, and export controls on AI compute infrastructure.</div>
+        <a href="https://www.sanders.senate.gov/press-releases/news-sanders-ocasio-cortez-announce-ai-data-center-moratorium-act/" class="bite-link" target="_blank" rel="noopener">Senate.gov →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🔬</div>
+      <div class="bite-content">
+        <div class="bite-title">Vector Institute Extends Roche AI Collaboration Through 2030</div>
+        <div class="bite-desc">The Toronto-based AI research institute renewed its partnership with Roche, advancing AI applications in drug discovery and healthcare diagnostics — a signal of growing pharma-AI integration.</div>
+        <a href="https://www.globenewswire.com/news-release/2026/03/27/3263823/0/en/Vector-Institute-Extends-Collaboration-With-Roche.html" class="bite-link" target="_blank" rel="noopener">GlobeNewsWire →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🔄</div>
+      <div class="bite-content">
+        <div class="bite-title">Google Lets You Import Chat History from ChatGPT & Claude into Gemini</div>
+        <div class="bite-desc">Gemini now lets users transfer memories and conversation data from rival chatbots, positioning itself as a central AI hub and dramatically lowering switching costs between platforms.</div>
+        <a href="https://llm-stats.com/ai-news" class="bite-link" target="_blank" rel="noopener">LLM Stats →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🎵</div>
+      <div class="bite-content">
+        <div class="bite-title">Creative AI Surge: Suno 5.5, Seedance 2.0, Lyria 3 Pro</div>
+        <div class="bite-desc">Suno upgraded audio quality and structure. ByteDance shipped Seedance 2.0 AI video directly into CapCut. Google launched Lyria 3 Pro for production-ready AI music. The creative tools arms race is heating up across music, video, and audio.</div>
+        <a href="https://www.promethean-ai.com/post/the-week-in-ai-news-march-22-27-2026" class="bite-link" target="_blank" rel="noopener">Promethean AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📚</div>
+      <div class="bite-content">
+        <div class="bite-title">Wikipedia Moves to Restrict AI-Generated Content</div>
+        <div class="bite-desc">The internet's encyclopedia is drawing a line on AI-written articles, underscoring growing concerns about accuracy, authorship, and trust in AI-generated information at scale.</div>
+        <a href="https://www.promethean-ai.com/post/the-week-in-ai-news-march-22-27-2026" class="bite-link" target="_blank" rel="noopener">Promethean AI →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🧪</div>
+      <div class="bite-content">
+        <div class="bite-title">ARC-AGI-3: New Benchmark for Agentic Intelligence</div>
+        <div class="bite-desc">The ARC Prize Foundation released ARC-AGI-3, an interactive benchmark using novel, abstract, turn-based environments to test agentic intelligence — raising the bar for what we measure as "AI capability."</div>
+        <a href="https://arxiv.org/abs/2603.24621" class="bite-link" target="_blank" rel="noopener">arXiv →</a>
+      </div>
+    </div>
+
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🇪🇺</div>
+      <div class="bite-content">
+        <div class="bite-title">Mistral CEO Proposes 1–1.5% AI Content Levy for European Culture Fund</div>
+        <div class="bite-desc">Arthur Mensch proposed AI developers pay a content levy into a European fund supporting the cultural sector — a creative approach to the copyright-vs-training standoff that could set precedent globally.</div>
+        <a href="https://cdt.org/insights/cdt-europes-ai-bulletin-march-2026/" class="bite-link" target="_blank" rel="noopener">CDT Europe →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ WORTH READING ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-amber-dim);">📖</div>
+      <span class="section-title">Worth Reading This Weekend</span>
+    </div>
+
+    <a href="https://www.artificialintelligencemadesimple.com/p/how-a-leading-venture-capitalist" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">How a Leading VC Uses AI Agents — Full Playbook</div>
+        <div class="reading-link-source">AI Made Simple · Guest post by James Wang</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://techstartups.com/2026/03/27/top-tech-news-today-march-27-2026/" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Top 20 Tech News Stories Shaping March 27, 2026</div>
+        <div class="reading-link-source">Tech Startups · Comprehensive roundup</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://techieray.substack.com/p/ctrlaireg-27-march-2026" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">Ctrl+AI+Reg: Global AI Regulation Tracker (March 27)</div>
+        <div class="reading-link-source">Ctrl+AI+Reg · EU, US, China, South Korea updates</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.osborneclarke.com/insights/regulatory-outlook-march-2026-artificial-intelligence" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">UK AI Regulatory Outlook: Copyright, CMA on AI Agents, Code of Practice</div>
+        <div class="reading-link-source">Osborne Clarke · Legal analysis</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.mondaq.com/unitedstates/new-technology/1764538/white-house-releases-national-policy-framework-for-artificial-intelligence" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">White House National AI Policy Framework — What It Means</div>
+        <div class="reading-link-source">Mondaq · Policy deep dive</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+
+    <a href="https://www.promethean-ai.com/post/the-week-in-ai-news-march-22-27-2026" class="reading-link" target="_blank" rel="noopener">
+      <div>
+        <div class="reading-link-text">The Week in AI: March 22–27 Full Roundup</div>
+        <div class="reading-link-source">Promethean AI · 20+ stories</div>
+      </div>
+      <span class="chevron">→</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-logo">🚀</div>
+    <div class="footer-text">Curated by Bob 🫏 · Your AI donkey</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">Bob's Briefing · Built with care for Rachiket</div>
+    <div class="footer-sub" style="margin-top: 4px;">Saturday, March 28, 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
