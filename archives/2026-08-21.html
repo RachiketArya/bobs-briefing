@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — August 21, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Friday morning, Rachiket. OpenAI is voluntarily <strong>slowing down</strong> frontier releases even as it hands Greg Brockman a bigger seat — a rare "we can, but won't yet" signal worth reading against the usual ship-fast noise.</p>
+      <div class="hero-date"><span>📅</span><span>Friday, August 21, 2026 (SGT) · Issue #70</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">31</div><div class="number-pill-label">EU markets get ChatGPT Ads</div></div>
+      <div class="number-pill"><div class="number-pill-value">⅓</div><div class="number-pill-label">web pages show AI authorship since ChatGPT launch</div></div>
+      <div class="number-pill"><div class="number-pill-value">0</div><div class="number-pill-label">money paid in Runlayer–Rippling settlement</div></div>
+      <div class="number-pill"><div class="number-pill-value">$0</div><div class="number-pill-label">extra cost — OpenAI's ZDR stays free for eligible API customers</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-amber-dim);">🏛️</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏢 Industry · Leadership</span>
+      <h2 class="story-title">It's Greg Brockman's OpenAI now</h2>
+      <p class="story-summary">After a year of a headline jury trial against Elon Musk, an Apple trade-secrets suit, and scrutiny over an unreleased model that reportedly hacked a rival AI lab, OpenAI is <strong>expanding Greg Brockman's role</strong> as it heads toward an IPO. The reshuffle reads as consolidating operational control ahead of public-market scrutiny.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A frontier vendor tightening internal governance mid-IPO-prep is a signal for vendor risk reviews: reassess concentration risk on any workflow single-threaded to OpenAI, and flag it for the next vendor governance cycle.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/982774/greg-brockman-openai-role-expansion" class="story-source" target="_blank" rel="noopener">Source → The Verge</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Strategy</span>
+      <h2 class="story-title">OpenAI hit the brakes on shipping — on purpose</h2>
+      <p class="story-summary">With an IPO looming and Anthropic plus Chinese open-weight rivals closing the gap, OpenAI <strong>voluntarily slowed</strong> parts of its development pace this week to tighten safety review, rather than racing to ship.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Useful precedent for internal AI governance: a market leader choosing deliberate pacing over speed strengthens the case for staged rollout gates on any AI feature Aspire ships to customers or regulators.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/982323/openai-hit-brakes-voluntary-pacing-ai" class="story-source" target="_blank" rel="noopener">Source → The Verge</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔐 Security · Data</span>
+      <h2 class="story-title">OpenAI reaffirms Zero Data Retention, previews "Private Safety Processing"</h2>
+      <p class="story-summary">OpenAI restated <strong>Zero Data Retention</strong> for eligible API customers and previewed a new "Private Safety Processing" approach meant to let advanced safety checks run without compromising customer data privacy.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Directly relevant to any fintech data-handling / compliance sign-off involving OpenAI's API — worth citing in vendor due-diligence docs and re-confirming Aspire's ZDR eligibility is still active.</div>
+      </div>
+      <a href="https://openai.com/index/offering-zero-data-retention-for-frontier-models" class="story-source" target="_blank" rel="noopener">Source → OpenAI</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">⚖️ Industry · Legal</span>
+      <h2 class="story-title">Runlayer and Rippling drop their lawsuits — no money changed hands</h2>
+      <p class="story-summary">The two companies dropped competing lawsuits with <strong>no payment either way</strong>; Rippling marked the moment by launching a product that competes directly with Runlayer's.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A cautionary pattern for any Aspire partnership or vendor dispute: litigation-as-leverage in fast-moving software markets rarely produces a clean financial outcome — settlement terms should be scrutinized as much as the underlying claim.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/20/runlayer-rippling-drop-lawsuits-but-the-brouhaha-is-still-a-cautionary-tale-for-founders/" class="story-source" target="_blank" rel="noopener">Source → TechCrunch</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🔬 Research · Web</span>
+      <h2 class="story-title">A third of web pages published since ChatGPT's launch show signs of AI authorship</h2>
+      <p class="story-summary">A new study finds AI models are now authoring or editing a large share of newly published web content — roughly <strong>one in three pages</strong> since ChatGPT's debut.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Raises the bar for source verification in any AI-assisted research or content workflow at Aspire — provenance checks and citation discipline matter more as the open web gets noisier.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/20/a-third-of-webpages-published-since-chatgpts-launch-show-signs-of-ai-authorship-study-finds/" class="story-source" target="_blank" rel="noopener">Source → TechCrunch</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧮</div>
+      <div>
+        <div class="bite-title">Ramp launches its own AI model router, "Router"</div>
+        <div class="bite-desc">Lets companies switch between LLMs via one API — a fintech building model-agnostic infra rather than betting on one vendor. <a href="https://techcrunch.com/2026/08/20/ramp-launches-its-own-ai-model-router-called-router/" style="color:var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💬</div>
+      <div>
+        <div class="bite-title">Slack launches collaborative "vibe-coding" channels</div>
+        <div class="bite-desc">Dedicated project channels where teams code alongside AI agents instead of tab-switching between tools. <a href="https://www.theverge.com/tech/982628/slack-code-vibe-coding-channels-launch" style="color:var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📢</div>
+      <div>
+        <div class="bite-title">ChatGPT Ads expands to 31 European markets</div>
+        <div class="bite-desc">Advertisers can now reach users as they research and compare inside ChatGPT across most of the EU. <a href="https://openai.com/index/chatgpt-ads-expands-across-europe" style="color:var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🐛</div>
+      <div>
+        <div class="bite-title">Grok Lite is sending gibberish responses to some users</div>
+        <div class="bite-desc">Affected users report the issue started as early as Wednesday; unresolved as of this writing. <a href="https://techcrunch.com/2026/08/20/grok-keeps-sending-gibberish-responses-to-users/" style="color:var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Re-verify ZDR eligibility with OpenAI.</strong> With Zero Data Retention reaffirmed and a new "Private Safety Processing" mode previewed, confirm Aspire's API tier still qualifies and document it in the vendor file.<br><br>
+        <strong>2. Add a vendor-concentration flag for OpenAI-dependent workflows.</strong> Brockman's expanded role plus IPO prep signals internal restructuring at a key vendor — worth a line item in the next vendor risk review, not a full re-architecture yet.<br><br>
+        <strong>3. Tighten AI-content provenance checks.</strong> With a third of new web content showing signs of AI authorship, any AI-assisted research feeding Aspire decisions should carry a source-verification step before it's cited internally.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://www.theverge.com/podcast/982434/ai-math-openai-astra-existential-crisis" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Welcome to the AI crisis in math</div><div class="reading-link-source">The Verge — Decoder podcast</div></div><span>→</span></a>
+    <a href="https://openai.com/index/introducing-ai-futures" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Introducing AI Futures</div><div class="reading-link-source">OpenAI — governance & power essays</div></div><span>→</span></a>
+    <a href="https://openai.com/index/strengthening-democratic-oversight-in-national-security" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Strengthening democratic oversight in national security</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
