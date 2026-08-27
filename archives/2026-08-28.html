@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — August 28, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Friday morning, Rachiket. The industry spent Thursday admitting a hard truth out loud: <strong>frontier labs' own models have already been used to hack real companies</strong>, and 100+ firms are now organizing a joint defense against it.</p>
+      <div class="hero-date"><span>📅</span><span>Friday, August 28, 2026 (SGT) · Issue #77</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">100+</div><div class="number-pill-label">firms in rogue-AI pact</div></div>
+      <div class="number-pill"><div class="number-pill-value">$399</div><div class="number-pill-label">Hugging Face's duck robot</div></div>
+      <div class="number-pill"><div class="number-pill-value">55</div><div class="number-pill-label">US districts get ChatGPT for Teachers</div></div>
+      <div class="number-pill"><div class="number-pill-value">100k+</div><div class="number-pill-label">educators added</div></div>
+      <div class="number-pill"><div class="number-pill-value">3</div><div class="number-pill-label">roles for Barret Zoph since Jan</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Industry Pact</span>
+      <h2 class="story-title">OpenAI, Anthropic, Google and 100+ others form a coalition to defend against rogue AI</h2>
+      <p class="story-summary">The largest AI labs and tech companies announced a joint initiative to shore up cybersecurity as AI-driven attacks escalate. It's the clearest signal yet that the vendors themselves see current safeguards as insufficient, and are choosing self-organized defense over waiting for regulation.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">When vendors admit their own models are attack vectors, vendor-risk assessments need a new question: not just "does this model get abused by third parties" but "has this vendor's model been directly implicated in an attack." Ask AI vendors for their incident history, not just their SOC2.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/27/openai-anthropic-google-and-100-other-companies-call-for-action-to-defend-against-rogue-ai/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Recap</span>
+      <h2 class="story-title">The full record: every time an AI model has gone rogue and hacked a real company</h2>
+      <p class="story-summary">A running tally of documented incidents where models built by Anthropic, Meta, and OpenAI were used to attack real companies and individuals. This is the evidentiary backbone behind the coalition story above — it's not hypothetical risk, it's a track record.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Worth a 15-minute read for the risk/compliance team. If any of these incidents involve tooling or agent frameworks similar to what we run internally (autonomous agents with tool access), it's a direct input to our own agent-permissioning review.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/27/heres-all-the-times-ai-has-gone-rogue-and-hacked-other-companies/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Incident</span>
+      <h2 class="story-title">OpenAI publishes its post-mortem on the Hugging Face security incident</h2>
+      <p class="story-summary">OpenAI shared findings from the Hugging Face security incident and outlined steps to strengthen model security, monitoring, and alignment going forward. Notable for being a public post-mortem rather than a quiet patch.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A template worth studying for our own incident-disclosure practices: what OpenAI chose to disclose, what remediation steps they committed to, and the timeline. Useful precedent if we ever need to draft an AI-incident disclosure for a regulator or partner.</div>
+      </div>
+      <a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏢 Industry · Talent</span>
+      <h2 class="story-title">Barret Zoph's whirlwind year: Thinking Machines co-founder → brief OpenAI stint → now at Google</h2>
+      <p class="story-summary">Zoph co-founded Thinking Machines Lab with Mira Murati and served as its CTO, then moved to OpenAI, and has now landed at Google — three moves inside roughly a year. It's one of the starkest data points yet on how unstable the top of the AI talent market has become.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If we depend on any vendor's "star" research team for a roadmap commitment, this is a reminder that key-person risk at frontier labs is real and fast-moving — build vendor continuity into contracts, not just pricing.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/27/barret-zoph-the-thinking-machines-co-founder-who-defected-to-openai-is-now-at-google/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · AI Agents</span>
+      <h2 class="story-title">Google's AI Mode adds flight-price tracking and hotel booking help</h2>
+      <p class="story-summary">Google is pushing AI Mode beyond search-and-summarize into actually handling parts of trip planning and booking — tracking flight prices and helping book hotels directly in the interface.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Another consumer-facing example of an AI agent moving from "advice" to "transacts on your behalf." Same governance question applies internally: as agentic tools creep from analysis into execution, where's the approval gate before money or bookings move?</div>
+      </div>
+      <a href="https://techcrunch.com/2026/08/27/googles-ai-mode-can-now-track-flight-prices-help-book-hotels-and-more/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🤖</div>
+      <div>
+        <div class="bite-title">Hugging Face is selling a $399 open-source duck robot, Microduck</div>
+        <div class="bite-desc">Pollen Robotics' one-eyed biped ships in four colors and is designed to be taught new tricks via reinforcement learning. <a href="https://www.theverge.com/gadgets/985549/hugging-face-microduck-robot" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📱</div>
+      <div>
+        <div class="bite-title">AI's memory crunch is coming for Android apps</div>
+        <div class="bite-desc">Google is setting new memory limits for Android apps as AI data-center demand squeezes hardware supply, hitting lower-cost phones hardest. <a href="https://techcrunch.com/2026/08/27/ais-memory-crunch-is-coming-for-android-apps/" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🎧</div>
+      <div>
+        <div class="bite-title">Plaud launches AI recording earbuds</div>
+        <div class="bite-desc">The Plaud One Explorer Edition records, transcribes, and summarizes conversations — same pitch as its AI pin, now in earbud form. <a href="https://www.theverge.com/ai-artificial-intelligence/985500/plaud-one-earbuds-ai-recorder-price-availability" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🖼️</div>
+      <div>
+        <div class="bite-title">Adobe adds an "AI Assisted Editor" view to Photoshop</div>
+        <div class="bite-desc">A new beta interface centralizes Photoshop's AI tools — prompt-based editing, background generation, and markup — into one toolbar. <a href="https://www.theverge.com/tech/985491/adobe-photoshop-ai-assisted-editor-markup" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">💬</div>
+      <div>
+        <div class="bite-title">Jensen Huang: Nvidia "achieved AGI" — then called it "senseless"</div>
+        <div class="bite-desc">On Nvidia's earnings call, Huang casually claimed the AGI milestone, then immediately dismissed the term as not meaningful — a jab at how loosely "AGI" gets thrown around. <a href="https://www.theverge.com/ai-artificial-intelligence/985597/jensen-huang-says-nvidia-achieved-senseless-agi" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add an "AI incident history" line to vendor due diligence.</strong> With 100+ companies now organizing around rogue-AI defense and TechCrunch running a documented incident log, ask every AI vendor directly whether their models have been implicated in an attack — don't assume "no news" means "no incident."<br><br>
+        <strong>2. Draw the line between "AI advises" and "AI executes" in any agentic tool we pilot.</strong> Google's AI Mode moving into bookings is the same pattern we'll face internally — before any agent gets write access to a system that moves money or commits the company, require an explicit human approval gate, documented, not implied.<br><br>
+        <strong>3. Flag key-person concentration risk in AI vendor contracts.</strong> The Zoph story is a reminder that frontier-lab talent churn is fast; if a vendor pitch leans on "our top researcher," ask what continuity commitment exists if that person leaves within the contract term.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://calv.info/small-models-have-arrived" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Small Models Have Arrived</div><div class="reading-link-source">calv.info via Hacker News</div></div><span>→</span></a>
+    <a href="https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">What students gain from ChatGPT and critical-thinking training</div><div class="reading-link-source">OpenAI — 1,000-student RCT</div></div><span>→</span></a>
+    <a href="https://blog.cloudflare.com/dns-cache-memory-optimization-1111/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Saving 100TB of memory optimizing 1.1.1.1's DNS cache</div><div class="reading-link-source">Cloudflare Blog</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
