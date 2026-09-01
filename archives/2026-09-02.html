@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — September 2, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Wednesday morning, Rachiket. Anthropic keeps shipping cheaper, less-restricted models while Apple accuses OpenAI of <strong>destroying evidence</strong> in their trade-secrets fight — the frontier is moving fast and the litigation is moving faster.</p>
+      <div class="hero-date"><span>📅</span><span>Wednesday, September 2, 2026 (SGT) · Issue #82</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">$1B</div><div class="number-pill-label">ChatGPT Ads annualized run-rate</div></div>
+      <div class="number-pill"><div class="number-pill-value">$50M</div><div class="number-pill-label">AIR's agent-vetting raise</div></div>
+      <div class="number-pill"><div class="number-pill-value">$21M</div><div class="number-pill-label">Empirik's outage-prediction seed</div></div>
+      <div class="number-pill"><div class="number-pill-value">5.1</div><div class="number-pill-label">Claude Fable/Mythos version</div></div>
+      <div class="number-pill"><div class="number-pill-value">1</div><div class="number-pill-label">MacBook Apple says is missing evidence</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Litigation</span>
+      <h2 class="story-title">Apple accuses OpenAI of destroying evidence in trade-secrets suit</h2>
+      <p class="story-summary">Apple is asking for <strong>"expedited discovery"</strong> in its case against OpenAI, alleging OpenAI has been actively destroying evidence — including only recently handing over a MacBook used by a former employee central to the dispute.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A live reminder that AI vendor relationships carry real litigation and IP-provenance risk. Any vendor due-diligence checklist for AI tooling should ask about pending IP litigation and evidence-preservation practices, not just uptime SLAs.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/987575/apple-openai-destroying-evidence-trade-secrets-lawsuit" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · Model release</span>
+      <h2 class="story-title">Anthropic ships Claude Fable and Mythos 5.1 — cheaper, less restrictive</h2>
+      <p class="story-summary">The 5.1 refresh is aimed squarely at <strong>reducing token cost</strong> and cutting false-positive safety refusals that had been frustrating power users, per Anthropic's own release notes.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Falling per-token cost plus fewer spurious refusals directly improves the economics of any Claude-based agent workflow Aspire runs internally — worth re-benchmarking cost-per-task on current pipelines.</div>
+      </div>
+      <a href="https://www.anthropic.com/claude-fable-and-mythos-5-1" class="story-source" target="_blank" rel="noopener">Source: Anthropic →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Security</span>
+      <h2 class="story-title">AIR raises $50M to vet the skills and add-ons AI agents use</h2>
+      <p class="story-summary">AIR's platform discovers agents already running inside a company, continuously vets the skills and add-ons those agents load, and can block unwanted behavior — a supply-chain-security layer built specifically for agentic AI.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Direct match for Aspire's agent-governance question: as internal Hermes-style agents accumulate skills and integrations, an independent vetting layer for what those agents are allowed to call is exactly the control gap this class of tool is built to close.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/01/air-raises-50m-to-help-companies-vet-the-skills-and-add-ons-ai-agents-use/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏭 Industry · Healthcare</span>
+      <h2 class="story-title">ChatGPT Health adds Epic integration for clinicians</h2>
+      <p class="story-summary">OpenAI's healthcare push now includes <strong>read-only access</strong> to patient records for clinicians via Epic, alongside a broader ChatGPT Health data-connection rollout announced the same day.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A useful reference pattern for regulated-data integrations: read-only scoping as the default posture when connecting an AI product to sensitive third-party systems of record — worth benchmarking against Aspire's own data-access controls.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/01/chatgpt-health-adds-epic-integration-for-clinicians-to-import-patient-data/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Infrastructure</span>
+      <h2 class="story-title">Sequoia-incubated Empirik launches with $21M to predict outages before they happen</h2>
+      <p class="story-summary">Empirik wants to do for IT infrastructure reliability what Cursor did for software engineering — using AI to forecast and pre-empt outages rather than just alert on them after the fact.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Predictive-outage tooling is a natural fit for fintech operational resilience requirements (MAS TRM-style expectations around system availability) — worth a scouting look if infra monitoring is coming up for renewal.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/01/sequoia-incubated-empirik-launches-with-21m-to-predict-outages-before-they-happen/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🎨</div>
+      <div>
+        <div class="bite-title">Google launches "Google Pics," a Canva rival built on Gemini + Nano Banana</div>
+        <div class="bite-desc">Prompt-first image editing and generation for Workspace users, aimed at the creative-tools market Canva and Adobe currently dominate.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🤝</div>
+      <div>
+        <div class="bite-title">OpenAI winds down its model contract with Cursor after Cursor's SpaceX acquisition</div>
+        <div class="bite-desc">A reminder that AI vendor relationships can be reshaped overnight by an acquirer's competitive posture — a live example of vendor-concentration risk.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🛒</div>
+      <div>
+        <div class="bite-title">Amazon Alexa adds "Update Me When" purchase-trigger alerts</div>
+        <div class="bite-desc">Personalized nudges for product launches, tours, and releases — another data point on how consumer AI assistants are being tuned toward commerce.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🐧</div>
+      <div>
+        <div class="bite-title">Debian votes not to ban AI-assisted code contributions</div>
+        <div class="bite-desc">The distro's new policy permits "responsible" AI tool use in development, maintenance, and documentation — a notable open-source governance precedent.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add "pending IP/vendor litigation" to the AI-vendor risk checklist.</strong> The Apple–OpenAI evidence dispute shows litigation exposure is a live category, not a theoretical one — worth a standing question in vendor reviews.<br><br>
+        <strong>2. Scope any new AI health/data integrations read-only by default.</strong> OpenAI's Epic integration is a clean industry reference for minimal-privilege access when connecting AI tools to systems of record.<br><br>
+        <strong>3. Re-cost current Claude workflows against Fable/Mythos 5.1.</strong> Lower token cost and fewer false-positive refusals may change the economics of existing agent pipelines — worth a quick benchmark this week.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://danluu.com/zitron/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">How accurate have Ed Zitron's AI skeptic predictions been?</div><div class="reading-link-source">danluu.com</div></div><span>→</span></a>
+    <a href="https://www.theverge.com/ai-artificial-intelligence/987566/ai-civilizations-opeai-hugging-face-hack" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">The rise of AI "civilizations" and the fall of corporate responsibility</div><div class="reading-link-source">The Verge</div></div><span>→</span></a>
+    <a href="https://openai.com/index/ai-native-company-workflows" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">How AI-native companies turn workflows into operating capability</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
