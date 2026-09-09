@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — September 10, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good morning, Rachiket. Anthropic's own safety team just put a number on existential risk while a governance heavyweight joined OpenAI's board — the industry is <strong>talking risk and reassurance in the same breath</strong>.</p>
+      <div class="hero-date"><span>📅</span><span>Thursday, September 10, 2026 (SGT) · Issue #90</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">10%+</div><div class="number-pill-label">Anthropic researcher's odds AI kills everyone by 2030</div></div>
+      <div class="number-pill"><div class="number-pill-value">$5M</div><div class="number-pill-label">OpenAI grant fund for AI-and-teens research</div></div>
+      <div class="number-pill"><div class="number-pill-value">~90 yrs</div><div class="number-pill-label">Navier-Stokes problem left unsolved before OpenAI's claim</div></div>
+      <div class="number-pill"><div class="number-pill-value">2nd</div><div class="number-pill-label">largest US teachers' union to sign Microsoft's AI-in-schools pact</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Safety</span>
+      <h2 class="story-title">A senior Anthropic safety researcher puts real odds on AI killing everyone — hours after a colleague quit over the race</h2>
+      <p class="story-summary">A senior Anthropic safety researcher said there's <strong>more than a 10 percent chance</strong> AI "could kill all humans" by the end of the decade — this landed just hours after a colleague resigned, citing fears that Anthropic and its rivals are "carelessly racing" to build superhuman systems.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A frontier lab's own safety staff publicly quantifying catastrophic risk changes the vendor-risk conversation from theoretical to numerical. Any Aspire AI vendor review should start asking labs directly for their internal risk estimates and mitigation commitments, not just SOC2/ISO paperwork.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Governance</span>
+      <h2 class="story-title">Paul Christiano joins OpenAI's Foundation Board and its Safety and Security Committee</h2>
+      <p class="story-summary">Christiano, a well-known AI alignment researcher (formerly of OpenAI, founder of the Alignment Research Center), joins OpenAI's nonprofit Foundation Board and its Safety and Security Committee — bringing outside alignment expertise into the lab's governance structure.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Watch which named individuals sit on a vendor's safety/security committee — it's a fast proxy for how seriously a lab takes governance when you're doing third-party AI risk assessment ahead of any procurement decision.</div>
+      </div>
+      <a href="https://openai.com/index/paul-christiano-joins-openai-foundation-board" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Product</span>
+      <h2 class="story-title">Apple's new "Reference Image" feature tries to prove an iPhone photo wasn't AI-edited</h2>
+      <p class="story-summary">Apple is launching <strong>Reference Image</strong>, a new iPhone 18 Pro camera-sensor feature that "signs every pixel it sees" so users can later verify a photo wasn't manipulated — Apple's answer to the flood of AI-generated and AI-edited images.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Cryptographic provenance-at-capture is exactly the primitive fintech KYC/fraud teams need for selfie-verification and document-upload flows. Worth a scoping conversation on whether Apple's signing scheme (or the C2PA standard it likely follows) can slot into onboarding fraud checks.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/992766/apple-iphone-18-pro-reference-image" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🧪 Research</span>
+      <h2 class="story-title">OpenAI claims a solution to the 90-year-old Navier-Stokes problem</h2>
+      <p class="story-summary">OpenAI says it found a solution to the Navier-Stokes Millennium Prize Problem — the fluid-dynamics equation that has resisted proof for roughly <strong>90 years</strong> — publishing a full writeup and a formal proof encoded in the Lean theorem prover. The claim is drawing scrutiny from mathematicians before it's accepted as settled.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Less directly fintech-relevant, but a signal worth tracking: if AI-assisted formal proof (Lean) is now credible at Millennium Prize difficulty, the same toolchain applies to formally verifying financial models and smart-contract logic — an emerging assurance category to watch.</div>
+      </div>
+      <a href="https://openai.com/index/navier-stokes-solution" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Education</span>
+      <h2 class="story-title">Microsoft agrees to new AI privacy rules for schools with the AFT, a week after two districts banned student-facing AI</h2>
+      <p class="story-summary">Microsoft signed a set of AI safety and privacy principles with the American Federation of Teachers (the second-largest US teachers' union) and New York's UFT — coming just a week after two major school systems banned student-facing AI tools outright.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A big-tech vendor negotiating a public, union-facing privacy commitment ahead of regulation is a template Aspire's compliance team can point to when negotiating data-handling clauses with AI vendors serving regulated financial customers.</div>
+      </div>
+      <a href="https://www.theverge.com/policy/992359/microsoft-aft-schools-ai-privacy" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div>
+        <div class="bite-title">Students who use AI to study tend to score worse, per a global OECD PISA analysis</div>
+        <div class="bite-desc">The picture is nuanced — some AI use patterns help certain learners — but broad reliance correlates with lower scores. <a href="https://www.theverge.com/ai-artificial-intelligence/991956/student-ai-use-scores-oecd-pisa" target="_blank" rel="noopener">The Verge →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🎬</div>
+      <div>
+        <div class="bite-title">Amazon Prime Video ships AI lip-sync for dubbed audio</div>
+        <div class="bite-desc">First live on the German series Maxton Hall's English dub, matching mouth movement to human-dubbed voice tracks. <a href="https://www.theverge.com/tech/991809/amazon-prime-video-ai-lip-sync-dubbing" target="_blank" rel="noopener">The Verge →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🛠️</div>
+      <div>
+        <div class="bite-title">Shopify acquires Tailwind CSS</div>
+        <div class="bite-desc">The widely-used utility-first CSS framework is joining Shopify, folding a core piece of web-dev tooling into a commerce platform. <a href="https://tailwindcss.com/blog/tailwind-is-joining-shopify" target="_blank" rel="noopener">Tailwind blog →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">🖼️</div>
+      <div>
+        <div class="bite-title">OpenAI ships ChatGPT Images 2.5</div>
+        <div class="bite-desc">Turns sketches and reference photos into more personalized, polished images — another notch up in consumer image-gen quality. <a href="https://openai.com/index/introducing-chatgpt-images-2-5" target="_blank" rel="noopener">OpenAI →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add a "safety-committee composition" line item to AI vendor due diligence.</strong> With named alignment experts now sitting on lab governance boards (Christiano at OpenAI), ask each AI vendor who sits on their safety/security committee and what authority it actually has — treat it as a real control, not a PR page.<br><br>
+        <strong>2. Scope whether provenance-at-capture (Apple's Reference Image / the C2PA standard) fits into KYC selfie and document-upload flows.</strong> Cryptographically signed capture is a stronger anti-deepfake control than current liveness checks and is about to become consumer-default on flagship phones.<br><br>
+        <strong>3. Treat internal lab risk statements as a leading indicator, not noise.</strong> When a frontier lab's own safety researcher quantifies catastrophic risk publicly, it's a signal to revisit the AI incident-response and kill-switch clauses in any AI vendor contract renewal this quarter.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Worried Anthropic researchers warn that AI "could kill all humans"</div><div class="reading-link-source">The Verge</div></div><span>→</span></a>
+    <a href="https://openai.com/index/navier-stokes-solution" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">On the Navier–Stokes Millennium Prize Problem</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://www.theverge.com/ai-artificial-intelligence/991956/student-ai-use-scores-oecd-pisa" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Students who use AI generally score worse at school</div><div class="reading-link-source">The Verge / OECD PISA</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
