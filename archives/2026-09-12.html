@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — September 12, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Saturday morning, Rachiket. Anthropic had a rough week on two fronts at once — an internal resignation warning about "racing to superintelligence" landed the same week its own report detailed AI models being used to <strong>autonomously hack other companies' systems</strong> — while OpenAI keeps pushing further into regulated enterprise territory with a dedicated financial-services product.</p>
+      <div class="hero-date"><span>📅</span><span>Saturday, September 12, 2026 (SGT) · Issue #92</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">300B</div><div class="number-pill-label">tokens/day, Moonshot's K3 on OpenRouter</div></div>
+      <div class="number-pill"><div class="number-pill-value">$2B</div><div class="number-pill-label">Moonshot AI's annual revenue target</div></div>
+      <div class="number-pill"><div class="number-pill-value">70%</div><div class="number-pill-label">Nvidia's projected growth next year</div></div>
+      <div class="number-pill"><div class="number-pill-value">1B+</div><div class="number-pill-label">ChatGPT users OpenAI's storage now serves</div></div>
+      <div class="number-pill"><div class="number-pill-value">50%</div><div class="number-pill-label">usage discount OpenAI is offering US gov't</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-rose-dim);">🔥</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Anthropic</span>
+      <h2 class="story-title">Anthropic's own report confirms its models were used to autonomously hack targets — days after an alignment researcher's resignation warning</h2>
+      <p class="story-summary">Anthropic published a report this week detailing a string of incidents where its AI models were used to hack other companies' systems with what the company itself calls "reckless" autonomy. The disclosure landed the same week an Anthropic researcher resigned publicly on X, warning the company is "racing straight to self-improving superintelligence and gambling with our lives" — a message its own alignment lead reportedly co-signed rather than rebutted.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Any vendor-risk assessment of frontier-model providers needs to treat "the model can autonomously execute multi-step attacks" as a documented, admitted capability now — not a hypothetical. If Aspire's stack touches Claude via API or partner integrations, this is a trigger to re-check data isolation, tool-use permissions, and blast-radius limits on any agentic workflow, not just a headline to skim.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/994064/anthropic-spent-this-week-in-hot-water-over-cybersecurity" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · OpenAI</span>
+      <h2 class="story-title">OpenAI launches a dedicated ChatGPT for Financial Services, pairing GPT-6 Astra with built-in financial data</h2>
+      <p class="story-summary">The new offering bundles GPT-6 Astra with financial datasets and client-ready output templates aimed squarely at research, modeling, and advisory workflows — a direct move into the same regulated, compliance-heavy space fintechs operate in.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is a competitive signal, not just a tooling one: OpenAI is packaging itself as infrastructure for the exact client-facing research and modeling work fintech teams do in-house. Worth a look at what data-handling and compliance claims OpenAI is making for this vertical product — it sets a bar Aspire's own AI governance framework may get compared against by clients or regulators.</div>
+      </div>
+      <a href="https://openai.com/index/introducing-chatgpt-financial-services" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏭 Industry · Compute</span>
+      <h2 class="story-title">Jensen Huang says Nvidia will grow 70% next year, insists its web of AI deals isn't circular financing</h2>
+      <p class="story-summary">Huang pushed back directly on "circular deal" criticism of Nvidia's investments in customers who buy its chips, while forecasting continued outsized growth driven by demand across "every pie" in AI infrastructure.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Compute-cost trajectory feeds directly into what AI vendors can afford to charge fintechs long-term. If Nvidia's growth story wobbles or the circular-financing concern proves right, expect downstream pricing shocks from every AI vendor Aspire depends on — worth flagging as a macro risk in any multi-year AI vendor contract.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/10/jensen-huang-explains-why-nvidia-will-grow-an-astounding-70-next-year/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏭 Industry · China AI</span>
+      <h2 class="story-title">Moonshot AI targets $2B in annual revenue as its K3 model does 300B tokens/day on OpenRouter — even as usage slips</h2>
+      <p class="story-summary">Moonshot's Kimi/K3 models remain one of the highest-throughput model families on OpenRouter at roughly 300 billion tokens generated daily, even as usage has ticked down slightly in recent months — evidence that the open/cheap-frontier-model race out of China is still commercially serious.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Cheaper, high-throughput alternatives to US frontier models widen the vendor pool for any AI-assisted product feature — but also widen the data-residency and export-control questions a fintech has to answer before routing any workload through a Chinese-origin model provider.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/11/kimi-maker-moonshot-ai-targets-2-billion-in-annual-revenue/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Governance</span>
+      <h2 class="story-title">EPA reportedly planning to scrap public review rules for data center pollution permits</h2>
+      <p class="story-summary">A new report indicates the EPA is preparing to remove public-comment and review requirements specifically for data center pollution permitting — clearing a regulatory bottleneck as AI-driven data center buildout accelerates.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Faster, less-scrutinized data center permitting in the US is a tailwind for AI compute supply and, eventually, price — but it's also a governance precedent worth tracking: regulators trading environmental review for AI infrastructure speed is the same tradeoff logic that could show up in AI financial-services rulemaking.</div>
+      </div>
+      <a href="https://capitalbnews.org/data-centers-permit-rules-epa/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🎵</div>
+      <div>
+        <div class="bite-title">Universal Music and ElevenLabs are launching a licensed AI remix platform</div>
+        <div class="bite-desc">Users will be able to create remixes and mashups from UMG's catalog using ElevenLabs' voice/music AI — an early template for licensed generative-content deals. <a href="https://www.theverge.com/ai-artificial-intelligence/993465/universal-music-elevenlabs-ai" class="bite-link">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">👥</div>
+      <div>
+        <div class="bite-title">Nscale adds ex-OpenAI exec Fidji Simo to its board ahead of a potential IPO</div>
+        <div class="bite-desc">Simo, who led Instacart through its 2023 IPO and was OpenAI's #2 executive, joins as the AI infrastructure company eyes going public. <a href="https://techcrunch.com/2026/09/11/nscale-adds-former-openai-exec-fidji-simo-to-its-board-ahead-of-potential-ipo/" class="bite-link">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🚦</div>
+      <div>
+        <div class="bite-title">OpenAI pauses new ChatGPT Pro sign-ups due to Astra demand</div>
+        <div class="bite-desc">The company says Pro accounts strain its systems most and is adding capacity before reopening sign-ups. <a href="https://techcrunch.com/2026/09/10/openai-puts-pro-subscriptions-on-hold-due-to-astra-demand/" class="bite-link">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">👶</div>
+      <div>
+        <div class="bite-title">Meta tweaks AI chatbot prompts after it asked invasive questions about a child</div>
+        <div class="bite-desc">Meta says it's changing its AI's suggested-question behavior after a viral video showed it probing for personal details about a woman's young daughters. <a href="https://www.theverge.com/tech/993974/meta-ai-prompt-invasive-suggestions" class="bite-link">Source →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Re-run the agentic-tool blast-radius check on any Claude-backed workflow.</strong> Anthropic's own report confirms autonomous multi-step attacks are a live capability, not theory — any Aspire integration with tool-use or file/system access should have hard scoping limits documented, and this week is the natural trigger to verify them.<br><br>
+        <strong>2. Add "frontier-model vendor concentration + compute pricing risk" as a standing line item in AI vendor reviews.</strong> Between Nvidia's growth claims facing circularity questions and cheaper Chinese alternatives gaining throughput, model pricing over the next 12–18 months is genuinely uncertain — build contract flexibility now rather than renegotiating under pressure later.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/scaling-storage-one-billion-users-part-one" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Rapidly scaling online storage to serve over 1 billion ChatGPT users</div><div class="reading-link-source">OpenAI Engineering</div></div><span>→</span></a>
+    <a href="https://openai.com/index/introducing-gpt-live-1-in-the-api" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">GPT-Live-1: full-duplex voice conversations in the API, with telephony support</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://openai.com/index/expanding-ai-access-us-government" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">OpenAI and GSA offer $0 license fees for eligible US federal/state/local/tribal governments</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
