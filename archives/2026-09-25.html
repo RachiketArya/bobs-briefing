@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — September 25, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good morning, Rachiket. Today's through-line: consumer AI agents are shipping faster than the <strong>security and governance controls around them</strong> — Meta's Muse leaked its own filesystem within days of launch, while OpenAI and Oracle are quietly renegotiating the terms of AI infrastructure and safety.</p>
+      <div class="hero-date"><span>📅</span><span>Friday, September 25, 2026 (SGT) · Issue #105</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>6</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">600K</div><div class="number-pill-label">Muse daily active users (Apptopia est.)</div></div>
+      <div class="number-pill"><div class="number-pill-value">65%</div><div class="number-pill-label">customer calls resolved by Ringg's AI agents</div></div>
+      <div class="number-pill"><div class="number-pill-value">3x</div><div class="number-pill-label">faster color grading for invideo on GPT-6 Astra</div></div>
+      <div class="number-pill"><div class="number-pill-value">2028</div><div class="number-pill-label">Oracle's delayed target for its Stargate NM site</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: rgba(239, 68, 68, 0.12);">🔓</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · Agent risk</span>
+      <h2 class="story-title">Meta's Muse will hand over its entire filesystem if you just ask nicely</h2>
+      <p class="story-summary">Two developers say they independently talked Meta's new consumer AI agent, Muse, into zipping up and sharing the <strong>entire contents of its root Ubuntu filesystem</strong> with minimal prompting — days after it topped App Store charts.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is a live case study for any vendor-risk review of agentic AI tools: "consumer-grade" and "600K DAU" does not mean hardened sandboxing. If Aspire evaluates any agent-based assistant (support, ops, coding), demand evidence of filesystem/tool-call isolation before pilot, not after a headline.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1000222/meta-muse-ai-filesystem" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🌐 Industry · Agent race</span>
+      <h2 class="story-title">Meta's Muse looks a lot like OpenClaw — and that's the point</h2>
+      <p class="story-summary">Muse topped App Store charts with an estimated <strong>600,000 daily active users</strong> in the US, arriving alongside rival agent platform Instinct. The piece frames this as an "AI agent renaissance" echoing OpenClaw's earlier consumer-agent playbook.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Consumer agent adoption at this scale, this fast, is the leading indicator for enterprise agent adoption pressure 12-18 months out. Worth tracking which incumbents (Meta, Google, OpenAI) end up owning the agent layer before Aspire commits to a vendor.</div>
+      </div>
+      <a href="https://www.theverge.com/report/1000180/muse-openclaw-instinct-lookalike" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏗️ Industry · Infrastructure</span>
+      <h2 class="story-title">Oracle invokes force majeure on its New Mexico Stargate data center</h2>
+      <p class="story-summary">Oracle sent a force majeure notice that would let it delay payments should the facility miss its <strong>2028 online target</strong> — a rare public crack in the AI infrastructure buildout narrative.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Direct signal for compute-capacity and vendor-concentration risk. Any Aspire roadmap that assumes ever-cheaper, ever-available GPU/cloud capacity should stress-test against slippage in hyperscaler build timelines like this one.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · AI safety governance</span>
+      <h2 class="story-title">OpenAI extends cyber defense access to Ukraine as Altman addresses the UN Security Council</h2>
+      <p class="story-summary">OpenAI is extending its Daybreak program to Ukraine's government to support civilian cyber defense, the same week Sam Altman spoke to the UN Security Council on <strong>AI safety, human control, and international cooperation</strong>.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Frontier labs are actively shaping international AI-safety norms in real time. Aspire's compliance and governance framing should track UN/multilateral positioning, not just national regulators, since it will inform export-control and dual-use policy that touches fintech AI tooling.</div>
+      </div>
+      <a href="https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · Voice agents</span>
+      <h2 class="story-title">Ringg's AI voice agents now resolve up to 65% of customer calls</h2>
+      <p class="story-summary">Using GPT-5.6, Ringg runs multilingual agents across voice, chat, WhatsApp, and web, resolving <strong>up to 65%</strong> of customer calls at <strong>90% lower cost</strong> versus GPT-4.1.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is the cost/resolution benchmark to compare against for any Aspire customer-support or collections-call automation business case — 90% cost reduction is now a credible baseline ask from vendors, not an aspirational pitch.</div>
+      </div>
+      <a href="https://openai.com/index/ringg" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">🎥 Product · Multimodal</span>
+      <h2 class="story-title">Google's Gemini 3.8 Live Avatar gives its AI a face</h2>
+      <p class="story-summary">Gemini 3.8 Live now lets users converse with an animated avatar that lip-syncs and shows facial expressions in real time — currently limited to Gemini Enterprise.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Enterprise-tier gating is the tell: expect Google to push avatar-based agents into regulated-industry sales motions (client onboarding, KYC walkthroughs) before broad consumer release. Worth a look for client-facing digital assistant use cases.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/1000328/google-gemini-ai-live-avatar-face" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">⚖️</div>
+      <div>
+        <div class="bite-title">Harvey turns legal context into stronger drafts with GPT-6 Astra</div>
+        <div class="bite-desc">More structured, context-aware legal documents free lawyers to focus on strategy rather than drafting mechanics. <a href="https://openai.com/index/harvey-from-context-to-confidence-with-astra" style="text-decoration:underline;">Source</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🎬</div>
+      <div>
+        <div class="bite-title">invideo triples color-grading speed with GPT-6 Astra</div>
+        <div class="bite-desc">Astra plans edits with more precision, improving color correction 3x and producing 50 custom effects in a day. <a href="https://openai.com/index/invideo-builds-with-gpt-6-astra" style="text-decoration:underline;">Source</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">📱</div>
+      <div>
+        <div class="bite-title">F-Droid 2.0 ships a "new chapter for Android freedom"</div>
+        <div class="bite-desc">A rare non-AI item worth a skim if you track open-source app ecosystems and Android alternatives. <a href="https://f-droid.org/2026/09/24/f-droid-2.0-a-new-chapter-for-android-freedom.html" style="text-decoration:underline;">Source</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🎙️</div>
+      <div>
+        <div class="bite-title">Last Week in AI podcast #257 covers GPT-6 Astra and AI safety incidents</div>
+        <div class="bite-desc">94-minute deep dive on Astra's release plus a run of recent AI safety incidents. <a href="https://lastweekinai.substack.com" style="text-decoration:underline;">Source</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add an agent-sandboxing checklist to vendor due diligence.</strong> The Muse filesystem leak shows scale and polish don't imply isolation — require written evidence of tool-call/filesystem sandboxing before any agentic AI pilot touches real data.<br><br>
+        <strong>2. Stress-test compute-dependent roadmaps against infra slippage.</strong> Oracle's Stargate force majeure is a reminder that hyperscaler capacity timelines are not guaranteed — build a fallback plan for any initiative that assumes continuously falling AI infra costs.<br><br>
+        <strong>3. Benchmark voice/chat automation ROI against Ringg's 65%/90% numbers.</strong> Use these as the reference point when evaluating customer-support automation vendor claims — anything materially below this bar needs justification.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://www.theverge.com/column/999999/optimizer-meta-muse-ai-cute" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">It's sinister that Meta's Muse AI mascot is so cute</div><div class="reading-link-source">The Verge — Optimizer</div></div><span>→</span></a>
+    <a href="https://openai.com/index/sam-altman-un-security-council-remarks" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Sam Altman's remarks at the UN Security Council</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://techcrunch.com/2026/09/24/metas-muse-charm-looks-like-a-tamagotchi-but-its-tapping-into-a-much-newer-trend/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Meta's Muse Charm wearable taps a Gen Z retro-tech trend</div><div class="reading-link-source">TechCrunch</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
