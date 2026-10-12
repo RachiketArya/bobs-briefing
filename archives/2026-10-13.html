@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — October 13, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good morning, Rachiket. Meta finally ships a frontier-class model, Microsoft doubles down on homegrown silicon, and Nadella is telling the industry to <strong>stop trusting AI by default</strong>.</p>
+      <div class="hero-date"><span>📅</span><span>Tuesday, October 13, 2026 (SGT) · Issue #123</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">$50M</div><div class="number-pill-label">WindBorne USAF contract</div></div>
+      <div class="number-pill"><div class="number-pill-value">76x</div><div class="number-pill-label">Asana cost cut, browser agent</div></div>
+      <div class="number-pill"><div class="number-pill-value">96%</div><div class="number-pill-label">Sophos threat-triage time cut</div></div>
+      <div class="number-pill"><div class="number-pill-value">65%</div><div class="number-pill-label">LegalOn Codex cost cut</div></div>
+      <div class="number-pill"><div class="number-pill-value">Maia 300</div><div class="number-pill-label">MSFT's 3rd in-house AI chip</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · Frontier Models</span>
+      <h2 class="story-title">Meta finally fields a frontier model: Muse Wonder</h2>
+      <p class="story-summary">Meta's Superintelligence Labs followed the lightweight Muse Spark with <strong>Muse Wonder</strong>, a larger model Meta claims matches the industry's best on benchmarks and complex coding tasks. It's Meta's clearest signal yet that it intends to compete at the frontier, not just ship consumer-facing agents.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A fourth credible frontier-model vendor changes negotiating leverage on model licensing and reduces single-vendor concentration risk for any AI-embedded fintech product. Worth a line in the next vendor review: does Muse Wonder's pricing or licensing terms beat current providers for non-core workloads?</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1009479/meta-muse-wonder-full-ai-model" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · Infrastructure</span>
+      <h2 class="story-title">Microsoft's Maia 300 chip cuts Nvidia dependence</h2>
+      <p class="story-summary">Microsoft unveiled its third-generation in-house AI chip, <strong>Maia 300</strong>, pitched as the "primary AI inference system" for its own products — improving cost and efficiency and reducing reliance on Nvidia GPUs for inference workloads.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Hyperscalers diversifying silicon supply is a leading indicator of future inference pricing. If Aspire's AI workloads run on Azure, falling inference costs from custom silicon could show up as margin relief on vendor invoices within 1-2 cycles — worth tracking at the next infra cost review.</div>
+      </div>
+      <a href="https://www.theverge.com/news/1009465/microsoft-maia-300-chip-improvements-rollout" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Governance</span>
+      <h2 class="story-title">Satya Nadella: assume every AI model is "compromised"</h2>
+      <p class="story-summary">Microsoft's CEO argued publicly that organizations should stop treating AI models as trustworthy black boxes and instead assume they could be compromised — a notable shift in tone from the vendor side of the industry, not just from security researchers.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">When the CEO of the largest enterprise AI vendor says "assume compromised," that's cover to formalize AI output verification as a standing control rather than an edge case — useful language for the next governance or audit conversation on AI-assisted decisioning.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1009337/satya-nadella-says-we-should-assume-all-ai-models-are-compromised" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Policy</span>
+      <h2 class="story-title">Microsoft's Brad Smith: the UK should lead on AI regulation</h2>
+      <p class="story-summary">Microsoft's president argued the UK is best positioned to set global AI regulatory norms, noting that everyday products like <strong>milk and washing machines</strong> currently face more oversight than AI systems.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A major vendor publicly lobbying for faster regulation is a signal that binding AI rules are coming sooner than "wait and see" planning assumes. Worth flagging to compliance as a reason to get ahead of model-risk documentation now rather than reactively.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/12/microsoft-president-says-uk-is-best-placed-to-drive-ai-regulation/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Industry</span>
+      <h2 class="story-title">WindBorne lands a $50M Air Force contract for AI weather data</h2>
+      <p class="story-summary">A Silicon Valley startup using weather balloons and AI models to improve forecasting won a nearly <strong>$50 million</strong> U.S. military contract — a concrete example of AI-plus-hardware startups winning serious government budget, not just VC money.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Government procurement increasingly treats AI-augmented data products as critical infrastructure. If Aspire pursues any public-sector or regulated-data partnerships, this is a useful comp for how "AI-enhanced data as a service" gets priced and justified to a government buyer.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/12/windborne-wins-a-hefty-us-air-force-contract-for-its-balloon-data/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">🧠</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💼</div>
+      <div>
+        <div class="bite-title">OpenAI customer wins stack up: Oracle, Pollo AI, Asana, LegalOn</div>
+        <div class="bite-desc">OpenAI published a run of enterprise case studies this week — Oracle turning days of work into minutes with ChatGPT/Codex, LegalOn cutting Codex costs 65%, and Asana cutting browser-agent costs 76x — a clear push to prove ROI ahead of renewal season. <a href="https://openai.com/index/oracle" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Oracle case study →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🛡️</div>
+      <div>
+        <div class="bite-title">OpenAI disrupted two AI-enabled "false front" influence operations</div>
+        <div class="bite-desc">The operations used fake journalist personas and a front "think tank" to push geopolitical narratives — a reminder that model-safety teams are now doing counter-disinformation work as a matter of course. <a href="https://openai.com/index/disrupting-ai-enabled-false-front-operations" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Details →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🏷️</div>
+      <div>
+        <div class="bite-title">Silicon Valley is quietly adopting Trump's "super intelligence" rebrand</div>
+        <div class="bite-desc">Several prominent figures are picking up the White House's push to rename AI — mostly optics so far, but a naming fight with regulatory undertones worth watching. <a href="https://www.theverge.com/ai-artificial-intelligence/1009406/silicon-valley-is-falling-in-line-with-trumps-attempt-to-rename-ai" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Read →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add a "model is not trustworthy by default" clause to any new AI-vendor SOW.</strong> Nadella's public framing gives cover to require independent verification of AI-generated outputs in contracts, not just in internal policy.<br><br>
+        <strong>2. Pre-draft model-risk documentation ahead of UK/EU rule tightening.</strong> With Microsoft openly lobbying for faster regulation, treat "regulation arrives sooner than expected" as the base case and get model inventories and risk classifications current now.<br><br>
+        <strong>3. Benchmark inference cost assumptions against custom-silicon trends.</strong> Maia 300 and similar moves by hyperscalers suggest inference pricing has more room to fall — don't lock in long-term vendor pricing assumptions without revisiting them quarterly.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">AI coding agents generate more code, but not more software</div><div class="reading-link-source">Ars Technica</div></div><span>→</span></a>
+    <a href="https://www.anthropic.com/research/self-replicating-ai" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">AI models may be capable of self-replicating without a datacenter</div><div class="reading-link-source">Anthropic Research</div></div><span>→</span></a>
+    <a href="https://www.theverge.com/ai-artificial-intelligence/1008484/learning-local-ai-hermes-qwen-model-mac-studio-testing-diary-progress" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Learning to use local AI is exciting, overwhelming, and frustrating</div><div class="reading-link-source">The Verge</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
