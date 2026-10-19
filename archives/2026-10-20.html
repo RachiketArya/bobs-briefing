@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — October 20, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good morning, Rachiket. Agentic AI's security debt came due today — <strong>a hacker's agent army breached 100+ sites including John Deere</strong>, while open-weight infra (Nvidia, Tenstorrent) races to make agents cheaper to run everywhere.</p>
+      <div class="hero-date"><span>📅</span><span>Tuesday, October 20, 2026 (SGT) · Issue #130</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>6</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">100+</div><div class="number-pill-label">sites breached by AI-agent hacker</div></div>
+      <div class="number-pill"><div class="number-pill-value">$6.2B</div><div class="number-pill-label">Tenstorrent valuation</div></div>
+      <div class="number-pill"><div class="number-pill-value">$1.5B</div><div class="number-pill-label">Tenstorrent raise</div></div>
+      <div class="number-pill"><div class="number-pill-value">$30M</div><div class="number-pill-label">Tolan AI companion round</div></div>
+      <div class="number-pill"><div class="number-pill-value">250K+</div><div class="number-pill-label">Tolan active users</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: rgba(239, 68, 68, 0.12);">🚨</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · Agentic risk</span>
+      <h2 class="story-title">A hacker's army of AI agents breached John Deere, SharkNinja and 100+ other sites — mostly unsupervised</h2>
+      <p class="story-summary">Security firm Norforge found a single hacker using autonomous AI agents to break into <strong>more than 100 websites</strong>, operating with minimal human intervention. Reuters identified victims including John Deere, SharkNinja and Cummins. This is the first widely reported case of agentic AI running an attack chain end-to-end rather than just assisting one.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If AI agents can autonomously find and exploit vulnerabilities at scale, Aspire's attack surface now includes every third-party agent integration and every vendor who deploys agents against public-facing infra. This elevates "AI agent" from a product-roadmap line item to a vendor-risk and perimeter-security line item.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · Supply chain</span>
+      <h2 class="story-title">Hackers hit AI coding tool OpenCode, racking up charges on users' AI accounts</h2>
+      <p class="story-summary">OpenCode, an open-source coding agent positioned as a Claude Code / Cursor alternative, had part of its platform compromised. Attackers stole users' API keys and ran up usage charges; notably, the AI tools the attackers tried to enlist repeatedly refused to touch the malicious code.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Any engineering team adopting AI coding agents needs API-key scoping, spend caps and rotation baked in before rollout — not as an afterthought. Treat coding-agent platforms as a credential-custody risk, same class as CI/CD secrets.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/19/hackers-hit-ai-coding-tool-opencode-running-up-charges-on-users-ai-accounts/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚙️ Product · Open models</span>
+      <h2 class="story-title">Nvidia pushes new open models built specifically to run agents on-prem and on PCs</h2>
+      <p class="story-summary">Nvidia released open models aimed squarely at enterprises that want to run their own agents in their own data centers, plus a push toward private, on-device agents on PCs — a direct bet that "sovereign AI" and data-residency pressure will keep growing.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Worth tracking for any data-residency or regulatory requirement that pushes workloads off hyperscaler APIs. Open, self-hosted agent models could become the compliant default for regulated fintech workloads in markets with strict data-localization rules.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/19/nvidia-launches-new-open-models-to-run-agents-in-the-enterprise-and-on-pcs/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Infra</span>
+      <h2 class="story-title">Tenstorrent hits $6.2B valuation on a $1.5B raise to stay independent of Nvidia</h2>
+      <p class="story-summary">After fielding acquisition interest earlier this year, the Nvidia-challenger chipmaker raised <strong>$1.5 billion</strong> to scale open-weight AI silicon independently rather than sell. Signals continued investor appetite for compute-layer alternatives to Nvidia's near-monopoly.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A maturing alt-chip market means AI infra costs may become more negotiable over the next 1-2 years — useful leverage context when vendors quote GPU-scarcity pricing in any AI infra procurement conversation.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/19/tenstorrent-hits-6-2b-valuation-to-scale-open-weight-ai-chips/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Governance · Web access</span>
+      <h2 class="story-title">The open web is starting to close its doors to AI agents</h2>
+      <p class="story-summary">As autonomous agents from OpenAI, Meta, Google and others promise to browse and transact on users' behalf, a growing number of sites are actively blocking agent traffic — rate-limiting, CAPTCHA-walling, or outright banning bot-driven agents from completing actions like bookings and purchases.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Any roadmap item that assumes an agent can reliably browse/transact on third-party sites (price monitoring, bookings, vendor portals) now carries real execution risk — the open web is actively hardening against exactly that pattern.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1013195/ai-agents-blocked-web" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Data rights</span>
+      <h2 class="story-title">Meta quietly removes language letting it scrape news sites for AI training</h2>
+      <p class="story-summary">Following backlash, Meta updated its commercial terms to strip language that had suggested it could use content from any site — including news publishers — to train its AI models, without further explanation of the change.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A reminder that platform ToS around AI training rights are shifting fast and reactively, under public pressure rather than regulation. Worth a periodic terms-of-service review wherever Aspire's own content or customer data touches third-party AI platforms.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/1013409/meta-removes-language-that-may-have-allowed-it-to-scrape-news-sites" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💬</div>
+      <div>
+        <div class="bite-title">Tolan raises $30M for its AI "life navigator" companion</div>
+        <div class="bite-desc">The AI companion app has passed 250,000 active users; <a href="https://techcrunch.com/2026/10/19/tolan-snags-30m-for-its-ai-companion-that-helps-users-navigate-life/" target="_blank" rel="noopener" style="color:var(--accent-blue);">TechCrunch →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧠</div>
+      <div>
+        <div class="bite-title">Replika's founder launches Wabi, a free personal AI assistant</div>
+        <div class="bite-desc">Eugenia Kuyda ships the assistant she pitched at Disrupt 12 years ago; <a href="https://techcrunch.com/2026/10/19/replikas-founder-built-the-ai-assistant-she-pitched-at-disrupt-12-years-ago/" target="_blank" rel="noopener" style="color:var(--accent-blue);">TechCrunch →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">📺</div>
+      <div>
+        <div class="bite-title">Smart TV owners are using AI agents to strip out ads and bloatware</div>
+        <div class="bite-desc">A consumer backlash against tracking-heavy TV software is turning into a DIY agent use case; <a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/" target="_blank" rel="noopener" style="color:var(--accent-blue);">TechCrunch →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🗳️</div>
+      <div>
+        <div class="bite-title">Democrats see AI regulation as a midterm wedge issue</div>
+        <div class="bite-desc">Polling suggests Congress could flip in November, putting AI policy direction up for grabs; <a href="https://www.theverge.com/policy/1013113/democrats-ai-midterms" target="_blank" rel="noopener" style="color:var(--accent-blue);">The Verge →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: rgba(239, 68, 68, 0.12);">🤖</div>
+      <div>
+        <div class="bite-title">Woman arrested in Philadelphia for blocking a delivery robot</div>
+        <div class="bite-desc">A protest against robots "taking delivery jobs" ended in a disorderly conduct charge; <a href="https://www.theverge.com/ai-artificial-intelligence/1013541/a-woman-was-arrested-in-philly-for-blocking-a-delivery-robot" target="_blank" rel="noopener" style="color:var(--accent-blue);">The Verge →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Treat agent credentials like production secrets.</strong> The OpenCode breach shows API keys handed to coding/automation agents are now a live attack surface — enforce scoped keys, spend alerts and rotation for any agent tooling engineers use.<br><br>
+        <strong>2. Add "agentic attack chain" to the vendor-risk checklist.</strong> The John Deere/SharkNinja breach wasn't a single exploit — it was an autonomous agent chaining reconnaissance to exploitation. Ask vendors whether their perimeter monitoring can detect agent-driven, multi-step intrusion patterns, not just signature-based attacks.<br><br>
+        <strong>3. Don't assume agents can reliably transact on external sites.</strong> With sites actively hardening against bot traffic, any planned automation that depends on browsing/booking on third-party web properties needs a fallback path (API partnership, manual override) rather than a bare scraping/agent assumption.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/itau-generative-ai" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">How Itaú is building generative AI for its entire customer base</div><div class="reading-link-source">OpenAI — includes its IARA AI governance platform for a regulated bank</div></div><span>→</span></a>
+    <a href="https://openai.com/index/sullivan-cromwell" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Sullivan & Cromwell's Agreement Analyzer for contract review</div><div class="reading-link-source">OpenAI customer story</div></div><span>→</span></a>
+    <a href="https://www.minimax.io/blog/minimax-m31f" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">MiniMax ships M3.1 Flash</div><div class="reading-link-source">MiniMax blog, via Hacker News</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
