@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — October 24, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Saturday morning, Rachiket. The money story of the week: OpenAI is reportedly lining up a $30B raise at a $1.25T valuation ahead of an IPO — the same week Google quietly rewrote its privacy policy to let AI features mine your Gmail and Photos for ad targeting. <strong>Capital keeps flowing into frontier labs while the data-use fine print keeps expanding — watch both.</strong></p>
+      <div class="hero-date"><span>📅</span><span>Saturday, October 24, 2026 (SGT) · Issue #134</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">$1.25T</div><div class="number-pill-label">OpenAI's target valuation</div></div>
+      <div class="number-pill"><div class="number-pill-value">$30B</div><div class="number-pill-label">New OpenAI raise, pre-IPO</div></div>
+      <div class="number-pill"><div class="number-pill-value">13</div><div class="number-pill-label">AI agents marooned on MIT's island sim</div></div>
+      <div class="number-pill"><div class="number-pill-value">55</div><div class="number-pill-label">Kimi K3.1 Pro's Artificial Analysis score</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-emerald-dim);">⚡</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Pre-IPO</span>
+      <h2 class="story-title">OpenAI is working on a new $30B raise at a $1.25T valuation ahead of an IPO</h2>
+      <p class="story-summary">OpenAI is reportedly in talks for another capital raise that would value the company north of $1.25 trillion — a figure that, if it holds, would make it the most highly valued private company in history, and sets the runway for an eventual public listing.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A valuation this size changes vendor-concentration math for anyone building on OpenAI's APIs: pricing power, roadmap priorities, and negotiating leverage all shift toward the lab as its balance sheet grows. Worth a standing note in Aspire's vendor-risk file on model-provider concentration ahead of any contract renewal.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/22/openai-working-on-new-30b-raise-at-1-25t-valuation-ahead-of-ipo/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">📜 Regulation · Data use</span>
+      <h2 class="story-title">Google quietly updates its privacy policy to allow Gmail and Photos data to train AI-powered ad targeting</h2>
+      <p class="story-summary">Google added an exception to its long-standing promise not to use Drive, Gmail, or Photos content for ad personalization — the carve-out applies once a user engages Google's new personalized AI features. Spotted by Android Authority before The Verge picked it up; Google hasn't proactively flagged the change to users.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A live precedent for "AI feature opt-in quietly expands data-use consent" — exactly the clause Aspire's legal/compliance team should be scanning for in its own vendor contracts (Workspace, any Google Cloud AI add-on) before renewal. Flag as a template for how consent-scope creep gets introduced without a headline announcement.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/1017600/google-personal-intelligence-privacy-policy-ads-update" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Model training</span>
+      <h2 class="story-title">OpenAI details how it hardened its frontier model training environment</h2>
+      <p class="story-summary">OpenAI published its approach to containment for frontier training and evaluation — offline environments, stricter isolation, and high-compute red-teaming — framed as the infrastructure needed before models get meaningfully more capable.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Useful vendor-diligence checklist: when evaluating any AI vendor touching sensitive data, ask whether their training/eval environment is air-gapped from production and what red-teaming cadence they run. This post is a reasonable baseline to benchmark vendor answers against.</div>
+      </div>
+      <a href="https://openai.com/index/securing-our-frontier-model-training-environment" class="story-source" target="_blank" rel="noopener">Source: OpenAI →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🔬 Research · Agent behavior</span>
+      <h2 class="story-title">MIT researchers left 13 AI agents alone on a virtual island — they started inventing games</h2>
+      <p class="story-summary">With no assigned task, the agents spontaneously created games, formed social dynamics, and even "mourned" a lost in-sim object — and researchers found the unstructured downtime measurably improved their performance back on real tasks afterward.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Early but genuinely interesting signal for anyone running multi-agent systems internally: emergent, unsupervised agent behavior is now a real governance surface, not a hypothetical. Worth a note for whoever owns Aspire's agent-oversight policy — idle/autonomous agent time may need explicit logging, not just task-time monitoring.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/10/22/left-alone-with-nothing-to-do-ai-agents-started-playing/" class="story-source" target="_blank" rel="noopener">Source: TechCrunch →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">📰 Regulation · Publisher relations</span>
+      <h2 class="story-title">Meta delays new business terms after publishers warn they could permit AI scraping of news content</h2>
+      <p class="story-summary">Meta is pausing enforcement of updated business terms after publishers flagged language that could be read as licensing Meta to scrape news sites for AI training. Meta says it will clarify the terms before enforcing them.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Less about fintech directly, more about method: a platform revising broad "business terms" in ways that quietly widen AI training rights is the same pattern as the Google privacy-policy story above. Two in one week is worth flagging to legal as a trend, not a coincidence.</div>
+      </div>
+      <a href="https://www.theverge.com/tech/1017450/meta-business-terms-delayed-ai-scraping" class="story-source" target="_blank" rel="noopener">Source: The Verge →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">🧠</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">⚙️</div>
+      <div>
+        <div class="bite-title">OpenAI widens availability of its Decisions API, competing with Jev</div>
+        <div class="bite-desc">Positioned as a fast, low-cost primitive for narrow automated decisions inside apps, now rolling out more broadly as decision-model competition heats up — <a href="https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/" target="_blank" rel="noopener" style="color:var(--accent-cyan);">TechCrunch</a>.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🎨</div>
+      <div>
+        <div class="bite-title">Canva launches Canva Craft, its first in-house AI image model</div>
+        <div class="bite-desc">Uses a two-stage "plan then generate" architecture, aimed squarely at OpenAI, Microsoft, and Google's image tools — <a href="https://www.theverge.com/ai-artificial-intelligence/1017151/canva-craft-in-house-ai-model" target="_blank" rel="noopener" style="color:var(--accent-cyan);">The Verge</a>.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🤝</div>
+      <div>
+        <div class="bite-title">OpenAI and Poland's NASK partner on AI safety and security research</div>
+        <div class="bite-desc">A government-aligned research partnership aimed at strengthening safeguards for a more resilient digital ecosystem — <a href="https://openai.com/index/openai-nask-ai-safety-security-partnership" target="_blank" rel="noopener" style="color:var(--accent-cyan);">OpenAI</a>.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">📊</div>
+      <div>
+        <div class="bite-title">Moonshot's Kimi K3.1 Pro lands on the Artificial Analysis Pareto frontier</div>
+        <div class="bite-desc">Scoring 55 on the independent Artificial Analysis benchmark, with a "Highspeed" variant also released — another credible open-weight contender from China's model labs — <a href="https://artificialanalysis.ai/models/kimi-k3-1-pro" target="_blank" rel="noopener" style="color:var(--accent-cyan);">Artificial Analysis</a>.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Audit Workspace/Cloud AI consent scope now, not at renewal.</strong> Google's quiet ad-targeting carve-out for AI features shows consent scope can expand without a headline — ask whoever owns the Google Workspace relationship to confirm Aspire's tenant settings haven't silently opted into the new ad-personalization exception.<br><br>
+        <strong>2. Add a vendor-concentration line item for any OpenAI-dependent workflow.</strong> At a $1.25T pre-IPO valuation, OpenAI's negotiating leverage over API pricing and roadmap only grows — any Aspire workflow with a hard OpenAI dependency should have a documented fallback model or provider.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/scaling-storage-one-billion-users-part-two" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Rapidly scaling online storage to serve 1B+ ChatGPT users (Part II)</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://openai.com/index/forward-deployed-engineering-means" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">What forward deployed engineering means at OpenAI</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://openai.com/index/uber-chatgpt-work-rollout" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Uber rolls ChatGPT Work out to all 30,000 employees</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
