@@ -12,6 +12,7 @@ Each file is self-contained HTML. Open in any browser.
 
 | Date | File |
 |------|------|
+| 2026-10-25 | [archives/2026-10-25.html](archives/2026-10-25.html) |
 | 2026-10-24 | [archives/2026-10-24.html](archives/2026-10-24.html) |
 | 2026-10-23 | [archives/2026-10-23.html](archives/2026-10-23.html) |
 | 2026-10-22 | [archives/2026-10-22.html](archives/2026-10-22.html) |
