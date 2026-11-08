@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — November 9, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Monday morning, Rachiket. OpenAI's cash needs keep ballooning while <strong>capital is still chasing frontier AI at trillion-dollar valuations</strong> — and the week's security stories are a reminder that the tooling race is outrunning the governance race.</p>
+      <div class="hero-date"><span>📅</span><span>Monday, November 9, 2026 (SGT) · Issue #150</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">$11B</div><div class="number-pill-label">OpenAI's new raise</div></div>
+      <div class="number-pill"><div class="number-pill-value">$1.25T</div><div class="number-pill-label">OpenAI valuation</div></div>
+      <div class="number-pill"><div class="number-pill-value">100</div><div class="number-pill-label">tasks in OpenAI's wet-lab benchmark</div></div>
+      <div class="number-pill"><div class="number-pill-value">2x</div><div class="number-pill-label">Anthropic's self-accelerated dev speed (per METR)</div></div>
+      <div class="number-pill"><div class="number-pill-value">Hundreds</div><div class="number-pill-label">exposed Artex hacking-tool servers</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-emerald-dim);">💰</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · OpenAI</span>
+      <h2 class="story-title">OpenAI reportedly raises another $11B at a $1.25T valuation</h2>
+      <p class="story-summary">A new tranche is reportedly closing in the coming weeks, pushing OpenAI's valuation to <strong>$1.25 trillion</strong> even as the company's compute and infrastructure commitments keep climbing. The raise underscores how much private capital is still willing to underwrite frontier-model burn rates.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Vendor concentration risk: any fintech with OpenAI in its critical path is leaning on a company whose balance sheet is now inseparable from one investor cycle. Revisit model-provider redundancy and exit clauses before the next funding headline becomes a service-continuity headline.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/" class="story-source" target="_blank" rel="noopener">Source → TechCrunch</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · Exposed Tooling</span>
+      <h2 class="story-title">Hundreds of Artex AI hacking tools found exposed to the open internet</h2>
+      <p class="story-summary">Security researchers found hundreds of servers running the AI-assisted penetration-testing tool Artex left publicly reachable, handing anyone drive-by access to an offensive hacking toolkit. It's the same pattern seen with past pentest/C2 frameworks — powerful tooling, sloppy deployment hygiene.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If any internal red-team or vendor pentest workflow touches AI-assisted offensive tooling, confirm it never sits on an internet-routable box without auth. This is exactly the kind of exposure a regulator or auditor would flag in a vendor security review.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/06/hundreds-of-artex-ai-hacking-tools-found-publicly-exposed-to-the-web/" class="story-source" target="_blank" rel="noopener">Source → TechCrunch</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-research">🔬 Research · Self-Improvement</span>
+      <h2 class="story-title">Anthropic report: AI is now building AI roughly twice as fast as a year ago</h2>
+      <p class="story-summary">A new METR-published report found Anthropic is using AI extensively in its own model development, with improvement velocity running about <strong>2x</strong> faster than a year ago and no clear sign of slowing. Researchers in AI safety circles are calling the finding alarming because it compresses the window for external oversight.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Model-capability jumps are arriving faster than vendor-risk review cycles can track them. Governance teams should move model re-assessment from an annual cadence to a quarterly one for any AI vendor in the critical path.</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1029126/anthropic-metr-report-accelerating-ai-development" class="story-source" target="_blank" rel="noopener">Source → The Verge</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Export Controls</span>
+      <h2 class="story-title">The US reportedly let Nvidia sell AI chips to an empty office in China</h2>
+      <p class="story-summary">The New York Times reports that New Matrix, a firm cleared by the Commerce Department to receive Nvidia's H200 chips, operates out of what appears to be an empty office — raising questions about how rigorously both the US government and Nvidia vet buyers on the approved-export list.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A live case study in know-your-counterparty failure at the compliance layer. Worth citing in any internal training on third-party due diligence — "on the approved list" is not the same as "verified."</div>
+      </div>
+      <a href="https://www.theverge.com/ai-artificial-intelligence/1029483/nvidia-ai-chips-china-blacklist-government" class="story-source" target="_blank" rel="noopener">Source → The Verge</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🏢 Industry · Enterprise AI</span>
+      <h2 class="story-title">Goldman Sachs is reportedly pulling Claude Code from its bankers and traders</h2>
+      <p class="story-summary">Per a Hacker News-surfaced report, Goldman Sachs is walking back Claude Code access for front-office staff — one of the more visible signs yet that a large regulated financial institution is recalibrating how much autonomy to grant coding agents inside trading and banking workflows.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If a bank of Goldman's scale is tightening agentic-coding access in regulated functions, it's a useful data point for Aspire's own AI tool-access policy review — enthusiasm for agents in finance is cooling exactly where the stakes are highest.</div>
+      </div>
+      <a href="https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers" class="story-source" target="_blank" rel="noopener">Source → The State of AI</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🤖</div>
+      <div>
+        <div class="bite-title">Apple is racing to make Siri more agentic</div>
+        <div class="bite-desc">Bloomberg reports CEO John Ternus is pushing Craig Federighi to accelerate the Siri roadmap toward an agent that can rival OpenAI's Dots or Meta's Muse.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-rose-dim);">🎵</div>
+      <div>
+        <div class="bite-title">Elvis and Eminem rights holders sue Suno</div>
+        <div class="bite-desc">New lawsuits accuse the AI music generator of mimicking both artists' voices and lyrics without licence — adding to Suno's mounting legal exposure.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🛡️</div>
+      <div>
+        <div class="bite-title">OpenAI partners with Hacktron on vulnerability hunting</div>
+        <div class="bite-desc">The partnership will test OpenAI's own systems and third-party integrations for exploitable weaknesses using frontier-model-assisted red-teaming.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🏗️</div>
+      <div>
+        <div class="bite-title">Data-center deal churn continues</div>
+        <div class="bite-desc">Crusoe sold its troubled Wyoming data-center project to Google, while TechCrunch's Equity pod flagged that the US midterms results look rocky for Musk-aligned data-center buildouts.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add a "financial stability" column to the AI-vendor risk register.</strong> OpenAI's valuation-to-burn ratio and repeated mega-raises are now a genuine continuity question, not just a market curiosity.<br><br>
+        <strong>2. Audit any pentest/red-team tooling for public exposure.</strong> The Artex incident is a direct template — confirm nothing offensive-capable is internet-reachable without auth, including anything spun up for a one-off engagement.<br><br>
+        <strong>3. Watch how regulated peers (Goldman) are scoping agentic-coding access.</strong> If Aspire grants Claude Code / Codex-style access to engineering or finance teams, benchmark the access scope against what large banks are now pulling back.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">AI broke the cybersecurity world. What's next?</div><div class="reading-link-source">The Verge — interview w/ Alex Stamos, CSO at Cognition</div></div><span>→</span></a>
+    <a href="https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Measuring how AI agents handle everyday wet-lab science</div><div class="reading-link-source">OpenAI — BioBasicsBench, a 100-task benchmark</div></div><span>→</span></a>
+    <a href="https://openai.com/index/introducing-gpt-6-cyber" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">GPT-6 Cyber: aligned cybersecurity agents</div><div class="reading-link-source">OpenAI — model for authorized-scope vulnerability research</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
