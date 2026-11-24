@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — November 25, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Wednesday morning, Rachiket. Anthropic's post-IPO slide, a UK security warning on AI-driven attacks, and a new OpenAI/Cisco patch-runtime all point the same way: <strong>the AI market is pricing in security and durability risk, not just capability</strong>.</p>
+      <div class="hero-date"><span>📅</span><span>Wednesday, November 25, 2026 (SGT) · Issue #166</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced — Gmail briefing inbox empty today</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">&lt;IPO</div><div class="number-pill-label">Anthropic shares now trade below listing price</div></div>
+      <div class="number-pill"><div class="number-pill-value">29M</div><div class="number-pill-label">AI-generated tracks Tidal will delete</div></div>
+      <div class="number-pill"><div class="number-pill-value">85K/day</div><div class="number-pill-label">AI tracks Tidal will reject going forward</div></div>
+      <div class="number-pill"><div class="number-pill-value">Dec 9</div><div class="number-pill-label">Tidal's AI-music ban takes effect</div></div>
+      <div class="number-pill"><div class="number-pill-value">OSS</div><div class="number-pill-label">Shirudo runtime released open-source by OpenAI + Cisco</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-emerald-dim);">📉</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-funding">💰 Funding · Markets</span>
+      <h2 class="story-title">Anthropic's shares slip below IPO price, rattling AI-startup valuations</h2>
+      <p class="story-summary">Anthropic stock has fallen under its listing price, the clearest public signal yet that investors are re-pricing AI lab valuations after a run of aggressive IPOs. TechCrunch frames it as a warning sign for the broader AI-startup funding pipeline, not just one company's stock chart.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">If a flagship lab trades under its own IPO price, expect tighter terms and slower rounds for AI vendors across the board — including anyone Aspire is evaluating for model, infra, or agent tooling. Treat current vendor pricing and SLAs as negotiable, not fixed, and reassess vendor financial runway as a due-diligence line item, not an afterthought.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/" class="story-source" target="_blank" rel="noopener">TechCrunch · Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Governance</span>
+      <h2 class="story-title">UK cyber agency: AI-driven attacks are exposing years of weak security basics</h2>
+      <p class="story-summary">The UK's national cyber security agency warns that AI-powered hacking tools are succeeding mainly by exploiting old, unpatched, basic security gaps — not novel AI vulnerabilities. Its message: "building strong foundations has never mattered more."</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is a direct nudge for fintech: AI raises attacker throughput, but the exposure is still patch cadence, credential hygiene, and config drift — the boring controls. Before investing in AI-specific defensive tooling, confirm baseline patching and access-review cycles are actually current across vendor and internal systems.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/" class="story-source" target="_blank" rel="noopener">TechCrunch · Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Product</span>
+      <h2 class="story-title">OpenAI and Cisco open-source Shirudo, a runtime for patching live Linux systems</h2>
+      <p class="story-summary">Shirudo is a new open-source Linux runtime from OpenAI and Cisco that lets teams protect production systems while patches are rolled out, aiming to close the window between vulnerability disclosure and remediation.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A credible, jointly-backed open-source patch-runtime is worth a short technical look for any infra running always-on financial services workloads — it directly targets the "unpatched exposure window" the UK NCSC flagged above. Low-risk, high-upside to evaluate; not urgent to adopt.</div>
+      </div>
+      <a href="https://openai.com/index/introducing-shirudo" class="story-source" target="_blank" rel="noopener">OpenAI · Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Governance · Content</span>
+      <h2 class="story-title">Tidal to ban and delete 29 million AI-generated tracks as "AI slop" floods streaming</h2>
+      <p class="story-summary">Starting December 9, Tidal will remove roughly 29 million fully AI-generated songs and begin rejecting an estimated 80,000–85,000 AI tracks per day. Human-assisted (not fully generated) AI work is still allowed — the policy draws a line at full automation, not AI use.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is a template worth studying regardless of sector: a platform drawing a clear, enforceable line between "AI-assisted" and "fully AI-generated" content at scale. Any Aspire-facing AI disclosure or content policy should borrow this binary framing — it's auditable in a way vaguer "responsible AI" language is not.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/" class="story-source" target="_blank" rel="noopener">TechCrunch · Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-product">⚡ Product · Distribution</span>
+      <h2 class="story-title">Meta puts its Muse AI assistant directly inside Instagram DMs</h2>
+      <p class="story-summary">Meta has integrated its Muse assistant natively into Instagram DMs, removing the need to switch between the Instagram and standalone Muse apps to use the agent.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Embedding assistants directly into existing comms surfaces (rather than a separate app) is the distribution pattern winning right now — relevant if Aspire is weighing where a customer-facing AI assistant should live: inside the channel customers already use, not a new destination.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/" class="story-source" target="_blank" rel="noopener">TechCrunch · Source →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: rgba(239, 68, 68, 0.12);">🛡️</div>
+      <div>
+        <div class="bite-title">Grafana patches multiple CVEs across four release lines</div>
+        <div class="bite-desc">Grafana 12.4.16, 13.0.14, 13.1.11 and 13.3.2 ship fixes for several disclosed vulnerabilities — check your dashboards are on a patched build. <a href="https://grafana.com/grafana/download" style="color:var(--accent-cyan);">grafana.com/grafana/download</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: rgba(239, 68, 68, 0.12);">🚨</div>
+      <div>
+        <div class="bite-title">Active intrusion campaign targeting Check Point Security Management Servers</div>
+        <div class="bite-desc">GreyNoise is tracking live exploitation attempts against Check Point management infrastructure — worth a quick check if any vendor runs Check Point in the stack. <a href="https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign" style="color:var(--accent-cyan);">greynoise.io</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">👨‍👩‍👧</div>
+      <div>
+        <div class="bite-title">Pinterest lets parents filter AI-generated content from teens' feeds</div>
+        <div class="bite-desc">A narrower, content-focused parental control, distinct from chatbot-access restrictions other platforms have shipped. <a href="https://techcrunch.com/2026/11/24/pinterest-will-now-let-parents-limit-the-ai-generated-content-their-teens-see/" style="color:var(--accent-cyan);">techcrunch.com</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add vendor financial-runway checks to AI procurement.</strong> Anthropic trading below IPO is a signal that lab economics are stress-testing in public — ask any AI vendor under evaluation about committed runway and pricing stability, not just model benchmarks.<br><br>
+        <strong>2. Run a basics-first security pass before AI-specific defenses.</strong> The UK NCSC warning is explicit: AI attackers are winning on unpatched fundamentals. Confirm patch cadence and access reviews are current before budgeting for AI-native security tooling.<br><br>
+        <strong>3. Borrow Tidal's binary disclosure line for any AI-content policy.</strong> "AI-assisted" vs. "fully AI-generated" is simple to state and simple to audit — useful language for marketing, comms, or any customer-facing content Aspire produces with AI involvement.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/introducing-shirudo" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Introducing Shirudo: OpenAI + Cisco's open-source Linux patch runtime</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Anthropic shares fall below IPO price — what it means for AI startups</div><div class="reading-link-source">TechCrunch</div></div><span>→</span></a>
+    <a href="https://www.greynoise.io/blog/check-point-security-management-servers-intrusion-campaign" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Active intrusion campaign against Check Point Security Management Servers</div><div class="reading-link-source">GreyNoise</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
