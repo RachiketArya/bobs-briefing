@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — November 26, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Thursday morning, Rachiket. Today's through-line: AI's governance bill is coming due everywhere at once — <strong>inside Nvidia's boardroom, inside Character.AI's bankruptcy estate, and inside 1Password's vault</strong>.</p>
+      <div class="hero-date"><span>📅</span><span>Thursday, November 26, 2026 (SGT) · Issue #167</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">21M</div><div class="number-pill-label">Character.AI accounts in bankruptcy data sale</div></div>
+      <div class="number-pill"><div class="number-pill-value">2.1M</div><div class="number-pill-label">of those accounts belong to minors</div></div>
+      <div class="number-pill"><div class="number-pill-value">2 mo</div><div class="number-pill-label">Amazon-Meta Muse shopping blockade, now in talks to end</div></div>
+      <div class="number-pill"><div class="number-pill-value">1M</div><div class="number-pill-label">AI satellites FCC cleared SpaceX to launch</div></div>
+      <div class="number-pill"><div class="number-pill-value">15,000</div><div class="number-pill-label">repos iFood now runs coding agents across</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-amber-dim);">🏛️</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Data Privacy</span>
+      <h2 class="story-title">State AGs move to block Character.AI's plan to auction off users' private chats</h2>
+      <p class="story-summary">Character.AI's bankruptcy sale process includes sensitive personal data from more than <strong>21 million</strong> U.S. accounts — including <strong>2.1 million</strong> registered to minors. A coalition of state attorneys general is now challenging whether that data can legally change hands as a bankruptcy asset at all.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is the first real test of whether "your chats are our asset" survives contact with a bankruptcy court. Any AI vendor contract Aspire signs needs an explicit data-disposition clause for vendor insolvency — don't assume a privacy policy protects customer data once the counterparty is in Chapter 11.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔒 Security · Incident</span>
+      <h2 class="story-title">1Password discloses a security incident — and the postmortem is the story</h2>
+      <p class="story-summary">1Password published an update on a November security incident, detailing what was accessed and what wasn't. It's a live case study in incident communication from a vendor that sits inside the credential layer of thousands of companies.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Vendor risk, not just password-manager risk: if Aspire uses 1Password (or any credential vault) anywhere in the stack, read the disclosure directly and check it against your vendor incident-response runbook — specifically whether rotation was recommended and whether that's been actioned.</div>
+      </div>
+      <a href="https://1password.com/blog/update-on-nov-2026-security-incident" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">🛒 Industry · Platform Policy</span>
+      <h2 class="story-title">Amazon and Meta reportedly near a deal to end Muse AI shopping blockade</h2>
+      <p class="story-summary">Amazon has blocked Meta's shopping agent Muse from its marketplace for two months. Talks are now underway on what products Muse can recommend and how that affects merchandising — a live negotiation over who controls the interface between AI agents and e-commerce.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Agent-to-platform access control is becoming a negotiated, revocable permission — not an open API. If Aspire builds anything that depends on an AI agent reaching a third-party commerce or data platform, assume that access can be throttled or blocked unilaterally and plan a fallback path.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-industry">⚖️ Industry · Corporate Governance</span>
+      <h2 class="story-title">Jensen Huang broke Nvidia's own code of conduct — and staff haven't forgotten</h2>
+      <p class="story-summary">Reporting indicates Nvidia's CEO breached the company's internal code of conduct, and employees have raised it since his return. Huang has also told staff it's "not true" that a return to the White House's favor got him rehired — a messy governance narrative for the world's most valuable AI company.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A reminder that even a dominant AI vendor's leadership-governance risk is a supply-chain risk for everyone downstream. Concentration risk on Nvidia (compute, pricing, roadmap) now sits alongside a live internal-conduct story — worth a line in any vendor-concentration review.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Open Source</span>
+      <h2 class="story-title">OpenAI and Cisco launch Shirudo, an open-source Linux runtime-protection tool</h2>
+      <p class="story-summary">Shirudo helps teams protect running Linux systems while patches roll out — closing the gap between vulnerability disclosure and patch deployment, built jointly by OpenAI and Cisco and released open source.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Worth a look for infra/security teams patching production Linux fleets — a runtime shim that buys time during a disclosed-CVE window is directly useful for a regulated fintech's patch-management SLA.</div>
+      </div>
+      <a href="https://openai.com/index/introducing-shirudo" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">🧬</div>
+      <div>
+        <div class="bite-title">GPT-6 models show intrinsic protein-design capability</div>
+        <div class="bite-desc">OpenAI reports GPT-6 can design protein structures and sequences via reasoning and code, with lab-confirmed binding evidence across five targets.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-amber-dim);">🧸</div>
+      <div>
+        <div class="bite-title">New York bans AI chatbot toys for five years</div>
+        <div class="bite-desc">Research from Common Sense Media cited safety failures — inappropriate content and emotional-development risks — behind the ban, right before the holiday shopping season.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🛰️</div>
+      <div>
+        <div class="bite-title">FCC clears SpaceX to put up to 1M AI satellites in orbit</div>
+        <div class="bite-desc">The "Starmind" initiative puts AI-chip-equipped data centers in space; Google and others are reportedly chasing the same idea.</div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">🤖</div>
+      <div>
+        <div class="bite-title">iFood runs coding agents across 15,000 repositories</div>
+        <div class="bite-desc">An OpenAI customer story on scaling Codex-style agents enterprise-wide — a concrete data point on agentic coding at real scale, not a pilot.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Pull the 1Password incident disclosure and cross-check it against Aspire's vendor list.</strong> If any credential vault vendor is affected anywhere in the chain, confirm rotation status rather than trusting the vendor's own "no action needed" framing.<br><br>
+        <strong>2. Add a bankruptcy data-disposition clause to AI vendor contracts.</strong> The Character.AI case shows user/customer data can be treated as a saleable bankruptcy asset absent explicit contractual protection — worth a legal review pass on current and pending AI vendor agreements.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/business/customer-stories/clay-plugins-openai" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Clay helps sales teams win with Codex and ChatGPT</div><div class="reading-link-source">OpenAI customer story</div></div><span>→</span></a>
+    <a href="https://openai.com/index/searching-for-distant-planets-with-astra" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Searching for distant planets with Astra</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">AI data centers are becoming harder to build, and neoclouds are feeling it</div><div class="reading-link-source">TechCrunch</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
