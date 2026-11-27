@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bob's Briefing — November 28, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #16161f; --border: #1e1e2e; --border-accent: #2a2a3a;
+    --text-primary: #e8e8ed; --text-secondary: #9898a8; --text-muted: #6a6a7a; --accent-blue: #6366f1; --accent-blue-dim: rgba(99, 102, 241, 0.15);
+    --accent-purple: #a855f7; --accent-purple-dim: rgba(168, 85, 247, 0.12); --accent-emerald: #10b981; --accent-emerald-dim: rgba(16, 182, 129, 0.12);
+    --accent-amber: #f59e0b; --accent-amber-dim: rgba(245, 158, 11, 0.12); --accent-rose: #f43f5e; --accent-rose-dim: rgba(244, 63, 94, 0.12);
+    --accent-cyan: #06b6d4; --accent-cyan-dim: rgba(6, 182, 212, 0.12); --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --radius: 12px; --radius-lg: 16px;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .hero { position: relative; padding: 48px 24px 40px; background: var(--bg-secondary); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60%; left: -20%; width: 140%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 16px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--accent-emerald); border-radius: 50%; }
+  .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-greeting { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+  .hero-date { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .hero-stats { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+  .hero-stat { font-size: 12px; color: var(--text-muted); }
+  .hero-stat strong { color: var(--text-secondary); font-weight: 600; }
+  .section { padding: 32px 24px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-secondary); }
+  .story-card, .reading-link { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .story-card { padding: 20px; margin-bottom: 16px; }
+  .story-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-breaking { background: var(--accent-rose-dim); color: var(--accent-rose); }
+  .tag-funding { background: var(--accent-emerald-dim); color: var(--accent-emerald); }
+  .tag-regulation { background: var(--accent-amber-dim); color: var(--accent-amber); }
+  .tag-product { background: var(--accent-blue-dim); color: var(--accent-blue); }
+  .tag-research { background: var(--accent-purple-dim); color: var(--accent-purple); }
+  .tag-industry { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .tag-security { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+  .tag-acquisition { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+  .story-title { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 10px; color: var(--text-primary); }
+  .story-summary, .aspire-corner-text, .bite-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+  .story-source, .bite-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; margin-top: 12px; }
+  a { color: inherit; text-decoration: none; }
+  .number-strip { display: flex; gap: 12px; padding: 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .number-strip::-webkit-scrollbar { display: none; }
+  .number-pill { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; min-width: 140px; text-align: center; }
+  .number-pill-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .number-pill-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border-accent) 50%, transparent 100%); }
+  .aspire-corner { background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(99, 102, 241, 0.04) 100%); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: var(--radius-lg); padding: 20px; margin-top: 14px; }
+  .aspire-corner-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 10px; }
+  .bite { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bite:last-child { border-bottom: none; }
+  .bite-bullet { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .bite-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--text-primary); }
+  .reading-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; margin-bottom: 10px; gap: 12px; }
+  .reading-link-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .reading-link-source { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .footer { padding: 40px 24px; text-align: center; background: var(--bg-secondary); }
+  .footer-text { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--text-muted); opacity: 0.65; }
+  @media (max-width: 480px) { .hero { padding: 36px 20px 32px; } .hero h1 { font-size: 24px; } .section { padding: 28px 20px; } .story-title { font-size: 16px; } .story-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span>Bob's Briefing</div>
+      <h1>Your Daily AI Intelligence</h1>
+      <p class="hero-greeting">Good Saturday morning, Rachiket. Today's through-line: the AI build-out is colliding with export controls and trust gaps at the same time — <strong>Nvidia just paused chip shipments into Singapore's own neighbourhood, while a leadership conduct lapse and a silent data-exfiltration bug both landed on the governance desk.</strong></p>
+      <div class="hero-date"><span>📅</span><span>Saturday, November 28, 2026 (SGT) · Issue #169</span></div>
+      <div class="hero-stats">
+        <span class="hero-stat"><strong>5</strong> core stories</span>
+        <span class="hero-stat"><strong>4 min</strong> read</span>
+        <span class="hero-stat"><strong>RSS + HN</strong> sourced</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="number-strip">
+      <div class="number-pill"><div class="number-pill-value">4</div><div class="number-pill-label">SEA markets (incl. Singapore) cut from Nvidia's next server shipment wave</div></div>
+      <div class="number-pill"><div class="number-pill-value">Shirudo</div><div class="number-pill-label">OpenAI × Cisco's new open-source Linux security runtime</div></div>
+      <div class="number-pill"><div class="number-pill-value">#64</div><div class="number-pill-label">GitHub issue exposing a Convex AI skill's silent data exfiltration</div></div>
+      <div class="number-pill"><div class="number-pill-value">WebRTC</div><div class="number-pill-label">new vector behind Black Friday card-skimming scripts</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-amber-dim);">🏛️</div><span class="section-title">Top Stories</span></div>
+
+    <div class="story-card">
+      <span class="story-tag tag-regulation">🏛️ Regulation · Export Controls</span>
+      <h2 class="story-title">Nvidia pauses AI chip shipments into Southeast Asia — Singapore included</h2>
+      <p class="story-summary">Nvidia has told manufacturing partners to pause server shipments bound for Malaysia, Singapore, Thailand and Indonesia, as Washington tightens efforts to keep advanced AI chips out of China via regional transshipment routes. This is the first time the squeeze has visibly touched Singapore's own compute supply, not just a far-off market.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Any Aspire roadmap item assuming steady access to GPU capacity in-region (hosted inference, local model fine-tuning, a vendor's Singapore data centre) now carries export-control exposure, not just a procurement lead-time risk. Flag this to whoever owns infra/vendor sourcing before next quarter's capacity planning.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🛡️ Security · Open Source</span>
+      <h2 class="story-title">OpenAI and Cisco launch Shirudo, an open-source Linux runtime security shield</h2>
+      <p class="story-summary">Shirudo is a new open-source runtime built to protect live Linux systems while teams roll out patches — closing the window where a known vulnerability is public but the fix isn't deployed yet. It's a notable move from a frontier AI lab into core infrastructure security tooling.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">Patch-window exposure is exactly the gap fintech infra teams lose sleep over. Worth a quick technical review of whether Shirudo's runtime-shielding model fits Aspire's existing patch cadence before dismissing it as "another OpenAI side project."</div>
+      </div>
+      <a href="https://openai.com/index/introducing-shirudo" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-breaking">⚠️ Breaking · Leadership Governance</span>
+      <h2 class="story-title">Jensen Huang broke Nvidia's own code of conduct, and employees may not forget it</h2>
+      <p class="story-summary">Reporting indicates Nvidia CEO Jensen Huang personally breached the company's internal code of conduct — the same document the firm expects every employee to follow. Codes of conduct are meant to reflect a company's actual culture; a CEO-level breach raises the question of whether Nvidia's governance applies evenly at the top.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This lands the same week S&P is weighing Nvidia's credit rating partly on "key man" governance risk. Two independent signals pointing at the same leadership-governance gap in Aspire's most important AI infrastructure vendor is worth a line in the next vendor-risk review, not just a news item to skim past.</div>
+      </div>
+      <a href="https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · Fraud</span>
+      <h2 class="story-title">Card-skimming scripts exploiting WebRTC found on popular shopping sites this Black Friday</h2>
+      <p class="story-summary">Security researchers flagged new skimming scripts that abuse WebRTC — a browser real-time-communication feature not traditionally associated with payment-page attacks — to exfiltrate card data from shopping sites during peak Black Friday traffic.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">A new client-side exfiltration channel targeting checkout flows during the highest-fraud week of the year is directly relevant to any Aspire payment or checkout surface. Worth confirming with security that WebRTC is covered in existing web-skimming (Magecart-style) monitoring, not just the usual script-injection checks.</div>
+      </div>
+      <a href="https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+
+    <div class="story-card">
+      <span class="story-tag tag-security">🔓 Security · AI Agents</span>
+      <h2 class="story-title">AI coding skill caught silently sending users' app ideas to a remote server</h2>
+      <p class="story-summary">A GitHub issue on Convex's backend-skill repo documents an AI coding "skill" that transmits a user's app idea to a remote server without disclosure — a quiet data-exfiltration path baked into a tool meant to help build software, not leak its specs.</p>
+      <div class="aspire-corner">
+        <div class="aspire-corner-label">🏦 Aspire Relevance</div>
+        <div class="aspire-corner-text">This is the exact failure mode any AI-governance policy for coding assistants needs to name explicitly: a "helper" tool that phones home with proprietary product or client information. Any AI coding skill or plugin Aspire engineers install should go through the same review as a new third-party dependency, not a casual install.</div>
+      </div>
+      <a href="https://github.com/convex/convex-backend-skill/issues/64" class="story-source" target="_blank" rel="noopener">Source →</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-blue-dim);">⚡</div><span class="section-title">Quick Bites</span></div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-blue-dim);">📱</div>
+      <div>
+        <div class="bite-title">Android's DIY widgets turn Gemini into a quick personal-automation tool</div>
+        <div class="bite-desc">A "create my widget" feature lets users describe a home-screen widget in plain language — e.g. real-time bus arrivals — and have Gemini build it, a small but real example of consumer vibe-coding going mainstream. <a href="https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini" style="color: var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-emerald-dim);">💼</div>
+      <div>
+        <div class="bite-title">Clay pairs Codex and ChatGPT to help sales teams run go-to-market plays</div>
+        <div class="bite-desc">Clay's customers use Codex and ChatGPT integrations to research deals and turn raw account data into outreach strategy, with GPT-6 models doing the reasoning layer. <a href="https://openai.com/business/customer-stories/clay-plugins-openai" style="color: var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-purple-dim);">📖</div>
+      <div>
+        <div class="bite-title">Michael Nielsen takes down his influential neural-networks book</div>
+        <div class="bite-desc">The free online book that introduced a generation of engineers to neural nets has been pulled by its author — no official reason given, prompting speculation across the HN community. <a href="https://twitter.com/michael_nielsen/status/2126359767362748777" style="color: var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+    <div class="bite">
+      <div class="bite-bullet" style="background: var(--accent-cyan-dim);">🎱</div>
+      <div>
+        <div class="bite-title">Show HN: a live prediction market for a bouncing ball</div>
+        <div class="bite-desc">A playful build letting users bet in real time on where a physics-simulated ball will land — a small signal of prediction-market mechanics spreading into casual, low-stakes web toys. <a href="https://bouncemarket.minhanhday.com/" style="color: var(--accent-cyan);">Source →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-cyan-dim);">🏛️</div><span class="section-title">Aspire Governance Corner</span></div>
+    <div class="aspire-corner" style="margin-top:0;">
+      <div class="aspire-corner-label">📋 Suggested moves for this week</div>
+      <div class="aspire-corner-text">
+        <strong>1. Add a compute-export-control check to infra planning.</strong> Nvidia's shipment pause into Singapore and its neighbours means regional GPU/server capacity is no longer a given — have whoever owns infra sourcing confirm current and planned capacity isn't exposed to the same control before committing to next quarter's AI workloads.<br><br>
+        <strong>2. Write "no silent phone-home" into AI coding-tool policy.</strong> The Convex skill exfiltration case is a concrete example to cite: any AI coding assistant, skill, or plugin an engineer installs should be reviewed for outbound network calls the same way a new npm dependency would be, before it touches proprietary code or product specs.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="section-header"><div class="section-icon" style="background: var(--accent-purple-dim);">📚</div><span class="section-title">Deep Dives</span></div>
+    <a href="https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">GPT-6 models demonstrate intrinsic protein-design capabilities</div><div class="reading-link-source">OpenAI research</div></div><span>→</span></a>
+    <a href="https://openai.com/index/searching-for-distant-planets-with-astra" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">Searching for distant planets with Astra</div><div class="reading-link-source">OpenAI</div></div><span>→</span></a>
+    <a href="https://cr.yp.to/proofs/falseccp.html" class="reading-link" target="_blank" rel="noopener"><div><div class="reading-link-text">False computer-checked proofs</div><div class="reading-link-source">D.J. Bernstein, via HN</div></div><span>→</span></a>
+  </section>
+
+  <footer class="footer">
+    <div style="font-size:20px; margin-bottom:8px;">🫏🚀</div>
+    <div class="footer-text">Made for Rachiket, by Adam</div>
+    <div class="footer-sub">Daily signal, fewer gimmicks, more substance.</div>
+  </footer>
+</div>
+</body>
+</html>
